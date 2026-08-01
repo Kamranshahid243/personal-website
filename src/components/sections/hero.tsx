@@ -151,12 +151,12 @@ export function HeroSection({ className }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative order-1 -mx-(--spacing-gutter) min-h-[18rem] reveal-on-load border-b border-line sm:min-h-[24rem] lg:order-2 lg:mx-0 lg:min-h-[min(42rem,72svh)] lg:border-b-0 lg:border-l lg:border-line">
+          <div className="relative order-1 -mx-(--spacing-gutter) min-h-[16rem] reveal-on-load border-b border-line sm:min-h-[22rem] lg:order-2 lg:mx-0 lg:min-h-[min(34rem,62svh)] lg:border-b-0 lg:border-l lg:border-line">
             <Portrait priority className="absolute inset-0" />
           </div>
         </div>
 
-        <div className="flex reveal-on-load flex-col gap-4 border-t border-line py-6 [animation-delay:80ms] sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex reveal-on-load flex-col gap-4 border-t border-line py-5 [animation-delay:80ms] sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <Text
               as="p"
