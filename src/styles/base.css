@@ -1,0 +1,70 @@
+/*
+ * Element-level defaults.
+ *
+ * Anything that should be true of every page without a class being applied
+ * belongs here — and nothing else. Component styling stays in components.
+ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans antialiased;
+    scroll-behavior: smooth;
+    /* Keeps anchor targets clear of the sticky header. */
+    scroll-padding-top: 6rem;
+    /* Avoids layout shift when a page grows past the fold. */
+    scrollbar-gutter: stable;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    text-rendering: optimizeLegibility;
+    font-synthesis-weight: none;
+  }
+
+  /* Tabular figures in headings stop numbers from jittering in animated
+     counters and metric callouts. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-balance;
+    font-variant-numeric: tabular-nums;
+  }
+
+  p {
+    @apply text-pretty;
+  }
+
+  ::selection {
+    @apply bg-foreground text-background;
+  }
+
+  /* A visible, high-contrast focus ring is non-negotiable for keyboard users;
+     `:focus-visible` keeps it away from mouse users. */
+  :focus-visible {
+    @apply ring-2 ring-ring ring-offset-2 outline-none;
+    --tw-ring-offset-color: var(--background);
+  }
+
+  /* Respect the OS-level motion preference: animation becomes a near-instant
+     state change instead of movement. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
