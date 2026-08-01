@@ -29,9 +29,10 @@ function isExternalHref(href: string): boolean {
 /**
  * Homepage hero — credibility first.
  *
- * Brand (name) leads, then title, value proposition, introduction, and a clear
- * ask. The portrait is a full-bleed visual plane on large screens. Motion is
- * CSS only so the critical path stays light for Core Web Vitals.
+ * Brand (name) leads at display scale, then title, value proposition,
+ * introduction, and a clear ask. The portrait is a full-bleed visual plane on
+ * large screens and leads the stack on mobile. Motion stays CSS-only and off
+ * the LCP path for primary copy.
  */
 export function HeroSection({ className }: HeroSectionProps) {
   const { hero } = homeCopy;
@@ -46,15 +47,13 @@ export function HeroSection({ className }: HeroSectionProps) {
       <AnimatedBackground variant="glow" />
 
       <Container width="wide" className="relative">
-        <div className="grid items-stretch lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-0">
-          <div className="flex flex-col justify-center py-section-lg lg:pr-16 xl:pr-20">
+        <div className="grid items-stretch lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+          <div className="order-2 flex flex-col justify-center py-10 sm:py-14 lg:order-1 lg:py-section-lg lg:pr-16 xl:pr-20">
             <div className="flex max-w-xl flex-col items-start gap-(--spacing-stack-md)">
-              <div className="reveal-on-load">
-                <AvailabilityBadge />
-              </div>
+              <AvailabilityBadge />
 
-              <div className="grid reveal-on-load gap-2 [animation-delay:60ms]">
-                <Display id="hero-heading" size="lg" className="tracking-tight">
+              <div className="grid gap-2">
+                <Display id="hero-heading" size="xl" className="tracking-tight">
                   {siteConfig.name}
                 </Display>
                 <Text
@@ -68,19 +67,13 @@ export function HeroSection({ className }: HeroSectionProps) {
                 </Text>
               </div>
 
-              <Heading
-                as="h2"
-                size="lg"
-                className="max-w-xl reveal-on-load text-pretty [animation-delay:120ms]"
-              >
+              <Heading as="h2" size="lg" className="max-w-xl text-pretty">
                 {hero.valueProposition}
               </Heading>
 
-              <Lead className="max-w-xl reveal-on-load [animation-delay:180ms]">
-                {hero.introduction}
-              </Lead>
+              <Lead className="max-w-xl">{hero.introduction}</Lead>
 
-              <div className="flex w-full reveal-on-load flex-col gap-3 [animation-delay:240ms] sm:flex-row sm:flex-wrap sm:items-center">
+              <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Button asChild size="lg">
                   {isExternalHref(hero.primaryCta.href) ? (
                     <a href={hero.primaryCta.href}>{hero.primaryCta.label}</a>
@@ -119,7 +112,7 @@ export function HeroSection({ className }: HeroSectionProps) {
               </div>
 
               <ul
-                className="flex reveal-on-load flex-wrap items-center gap-2 [animation-delay:300ms]"
+                className="flex reveal-on-load flex-wrap items-center gap-2"
                 aria-label="Profiles and contact"
               >
                 <li>
@@ -158,12 +151,12 @@ export function HeroSection({ className }: HeroSectionProps) {
             </div>
           </div>
 
-          <div className="relative -mx-(--spacing-gutter) min-h-[22rem] reveal-on-load border-t border-line [animation-delay:160ms] sm:min-h-[28rem] lg:mx-0 lg:min-h-[min(40rem,70svh)] lg:border-t-0 lg:border-l lg:border-line">
+          <div className="relative order-1 -mx-(--spacing-gutter) min-h-[18rem] reveal-on-load border-b border-line sm:min-h-[24rem] lg:order-2 lg:mx-0 lg:min-h-[min(42rem,72svh)] lg:border-b-0 lg:border-l lg:border-line">
             <Portrait priority className="absolute inset-0" />
           </div>
         </div>
 
-        <div className="flex reveal-on-load flex-col gap-4 border-t border-line py-6 [animation-delay:360ms] sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex reveal-on-load flex-col gap-4 border-t border-line py-6 [animation-delay:80ms] sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
             <Text
               as="p"
@@ -180,8 +173,9 @@ export function HeroSection({ className }: HeroSectionProps) {
             as="p"
             size="sm"
             tone="muted"
-            className="max-w-sm text-pretty sm:text-right"
+            className="max-w-md text-pretty sm:text-right"
           >
+            <span className="font-medium text-text">Status · </span>
             {hero.status}
           </Text>
         </div>

@@ -45,7 +45,7 @@ export function Portrait({ className, priority = false }: PortraitProps) {
     <figure
       data-slot="portrait"
       className={cn(
-        "relative isolate h-full min-h-[22rem] w-full overflow-hidden bg-surface-sunken sm:min-h-[28rem] lg:min-h-0",
+        "relative isolate h-full min-h-[20rem] w-full overflow-hidden bg-surface-sunken sm:min-h-[26rem] lg:min-h-0",
         className,
       )}
     >
@@ -61,12 +61,15 @@ export function Portrait({ className, priority = false }: PortraitProps) {
       ) : (
         <div
           aria-hidden
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex flex-col items-center justify-center gap-3"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(90%_70%_at_30%_20%,color-mix(in_oklch,var(--color-brand-400)_28%,transparent),transparent_55%),radial-gradient(80%_60%_at_80%_80%,color-mix(in_oklch,var(--color-brand-600)_18%,transparent),transparent_50%),linear-gradient(160deg,var(--color-surface-sunken),var(--color-surface))]" />
-          <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-40" />
-          <span className="relative font-heading text-[clamp(4.5rem,12vw,7rem)] font-semibold tracking-tight text-text/20 select-none">
+          <div className="absolute inset-0 bg-[radial-gradient(100%_80%_at_20%_10%,color-mix(in_oklch,var(--color-brand-400)_34%,transparent),transparent_55%),radial-gradient(90%_70%_at_85%_90%,color-mix(in_oklch,var(--color-brand-700)_22%,transparent),transparent_52%),linear-gradient(165deg,color-mix(in_oklch,var(--color-surface-sunken)_70%,var(--color-brand-100)),var(--color-surface))]" />
+          <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-50" />
+          <span className="relative font-heading text-[clamp(4rem,14vw,7.5rem)] font-semibold tracking-tight text-text/25 select-none">
             {initials}
+          </span>
+          <span className="relative font-mono text-caption tracking-[0.16em] text-text-subtle uppercase">
+            Add portrait.jpg
           </span>
         </div>
       )}

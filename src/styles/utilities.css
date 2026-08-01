@@ -160,10 +160,14 @@
   }
 }
 
-/* Hero-only entrance on first paint. Stagger with animation-delay utilities. */
+/*
+ * Hero-only entrance on first paint. Stagger with animation-delay utilities.
+ * Uses `backwards` (not `both`) so the settled state is not forced after the
+ * animation — and critical copy should prefer no reveal at all for LCP.
+ */
 @utility reveal-on-load {
   @media (prefers-reduced-motion: no-preference) {
-    animation: rise var(--duration-slower) var(--ease-out-expo) both;
+    animation: rise var(--duration-slow) var(--ease-out-expo) backwards;
   }
 }
 
