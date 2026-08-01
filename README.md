@@ -8,8 +8,11 @@ This repository currently contains the **architecture and design system only**.
 The toolchain, tokens, component primitives, content pipeline and SEO layer are
 in place and verified; the pages have not been designed yet.
 
-Run `pnpm dev` and open [`/design`](http://localhost:3000/design) to see every
-token and primitive rendered in both themes.
+Run `pnpm dev` and open:
+
+- [`/design`](http://localhost:3000/design) — every token and primitive
+- [`/components`](http://localhost:3000/components) — every reusable component
+  with sample data
 
 ## Stack
 
@@ -58,7 +61,7 @@ content/blog/        MDX articles
 docs/                Architecture and decision notes
 public/              Static assets
 src/app/             Routes, route groups, metadata files
-src/components/      ui · layout · common · sections · forms · motion · mdx · providers · seo
+src/components/      ui · layout · common · cards · sections · forms · motion · mdx · providers · seo
 src/config/          Site identity and navigation
 src/data/            Typed content: projects, services, testimonials, experience, FAQ
 src/hooks/           Reusable client hooks
@@ -75,9 +78,9 @@ the rules for extending them are in
 
 ## Next steps
 
-1. Fill in `src/config/site.ts` and `src/config/navigation.ts`.
-2. Build `src/components/layout/header.tsx` and `footer.tsx`, then the
-   `(marketing)/layout.tsx` that mounts them around `<main id="main">`.
-3. Write the sections in `src/components/sections`, then compose the pages.
-4. Add real entries to `src/data`, and real articles to `content/blog`.
+1. Fill in `src/config/site.ts` — every placeholder is marked.
+2. Replace the sample entries in `src/data` with real work.
+3. Compose the real pages from the components in `src/components/sections`
+   and `src/components/cards`.
+4. Add real articles to `content/blog`.
 5. Add favicons, `icon.svg` and `apple-icon.png` to `public/`.

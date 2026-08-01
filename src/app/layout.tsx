@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
        theme class onto <html> before React hydrates, which is precisely what
        prevents a flash of the wrong theme. */
     <html lang="en" suppressHydrationWarning className={cn(fontVariables)}>
-      <body className="min-h-dvh">
+      <body className="flex min-h-dvh flex-col">
         {/* First tab stop on every page. The `#main` target is provided by
             each route group's layout. */}
         <a

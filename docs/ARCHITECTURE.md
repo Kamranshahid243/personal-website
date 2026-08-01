@@ -163,9 +163,10 @@ each layer may import from the ones below it and never from the ones above.
 ```
 src/components/
 ├── ui/           Design system primitives: Button, Card, Field, Typography…
-├── layout/       Structural primitives: Container, Section, Header, Footer
-├── common/       Site-specific composites: cards, badges, theme toggle
-├── sections/     Full-width page sections: Hero, FeaturedWork, Cta
+├── layout/       Shell: Navbar, MobileNav, Footer, Container, Section
+├── common/       Shared composites: social links, timeline, code window…
+├── cards/        Content cards: Project, Blog, Service, Experience
+├── sections/     Full-width page sections: Cta, …
 ├── forms/        React Hook Form + Zod forms
 ├── motion/       Framer Motion wrappers: Reveal, Stagger
 ├── mdx/          MDX rendering and element overrides
@@ -193,29 +194,35 @@ equivalent and are ours outright.
 
 ### `layout`
 
-Structural primitives that define the page frame: `Container` (horizontal
-measure and gutters) and `Section` (vertical rhythm). The header and footer
-join them once navigation is built.
-
-They exist so that alignment and pacing are decisions made once. Every section
-rendering `<Container>` is why the left edge of text lines up perfectly from
-the top of the page to the bottom — the kind of detail nobody consciously
-notices and everybody feels.
+The site shell. `Navbar` is a server component with two client islands
+(`NavLinks` for active state, `MobileNav` for the drawer). `Footer` is fully
+server-side. Both read from `src/config/navigation`, so a new page is added
+once. `Container` and `Section` own horizontal measure and vertical rhythm —
+every section rendering `<Container>` is why the left edge of text lines up
+perfectly from the top of the page to the bottom.
 
 ### `common`
 
 Composites built _from_ `ui` that know about this site: `theme-toggle`,
-`project-card`, `post-card`, `availability-badge`, `social-links`. This is the
-home for anything reused across two or more sections. It is also the pressure
+`social-links`, `availability-badge`, `section-heading`, `skill-badge`,
+`tech-stack`, `timeline`, `code-window`, `animated-background`. The pressure
 valve that keeps `ui` clean: the moment you want to add a site-specific prop to
-a shadcn primitive, the wrapper goes here instead.
+a design-system primitive, the wrapper goes here instead.
+
+### `cards`
+
+Typed content cards — `ProjectCard`, `BlogCard`, `ServiceCard`,
+`ExperienceCard`. Each takes a domain object and renders a consistent preview.
+Whole-card hit targets use a stretched link on the title so the accessibility
+tree still sees one properly-labelled link.
 
 ### `sections`
 
 Self-contained, full-width page sections. A page composes sections; it never
 lays out cards itself. Because a section takes its content as props, the same
-`<Cta />` can close the home page, the services page and every case study
-without duplication, and a page file stays short enough to read in one screen.
+`<CtaSection />` can close the home page, the services page and every case
+study without duplication, and a page file stays short enough to read in one
+screen.
 
 Sections never fetch data — it arrives from the page — which keeps them
 trivially previewable.

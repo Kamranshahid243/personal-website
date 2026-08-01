@@ -154,7 +154,7 @@ const breakpoints = [
 
 export default function DesignSystemPage() {
   return (
-    <>
+    <main id="main">
       <header className="sticky top-0 z-(--z-sticky) border-b border-line bg-surface/80 backdrop-blur">
         <Container
           width="wide"
@@ -730,6 +730,6 @@ export default function DesignSystemPage() {
           </Text>
         </Container>
       </Section>
-    </>
+    </main>
   );
 }

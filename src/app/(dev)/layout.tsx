@@ -3,10 +3,10 @@ import type { ReactNode } from "react";
 /**
  * `(dev)` route group: internal tooling, not part of the public site.
  *
- * Separated from `(marketing)` because these pages want no header, no footer
- * and no conversion furniture — and because grouping them makes it obvious at
- * a glance which routes are not for visitors.
+ * A passthrough on purpose — `/design` and `/components` own their own shells
+ * (one is a bare reference page, the other mounts the real navbar and footer
+ * so those components can be reviewed in context).
  */
 export default function DevLayout({ children }: { children: ReactNode }) {
-  return <main id="main">{children}</main>;
+  return children;
 }

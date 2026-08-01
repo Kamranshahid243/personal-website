@@ -178,6 +178,16 @@ export function Lead({ className, ...props }: ComponentProps<"p">) {
   );
 }
 
+/**
+ * Subheading under a section heading.
+ *
+ * Alias of `<Lead>` with a clearer name for page composition. Prefer this in
+ * section intros; prefer `<Lead>` under a page-level `<Display>`.
+ */
+export function Subheading({ className, ...props }: ComponentProps<"p">) {
+  return <Lead className={className} {...props} />;
+}
+
 /* -------------------------------------------------------------------------- */
 
 /**
