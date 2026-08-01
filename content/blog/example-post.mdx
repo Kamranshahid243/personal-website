@@ -1,0 +1,40 @@
+---
+title: "Example post"
+description: "A reference article showing every frontmatter field and the MDX features the pipeline supports. Delete this once real writing exists."
+publishedAt: "2026-01-01"
+tags: ["meta"]
+draft: true
+featured: false
+---
+
+This file documents the authoring contract. It is marked `draft: true`, so it
+appears in development and is excluded from production builds, the writing
+index and the sitemap.
+
+## Frontmatter
+
+Validated by `postFrontmatterSchema` in `src/lib/content/schema.ts` when the
+file is read. A missing `description` or a malformed `publishedAt` fails the
+build and names this file, rather than shipping an empty `<meta>` tag.
+
+## What the pipeline gives you
+
+GitHub-flavoured markdown is enabled, so tables, ~~strikethrough~~ and task
+lists all work. Headings get `id` attributes and become anchor links
+automatically.
+
+Code fences are highlighted at build time by Shiki, in both themes at once:
+
+```ts title="src/lib/example.ts" {2}
+export function greet(name: string) {
+  return `Hello, ${name}`;
+}
+```
+
+The `title=` attribute renders a filename banner, and `{2}` highlights a line.
+
+## Components
+
+React components can be used inline. Anything exported from
+`src/components/mdx/mdx-components.tsx` is available without an import — `Img`,
+for instance, renders an optimised `next/image`.
