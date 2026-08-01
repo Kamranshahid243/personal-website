@@ -1,0 +1,111 @@
+/*
+ * COMPONENT TOKENS
+ *
+ * The third tier: named measurements for specific component families. This is
+ * the layer that removes duplication, because sizing is declared once here and
+ * every component's variant table becomes a list of token assignments rather
+ * than a list of hard-coded classes.
+ *
+ * The most valuable property it buys is alignment by construction. A button
+ * and a text input side by side are the same height because they read the same
+ * `--control-h-*` token, not because someone remembered to write `h-10` twice.
+ * Their heights cannot drift apart in a future edit.
+ *
+ * These are plain custom properties rather than `@theme` entries: they are
+ * consumed by components through `h-(--btn-h)`, never as global utilities. A
+ * page has no business writing `--btn-h`.
+ */
+
+:root {
+  /* --- Controls: buttons, inputs, selects, triggers -----------------------
+     One height ladder shared by everything interactive. Generous by the
+     standards of a dashboard, which is the point: a 40px default target is
+     comfortable on touch, and the extra height is most of what separates a
+     marketing site from an admin panel. */
+  --control-h-sm: 2.25rem; /* 36px — dense rows, inline actions */
+  --control-h-md: 2.5rem; /* 40px — the default */
+  --control-h-lg: 3rem; /* 48px — section calls to action */
+  --control-h-xl: 3.5rem; /* 56px — the hero's primary button */
+
+  --control-px-sm: 0.875rem;
+  --control-px-md: 1.125rem;
+  --control-px-lg: 1.5rem;
+  --control-px-xl: 1.75rem;
+
+  --control-gap-sm: 0.375rem;
+  --control-gap-md: 0.5rem;
+  --control-gap-lg: 0.625rem;
+
+  --control-text-sm: var(--text-body-sm);
+  --control-text-md: var(--text-body-sm);
+  --control-text-lg: var(--text-body-md);
+  --control-text-xl: var(--text-body-lg);
+
+  --control-radius: var(--radius-lg);
+  --control-radius-lg: var(--radius-xl);
+
+  /* --- Fields: inputs, textareas, selects --------------------------------
+     Heights come from the control ladder above, so a form's inputs and its
+     submit button line up automatically. Only the horizontal padding differs:
+     text needs less inset than a centred label. */
+  --field-px: 0.875rem;
+  --field-py: 0.625rem;
+  --field-radius: var(--radius-lg);
+  --field-text: var(--text-body-sm);
+  --field-bg: var(--color-surface);
+  --field-border: var(--color-line-strong);
+
+  /* --- Cards --------------------------------------------------------------
+     Padding is fluid: a card that is comfortable on a phone looks starved at
+     1440px. Radius is deliberately two steps above the control radius — large
+     surfaces need proportionally softer corners to read as soft at all. */
+  --card-padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+  --card-padding-lg: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  --card-gap: 0.75rem;
+  --card-radius: var(--radius-2xl);
+  --card-bg: var(--color-surface-raised);
+  --card-border: var(--color-line);
+
+  /* --- Tags and badges ---------------------------------------------------
+     Two different jobs, so two tokens. A tag is taxonomy (a stack chip, a
+     filter) and is often interactive; a badge is status (`Available`,
+     `Shipped`) and never is. Same pill shape, different weight and scale. */
+  --tag-h: 1.75rem;
+  --tag-px: 0.6875rem;
+  --tag-text: var(--text-caption);
+  --tag-radius: var(--radius-pill);
+
+  --badge-h: 1.5rem;
+  --badge-px: 0.5625rem;
+  --badge-text: var(--text-eyebrow);
+  --badge-radius: var(--radius-pill);
+
+  /* --- Icons -------------------------------------------------------------
+     Sized in rem so icons scale with text, and matched to the type scale they
+     sit beside. Stroke width is fixed at 1.75: Lucide's 2 is heavy next to
+     Geist at these sizes, and 1.5 disappears. */
+  --icon-xs: 0.875rem;
+  --icon-sm: 1rem;
+  --icon-md: 1.25rem;
+  --icon-lg: 1.5rem;
+  --icon-xl: 2rem;
+  --icon-stroke: 1.75;
+
+  /* --- Focus -------------------------------------------------------------
+     One ring for the entire site. Visible focus is not negotiable, and a ring
+     that varies per component reads as an accident. 2px against a background-
+     coloured offset keeps it legible on any surface. */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+  --focus-ring-color: var(--color-brand-500);
+
+  /* --- Loading ------------------------------------------------------------ */
+  --skeleton-bg: var(--color-surface-sunken);
+  --skeleton-sheen: var(--color-line-strong);
+  --loading-opacity: 0.6;
+}
+
+.dark {
+  --field-bg: oklch(1 0 0 / 4%);
+  --focus-ring-color: var(--color-brand-400);
+}

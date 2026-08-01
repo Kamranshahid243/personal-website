@@ -1,0 +1,211 @@
+/*
+ * UTILITIES
+ *
+ * Cross-cutting behaviours, defined once and shared. These carry most of the
+ * "avoid duplicated styles" weight in the system: `focus-ring` appears in every
+ * interactive component, so the focus treatment can be changed globally by
+ * editing four lines here.
+ *
+ * The bar for adding one: the effect is impossible or unreadable as a chain of
+ * stock Tailwind classes, and it is used in more than one place. Real
+ * `@utility` rules, so variants (`hover:`, `md:`, `dark:`) work and unused
+ * ones are tree-shaken away.
+ */
+
+/* --- Layout --------------------------------------------------------------- */
+
+/* Horizontal page frame: centring and gutters only. The measure is applied
+   separately by a `max-w-*` utility so callers can pick a width without
+   fighting specificity. See `components/layout/container.tsx`. */
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  padding-inline: var(--spacing-gutter);
+}
+
+/* --- Motion --------------------------------------------------------------- */
+
+/* The standard interaction transition. Every hover, focus and active state in
+   the system uses one of these three, which is why the whole site responds at
+   the same speed. Never `transition-all`: it makes the browser watch every
+   property and animates layout by accident. */
+@utility transition-ui {
+  transition-property: var(--transition-properties);
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out-quart);
+}
+
+@utility transition-ui-base {
+  transition-property: var(--transition-properties);
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out-quart);
+}
+
+@utility transition-ui-slow {
+  transition-property: var(--transition-properties);
+  transition-duration: var(--duration-slow);
+  transition-timing-function: var(--ease-out-expo);
+}
+
+/* --- Interaction states --------------------------------------------------- */
+
+/*
+ * The site-wide focus treatment.
+ *
+ * `:focus-visible` rather than `:focus`, so the ring appears for keyboard and
+ * assistive-technology users without punishing mouse users. Applied to every
+ * interactive component; nothing should define its own.
+ */
+@utility focus-ring {
+  outline: none;
+
+  &:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+  }
+}
+
+/* Same ring, drawn inside the element. For controls flush against another
+   surface, where an outset ring would be clipped. */
+@utility focus-ring-inset {
+  outline: none;
+
+  &:focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: calc(var(--focus-ring-offset) * -1);
+  }
+}
+
+/* Cards and tiles rise slightly on hover. One token, so every lift matches,
+   and the effect is suppressed for anyone who asked for reduced motion. */
+@utility hover-lift {
+  &:hover {
+    transform: translateY(var(--hover-lift));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Whole-card link pattern: stretches an anchor over its nearest positioned
+   ancestor so the entire card is clickable, while the accessibility tree still
+   sees a single properly-labelled link. */
+@utility link-overlay {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+}
+
+/* --- Surfaces ------------------------------------------------------------- */
+
+/* The standard raised panel: card background, hairline border, card radius.
+   Anything that looks like a card should start here rather than restating
+   three classes. */
+@utility surface {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+}
+
+/* Faint dot grid for hero and section backdrops. */
+@utility bg-dot-grid {
+  background-image: radial-gradient(
+    var(--color-line-strong) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+}
+
+/* Fades a decorative backdrop out toward the edges so it never collides with
+   content or ends in a hard line. */
+@utility mask-fade-out {
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+}
+
+/* --- Typography ----------------------------------------------------------- */
+
+/* Gradient text for a single emphasised phrase in a headline. Used sparingly —
+   once per page at most, or it stops being emphasis. */
+@utility text-gradient {
+  background-image: linear-gradient(
+    180deg,
+    var(--color-text) 30%,
+    color-mix(in oklch, var(--color-text) 55%, transparent)
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+/* --- Scroll reveal (CSS only — zero JS) ----------------------------------- */
+
+/*
+ * Progressive enhancement: Chromium/Safari with scroll-driven animations get
+ * a subtle rise as the block enters the viewport. Everyone else sees static
+ * content immediately — no layout shift, no hydration cost, no Framer bundle.
+ */
+@utility reveal-on-scroll {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: rise var(--duration-slower) var(--ease-out-expo) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+/*
+ * Hero-only entrance on first paint. Stagger with animation-delay utilities.
+ * Uses `backwards` (not `both`) so the settled state is not forced after the
+ * animation — and critical copy should prefer no reveal at all for LCP.
+ */
+@utility reveal-on-load {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: rise var(--duration-slow) var(--ease-out-expo) backwards;
+  }
+}
+
+/* --- Loading -------------------------------------------------------------- */
+
+/* Placeholder sweep, matched to the shimmer keyframes in tokens/motion.css. */
+@utility skeleton-sweep {
+  background-color: var(--skeleton-bg);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--skeleton-sheen) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* --- Accessibility -------------------------------------------------------- */
+
+/* Visually hidden but still announced, and revealed on keyboard focus. Used by
+   the skip link. */
+@utility sr-only-focusable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+
+  &:focus-visible {
+    position: fixed;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip-path: none;
+  }
+}

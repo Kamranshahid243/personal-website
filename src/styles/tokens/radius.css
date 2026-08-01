@@ -1,0 +1,29 @@
+/*
+ * RADIUS
+ *
+ * Every corner in the system derives from one number. Change `--radius` and
+ * the whole product shifts from crisp to soft without a single component being
+ * touched — which is exactly the test of whether something is really a token.
+ *
+ * The steps are multiplicative rather than a fixed +4px, so a large surface
+ * and a small control stay in visual proportion. Nesting rule: an inner
+ * element takes the next step *down*, otherwise its corners look loose inside
+ * its parent's.
+ */
+
+@theme {
+  --radius: 0.625rem;
+
+  --radius-xs: calc(var(--radius) * 0.4);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Pills: tags, badges, avatars. Deliberately absolute — a pill is a shape,
+     not a step on the scale. */
+  --radius-pill: 9999px;
+}

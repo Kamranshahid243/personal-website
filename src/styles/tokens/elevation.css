@@ -1,0 +1,62 @@
+/*
+ * ELEVATION
+ *
+ * Depth is expressed differently per theme, which is why these are theme
+ * variables rather than fixed strings.
+ *
+ * In the light theme, height casts a shadow. In the dark theme it cannot —
+ * a black shadow on a near-black surface is invisible — so elevation is
+ * carried by the surface getting *lighter* (see `--surface-raised` in
+ * color.css) plus a brighter hairline. Shadows in the dark theme exist only to
+ * separate genuinely floating layers from the page.
+ *
+ * Every shadow is multi-layer: a tight contact shadow plus a wide diffuse one,
+ * the way real light behaves. A single large `box-shadow` is the fastest way
+ * to make an interface look dated.
+ *
+ * Four steps, and that is the whole budget. More levels than a viewer can
+ * distinguish is just noise.
+ */
+
+@theme inline {
+  --shadow-subtle: var(--elevation-subtle);
+  --shadow-raised: var(--elevation-raised);
+  --shadow-overlay: var(--elevation-overlay);
+  --shadow-floating: var(--elevation-floating);
+
+  /* Focus glow, kept here because it is elevation-shaped rather than a
+     border. Applied by the `focus-ring` utility. */
+  --shadow-focus: var(--elevation-focus);
+}
+
+:root {
+  /* `--shadow-tint` is the one dial for shadow character across the theme. */
+  --shadow-tint: 0 0 0;
+
+  --elevation-subtle:
+    0 1px 2px oklch(var(--shadow-tint) / 4%),
+    0 1px 3px -1px oklch(var(--shadow-tint) / 6%);
+  --elevation-raised:
+    0 2px 4px oklch(var(--shadow-tint) / 4%),
+    0 8px 16px -4px oklch(var(--shadow-tint) / 8%);
+  --elevation-overlay:
+    0 4px 8px oklch(var(--shadow-tint) / 4%),
+    0 16px 40px -8px oklch(var(--shadow-tint) / 12%);
+  --elevation-floating:
+    0 8px 16px oklch(var(--shadow-tint) / 6%),
+    0 32px 64px -16px oklch(var(--shadow-tint) / 16%);
+
+  --elevation-focus: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+.dark {
+  /* Deeper and tighter: on a dark page a wide soft shadow reads as a smudge,
+     so the diffuse layer is stronger but pulled in closer. */
+  --elevation-subtle: 0 1px 2px oklch(0 0 0 / 30%);
+  --elevation-raised:
+    0 2px 4px oklch(0 0 0 / 30%), 0 8px 16px -6px oklch(0 0 0 / 40%);
+  --elevation-overlay:
+    0 4px 8px oklch(0 0 0 / 35%), 0 16px 32px -8px oklch(0 0 0 / 50%);
+  --elevation-floating:
+    0 8px 16px oklch(0 0 0 / 40%), 0 32px 56px -16px oklch(0 0 0 / 60%);
+}

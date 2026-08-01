@@ -1,0 +1,153 @@
+/*
+ * COLOR
+ *
+ * Three tiers, and code may only reach for the highest one it can:
+ *
+ *   1. Palette   `--color-brand-500`   A raw value. Never used by a component.
+ *   2. Semantic  `--color-surface`     A role. This is what components use.
+ *   3. Component `--btn-bg`            One control's needs. See component.css.
+ *
+ * The point of the middle tier is that `bg-surface-raised` keeps meaning the
+ * right thing in both themes, while `bg-neutral-50` would have to be paired
+ * with a `dark:` override every single time it is written. Almost every
+ * `dark:` class in a codebase is a missing semantic token.
+ *
+ * Stated in OKLCH: lightness steps are perceptually even, so the dark theme is
+ * a genuine inversion rather than a muddy approximation, and interpolation via
+ * `color-mix()` stays clean.
+ */
+
+@theme {
+  /* --- Palette: brand ----------------------------------------------------
+     One accent hue for the entire site. Restraint here is most of what the
+     reference sites (Vercel, Linear, Stripe, Raycast) have in common, and it
+     is far harder to make look cheap than a multi-colour palette.
+
+     Named `brand` rather than `accent` because shadcn already owns `--accent`
+     for subtle hover surfaces. */
+  --color-brand-50: oklch(0.97 0.014 254);
+  --color-brand-100: oklch(0.93 0.032 254);
+  --color-brand-200: oklch(0.87 0.058 254);
+  --color-brand-300: oklch(0.79 0.09 254);
+  --color-brand-400: oklch(0.7 0.13 254);
+  --color-brand-500: oklch(0.62 0.17 254);
+  --color-brand-600: oklch(0.55 0.19 254);
+  --color-brand-700: oklch(0.47 0.17 254);
+  --color-brand-800: oklch(0.39 0.13 254);
+  --color-brand-900: oklch(0.31 0.09 254);
+  --color-brand-950: oklch(0.24 0.06 254);
+}
+
+/*
+ * Semantic roles.
+ *
+ * `inline` so the utilities read the live custom property rather than a value
+ * frozen at build time — that is what lets one `.dark` class re-theme the
+ * whole page with no re-render and no flash.
+ */
+@theme inline {
+  /* Surfaces, from furthest back to closest to the viewer. */
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-overlay: var(--surface-overlay);
+
+  /* Text, in descending emphasis. Anything below `subtle` fails contrast. */
+  --color-text: var(--text-strong);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-inverse: var(--text-inverse);
+
+  /* Hairlines. `line` for dividers, `line-strong` for anything interactive. */
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  /* Status. Each role carries a text, a surface and a border value so a
+     notice never has to mix a `-600` text with a `-50` background by hand. */
+  --color-success: var(--success);
+  --color-success-surface: var(--success-surface);
+  --color-success-line: var(--success-line);
+
+  --color-warning: var(--warning);
+  --color-warning-surface: var(--warning-surface);
+  --color-warning-line: var(--warning-line);
+
+  --color-danger: var(--danger);
+  --color-danger-surface: var(--danger-surface);
+  --color-danger-line: var(--danger-line);
+
+  --color-info: var(--info);
+  --color-info-surface: var(--info-surface);
+  --color-info-line: var(--info-line);
+}
+
+:root {
+  /* In the light theme a raised surface stays white and is separated by its
+     border and shadow, not by fill. Tinting cards grey is the fastest way to
+     make a bright layout look muddy. */
+  --surface: oklch(1 0 0);
+  --surface-sunken: oklch(0.968 0 0);
+  --surface-raised: oklch(1 0 0);
+  --surface-overlay: oklch(1 0 0);
+
+  --text-strong: oklch(0.145 0 0);
+  --text-muted: oklch(0.505 0 0);
+  --text-subtle: oklch(0.63 0 0);
+  --text-inverse: oklch(0.985 0 0);
+
+  --line: oklch(0 0 0 / 8%);
+  --line-strong: oklch(0 0 0 / 14%);
+
+  --success: oklch(0.52 0.13 155);
+  --success-surface: oklch(0.96 0.03 155);
+  --success-line: oklch(0.85 0.06 155);
+
+  --warning: oklch(0.55 0.12 75);
+  --warning-surface: oklch(0.96 0.05 85);
+  --warning-line: oklch(0.86 0.09 85);
+
+  --danger: oklch(0.53 0.21 27);
+  --danger-surface: oklch(0.96 0.03 27);
+  --danger-line: oklch(0.87 0.07 27);
+
+  --info: var(--color-brand-600);
+  --info-surface: var(--color-brand-50);
+  --info-line: var(--color-brand-200);
+}
+
+.dark {
+  /* Not a straight inversion. Pure black crushes shadows and makes text
+     vibrate, so the page sits at ~0.145L and raised surfaces get *lighter*
+     with depth — the opposite of the light theme, because in the dark it is
+     light, not shadow, that reads as elevation. */
+  --surface: oklch(0.145 0 0);
+  --surface-sunken: oklch(0.108 0 0);
+  --surface-raised: oklch(0.196 0 0);
+  --surface-overlay: oklch(0.232 0 0);
+
+  --text-strong: oklch(0.985 0 0);
+  --text-muted: oklch(0.715 0 0);
+  --text-subtle: oklch(0.565 0 0);
+  --text-inverse: oklch(0.145 0 0);
+
+  --line: oklch(1 0 0 / 10%);
+  --line-strong: oklch(1 0 0 / 18%);
+
+  /* Chroma drops and lightness rises: saturated mid-tones that read as
+     confident on white look radioactive on near-black. */
+  --success: oklch(0.75 0.15 155);
+  --success-surface: oklch(0.28 0.05 155);
+  --success-line: oklch(0.38 0.07 155);
+
+  --warning: oklch(0.8 0.13 85);
+  --warning-surface: oklch(0.3 0.05 75);
+  --warning-line: oklch(0.4 0.07 75);
+
+  --danger: oklch(0.7 0.19 22);
+  --danger-surface: oklch(0.28 0.08 27);
+  --danger-line: oklch(0.38 0.11 27);
+
+  --info: var(--color-brand-400);
+  --info-surface: oklch(0.28 0.06 254);
+  --info-line: oklch(0.38 0.09 254);
+}
