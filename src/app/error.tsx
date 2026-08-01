@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
+import { Display, Text } from "@/components/ui/typography";
 
 /**
  * Route-level error boundary.
@@ -26,12 +27,17 @@ export default function Error({
 
   return (
     <main id="main" className="grid min-h-[60vh] place-items-center">
-      <Container width="prose" className="space-y-6 text-center">
-        <h1 className="text-display-sm font-semibold">Something went wrong</h1>
-        <p className="text-muted-foreground">
+      <Container
+        width="prose"
+        className="flex flex-col items-center gap-(--spacing-stack-md) text-center"
+      >
+        <Display size="sm">Something went wrong</Display>
+        <Text tone="muted">
           An unexpected error occurred. Trying again usually fixes it.
-        </p>
-        <Button onClick={reset}>Try again</Button>
+        </Text>
+        <Button size="lg" onClick={reset} className="mt-2">
+          Try again
+        </Button>
       </Container>
     </main>
   );
