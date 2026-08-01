@@ -21,12 +21,7 @@ import { siteConfig } from "@/config/site";
 /**
  * Mobile navigation drawer.
  *
- * A Sheet rather than a custom disclosure: focus trapping, Escape-to-close,
- * scroll locking and `aria-modal` come free, which is four accessibility bugs
- * we do not have to invent. Controlled so a link click can close it — without
- * that, the drawer stays open over the destination page.
- *
- * Hidden from `md` up via the trigger's class; the desktop nav takes over.
+ * Controlled Sheet so a link click closes it. Hidden from `md` up.
  */
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -67,12 +62,18 @@ export function MobileNav() {
 
         <div className="mt-auto border-t border-line p-4">
           <Button asChild size="lg" block>
-            <Link
-              href={primaryCta.href as Route}
-              onClick={() => setOpen(false)}
-            >
-              {primaryCta.title}
-            </Link>
+            {primaryCta.external ? (
+              <a href={primaryCta.href} onClick={() => setOpen(false)}>
+                {primaryCta.title}
+              </a>
+            ) : (
+              <Link
+                href={primaryCta.href as Route}
+                onClick={() => setOpen(false)}
+              >
+                {primaryCta.title}
+              </Link>
+            )}
           </Button>
         </div>
       </SheetContent>

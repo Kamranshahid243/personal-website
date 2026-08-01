@@ -6,13 +6,13 @@ the `<main id="main">` landmark the skip link targets, and the `<Footer />`.
 
 ## Public routes (v1)
 
-| Path | File | Job |
-| --- | --- | --- |
-| `/` | `page.tsx` | Pitch: claim, featured projects, writing, ask |
-| `/projects` | `projects/page.tsx` | Full project index |
-| `/projects/[slug]` | `projects/[slug]/page.tsx` | Case study detail |
-| `/blog` | `blog/page.tsx` | Writing index |
-| `/blog/[slug]` | `blog/[slug]/page.tsx` | MDX article |
+| Path               | File                       | Job                                           |
+| ------------------ | -------------------------- | --------------------------------------------- |
+| `/`                | `page.tsx`                 | Pitch: claim, featured projects, writing, ask |
+| `/projects`        | `projects/page.tsx`        | Full project index                            |
+| `/projects/[slug]` | `projects/[slug]/page.tsx` | Case study detail                             |
+| `/blog`            | `blog/page.tsx`            | Writing index                                 |
+| `/blog/[slug]`     | `blog/[slug]/page.tsx`     | MDX article                                   |
 
 Contact is not a page in v1 — the primary CTA is `mailto:` or a calendar URL.
 Legal, about and services are out of scope for this IA.

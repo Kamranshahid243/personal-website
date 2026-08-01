@@ -12,6 +12,7 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 type CtaSectionProps = {
+  id?: string;
   eyebrow?: ReactNode;
   heading?: ReactNode;
   subheading?: ReactNode;
@@ -35,6 +36,7 @@ type CtaSectionProps = {
  * pages that need a tighter pitch.
  */
 export function CtaSection({
+  id,
   eyebrow = "Next step",
   heading = "Have a project in mind?",
   subheading = `Tell me what you're building. I usually reply within one business day (${siteConfig.timezone}).`,
@@ -47,6 +49,7 @@ export function CtaSection({
 }: CtaSectionProps) {
   return (
     <Section
+      id={id}
       spacing="lg"
       surface="bordered"
       className={cn("relative", className)}
@@ -67,11 +70,21 @@ export function CtaSection({
 
         <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
           <Button asChild size="lg">
-            <Link href={primaryHref as Route}>{primaryLabel}</Link>
+            {primaryHref.startsWith("http") ||
+            primaryHref.startsWith("mailto:") ? (
+              <a href={primaryHref}>{primaryLabel}</a>
+            ) : (
+              <Link href={primaryHref as Route}>{primaryLabel}</Link>
+            )}
           </Button>
           {secondaryLabel && secondaryHref ? (
             <Button asChild size="lg" variant="secondary">
-              <Link href={secondaryHref as Route}>{secondaryLabel}</Link>
+              {secondaryHref.startsWith("http") ||
+              secondaryHref.startsWith("mailto:") ? (
+                <a href={secondaryHref}>{secondaryLabel}</a>
+              ) : (
+                <Link href={secondaryHref as Route}>{secondaryLabel}</Link>
+              )}
             </Button>
           ) : null}
         </div>

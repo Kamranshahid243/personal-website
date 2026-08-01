@@ -18,11 +18,11 @@ Related docs: [`SITE-ARCHITECTURE.md`](./SITE-ARCHITECTURE.md),
 Three audiences share one page. They skim differently; the section order has to
 satisfy the impatient one first.
 
-| Visitor | Arrives asking | Will leave if… | Needs to see early |
-| --- | --- | --- | --- |
-| **Recruiter / hiring manager** | “Can this person do the job we are filling?” | Role is vague, or the work looks junior / generic | Clear role, seniority signal, real outcomes, stack |
-| **Founder / product lead** | “Can they own a painful problem and ship?” | Only tools listed, no business results | Outcomes, scope of ownership, availability |
-| **Business owner / freelance buyer** | “Is this a safe hire for my budget and timeline?” | No sense of engagement shape or response time | Who you help, how working together works, a clear ask |
+| Visitor                              | Arrives asking                                    | Will leave if…                                    | Needs to see early                                    |
+| ------------------------------------ | ------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| **Recruiter / hiring manager**       | “Can this person do the job we are filling?”      | Role is vague, or the work looks junior / generic | Clear role, seniority signal, real outcomes, stack    |
+| **Founder / product lead**           | “Can they own a painful problem and ship?”        | Only tools listed, no business results            | Outcomes, scope of ownership, availability            |
+| **Business owner / freelance buyer** | “Is this a safe hire for my budget and timeline?” | No sense of engagement shape or response time     | Who you help, how working together works, a clear ask |
 
 Design for the **15-second skeptic**. Anyone willing to read for two minutes
 will get more proof further down; the skeptic never will if the top fails.
@@ -31,13 +31,13 @@ will get more proof further down; the skeptic never will if the top fails.
 
 ## The five questions — and where they get answered
 
-| Question | Primary answer lives in | Reinforced in |
-| --- | --- | --- |
-| **Who am I?** | 1 · Hero (name, role, one-line claim) | 5 · About |
-| **What do I build?** | 1 · Hero (claim) + 3 · Selected work | 4 · How I work |
-| **Who do I help?** | 2 · Positioning | 4 · How I work |
-| **Why trust me?** | 3 · Selected work (outcomes) | 5 · About, 6 · Writing |
-| **Why contact me?** | 1 · Hero CTA + availability | 4 · engagement shape, 7 · Final CTA |
+| Question             | Primary answer lives in               | Reinforced in                       |
+| -------------------- | ------------------------------------- | ----------------------------------- |
+| **Who am I?**        | 1 · Hero (name, role, one-line claim) | 5 · About                           |
+| **What do I build?** | 1 · Hero (claim) + 3 · Selected work  | 4 · How I work                      |
+| **Who do I help?**   | 2 · Positioning                       | 4 · How I work                      |
+| **Why trust me?**    | 3 · Selected work (outcomes)          | 5 · About, 6 · Writing              |
+| **Why contact me?**  | 1 · Hero CTA + availability           | 4 · engagement shape, 7 · Final CTA |
 
 If a section does not move at least one of these answers forward, it does not
 belong on the homepage.
@@ -50,11 +50,11 @@ Think in attention beats, not in “above the fold” as a single screenshot. On
 laptop the first viewport is roughly the hero; on a phone the same story is
 taller. The **order of information** matters more than what fits on one screen.
 
-| Time | Visitor does | Page must have already answered |
-| --- | --- | --- |
-| **0–5s** | Reads name, role, headline; notices availability and primary button | Who you are; what you do at the level of a claim; that you are reachable |
-| **5–15s** | Decides “is this for people like me?”; starts scanning proof | Who you help; what kind of work (from section intros / first project titles) |
-| **15–30s** | Skims 1–2 project outcomes for credibility | Concrete results (metrics + problem context), not a tool list |
+| Time       | Visitor does                                                        | Page must have already answered                                              |
+| ---------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **0–5s**   | Reads name, role, headline; notices availability and primary button | Who you are; what you do at the level of a claim; that you are reachable     |
+| **5–15s**  | Decides “is this for people like me?”; starts scanning proof        | Who you help; what kind of work (from section intros / first project titles) |
+| **15–30s** | Skims 1–2 project outcomes for credibility                          | Concrete results (metrics + problem context), not a tool list                |
 
 If at 30 seconds they only know your stack, the page has failed. Stacks are
 commodities; **outcomes under constraints** are not.
@@ -99,14 +99,14 @@ the fold on a large screen.
 
 **What we are not putting on the homepage**
 
-| Tempting block | Why it is out |
-| --- | --- |
-| Animated skill clouds / icon rows of 12 frameworks | Looks like every template; proves nothing |
-| Stat strip in the hero (“50+ projects”, “10 years”) | Easy to fake; burns the hero budget; put one real metric inside a case study instead |
-| Client logo wall without outcomes | Logos without context are borrowed status; outcomes with named contexts beat them |
-| Full résumé timeline | Belongs on About depth or `/projects` narrative; a short highlight in §5 is enough |
-| Contact form embedded mid-page | v1 CTA is mailto/calendar — lower friction, no form abandonment on first visit |
-| Testimonials before any work shown | Quotes without proof read as invented; if testimonials exist later, place them after selected work |
+| Tempting block                                      | Why it is out                                                                                      |
+| --------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Animated skill clouds / icon rows of 12 frameworks  | Looks like every template; proves nothing                                                          |
+| Stat strip in the hero (“50+ projects”, “10 years”) | Easy to fake; burns the hero budget; put one real metric inside a case study instead               |
+| Client logo wall without outcomes                   | Logos without context are borrowed status; outcomes with named contexts beat them                  |
+| Full résumé timeline                                | Belongs on About depth or `/projects` narrative; a short highlight in §5 is enough                 |
+| Contact form embedded mid-page                      | v1 CTA is mailto/calendar — lower friction, no form abandonment on first visit                     |
+| Testimonials before any work shown                  | Quotes without proof read as invented; if testimonials exist later, place them after selected work |
 
 ---
 
@@ -232,8 +232,8 @@ concrete next step.
   as the hero)
 
 **Why it exists:** Many visitors believe you are competent after §3 but still
-hesitate: *Will this be a nightmare to start? Do they even take freelance? Are
-they going to ghost my email?* This section answers process anxiety. It is not
+hesitate: _Will this be a nightmare to start? Do they even take freelance? Are
+they going to ghost my email?_ This section answers process anxiety. It is not
 a services catalogue (no pricing table required on the homepage); it is a
 clarity block.
 
@@ -344,12 +344,12 @@ Homepage sections should not fight it with floating action buttons.
 
 ### Scroll depth targets (design intent)
 
-| Depth | Should have achieved |
-| --- | --- |
-| Hero | Identity + claim + path to act or to proof |
-| Through §3 | Belief that you ship real outcomes |
-| Through §5 | Belief that you are the right *seniority / fit* |
-| §7 | Action taken or intentionally deferred |
+| Depth      | Should have achieved                            |
+| ---------- | ----------------------------------------------- |
+| Hero       | Identity + claim + path to act or to proof      |
+| Through §3 | Belief that you ship real outcomes              |
+| Through §5 | Belief that you are the right _seniority / fit_ |
+| §7         | Action taken or intentionally deferred          |
 
 ---
 
@@ -357,16 +357,16 @@ Homepage sections should not fight it with floating action buttons.
 
 Write these in a doc or in `siteConfig` / data — not in JSX first.
 
-| # | Content | Owner field (approx.) |
-| --- | --- | --- |
-| 1 | Headline claim (specific, outcome-leaning) | `siteConfig.tagline` (revise until sharp) |
-| 2 | Hero supporting sentence (audience + context) | new home copy constant |
-| 3 | 2–3 “who I help” lines | home copy |
-| 4 | 2–3 featured projects with real metrics | `src/data/projects.ts` (`featured: true`) |
-| 5 | How-I-work bullets + response time | home copy + `siteConfig.timezone` |
-| 6 | About paragraph + 2–3 highlights | home copy + `experience` slice |
-| 7 | Final CTA headline + supporting line | home copy / `CtaSection` props |
-| 8 | Working mailto or calendar URL | `siteConfig.email` / `links.calendar` |
+| #   | Content                                       | Owner field (approx.)                     |
+| --- | --------------------------------------------- | ----------------------------------------- |
+| 1   | Headline claim (specific, outcome-leaning)    | `siteConfig.tagline` (revise until sharp) |
+| 2   | Hero supporting sentence (audience + context) | new home copy constant                    |
+| 3   | 2–3 “who I help” lines                        | home copy                                 |
+| 4   | 2–3 featured projects with real metrics       | `src/data/projects.ts` (`featured: true`) |
+| 5   | How-I-work bullets + response time            | home copy + `siteConfig.timezone`         |
+| 6   | About paragraph + 2–3 highlights              | home copy + `experience` slice            |
+| 7   | Final CTA headline + supporting line          | home copy / `CtaSection` props            |
+| 8   | Working mailto or calendar URL                | `siteConfig.email` / `links.calendar`     |
 
 **Do not build the homepage until 1, 3, 4, and 8 are real.** A polished layout
 with placeholder outcomes trains visitors to distrust the finished site.
@@ -394,15 +394,15 @@ reintroduce template patterns.
 
 ## Mapping to components (for when you implement)
 
-| Section | Likely building blocks |
-| --- | --- |
-| Hero | `Section`, `Container`, `AvailabilityBadge`, `Display`, `Lead`, `Button`, optional `AnimatedBackground` |
-| Positioning | `SectionHeading` + simple list or three text blocks (avoid icon-feature grids) |
-| Selected work | `SectionHeading`, `ProjectCard` × 2–3, `Link` to `/projects` |
-| How I work | `SectionHeading` + short list; optional secondary `Button` |
-| About | `SectionHeading`, short `Text`, optional `ExperienceCard` × 2 or `SkillBadge`s, `SocialLinks` |
-| Writing | `SectionHeading`, `BlogCard` × 2–3, `Link` to `/blog` |
-| Final CTA | Existing `CtaSection` |
+| Section       | Likely building blocks                                                                                  |
+| ------------- | ------------------------------------------------------------------------------------------------------- |
+| Hero          | `Section`, `Container`, `AvailabilityBadge`, `Display`, `Lead`, `Button`, optional `AnimatedBackground` |
+| Positioning   | `SectionHeading` + simple list or three text blocks (avoid icon-feature grids)                          |
+| Selected work | `SectionHeading`, `ProjectCard` × 2–3, `Link` to `/projects`                                            |
+| How I work    | `SectionHeading` + short list; optional secondary `Button`                                              |
+| About         | `SectionHeading`, short `Text`, optional `ExperienceCard` × 2 or `SkillBadge`s, `SocialLinks`           |
+| Writing       | `SectionHeading`, `BlogCard` × 2–3, `Link` to `/blog`                                                   |
+| Final CTA     | Existing `CtaSection`                                                                                   |
 
 No new route. No contact page. Home absorbs about + offer framing as designed
 in the site architecture.

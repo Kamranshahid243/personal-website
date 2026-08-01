@@ -13,14 +13,8 @@ import { siteConfig } from "@/config/site";
 /**
  * Site header.
  *
- * Sticky with a translucent backdrop so content scrolling underneath stays
- * readable without a hard slab of colour. The wordmark, the desktop nav, the
- * CTA, the theme toggle and the mobile trigger share one horizontal rhythm —
- * nothing is absolutely positioned, so the header never collapses differently
- * across breakpoints.
- *
- * Server component. The two interactive islands (nav links for active state,
- * mobile sheet, theme toggle) mark their own client boundaries.
+ * Server component. Interactive islands (nav active state, mobile sheet, theme
+ * toggle) mark their own client boundaries.
  */
 export function Navbar() {
   return (
@@ -47,7 +41,11 @@ export function Navbar() {
           <AvailabilityBadge className="mr-1 hidden lg:inline-flex" />
           <ThemeToggle />
           <Button asChild size="sm" className="hidden md:inline-flex">
-            <Link href={primaryCta.href as Route}>{primaryCta.title}</Link>
+            {primaryCta.external ? (
+              <a href={primaryCta.href}>{primaryCta.title}</a>
+            ) : (
+              <Link href={primaryCta.href as Route}>{primaryCta.title}</Link>
+            )}
           </Button>
           <MobileNav />
         </div>

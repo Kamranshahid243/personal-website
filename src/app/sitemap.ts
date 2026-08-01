@@ -1,14 +1,12 @@
 import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/config/site";
+import { projects } from "@/data/projects";
 import { getAllPosts } from "@/lib/content/blog";
 
 /**
- * Generated sitemap.
- *
- * Derived from the same content layer the pages render from, so a new article
- * or case study is discoverable the moment it is merged — no manual list to
- * forget to update. Drafts are already filtered out upstream by `getAllPosts`.
+ * Generated sitemap for the three-surface IA.
+ * Drafts are filtered out by `getAllPosts` in production.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: {
@@ -17,11 +15,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: number;
   }[] = [
     { path: "/", changeFrequency: "monthly", priority: 1 },
-    { path: "/work", changeFrequency: "monthly", priority: 0.9 },
-    { path: "/services", changeFrequency: "monthly", priority: 0.9 },
-    { path: "/about", changeFrequency: "yearly", priority: 0.7 },
+    { path: "/projects", changeFrequency: "monthly", priority: 0.9 },
     { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
-    { path: "/contact", changeFrequency: "yearly", priority: 0.9 },
   ];
 
   const posts = await getAllPosts();
@@ -32,6 +27,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: route.changeFrequency,
       priority: route.priority,
+    })),
+    ...projects.map((project) => ({
+      url: `${siteConfig.url}/projects/${project.slug}`,
+      lastModified: new Date(`${project.year}-01-01T00:00:00.000Z`),
+      changeFrequency: "yearly" as const,
+      priority: 0.8,
     })),
     ...posts.map((post) => ({
       url: `${siteConfig.url}/blog/${post.slug}`,

@@ -19,30 +19,44 @@ import { cn } from "@/lib/utils";
 type ServiceCardProps = {
   service: Service;
   className?: string;
+  /**
+   * Where the card navigates. Omit (or pass null) for a static card — used on
+   * the homepage while a dedicated services route is out of scope.
+   */
+  href?: string | null;
 };
 
 /**
  * Packaged freelance offer.
  *
  * Concrete scope over vague capability: the title and deliverables let a
- * business owner recognise their problem before they write the email. The
- * price anchor is optional — an empty `startingAt` hides the line rather than
- * rendering an empty one.
+ * business owner recognise their problem before they write the email.
  */
-export function ServiceCard({ service, className }: ServiceCardProps) {
+export function ServiceCard({
+  service,
+  className,
+  href = null,
+}: ServiceCardProps) {
   const IconComponent = getIcon(service.icon);
-  const href = `/services#${service.slug}` as Route;
+  const linked = Boolean(href);
 
   return (
-    <Card interactive className={cn("h-full", className)}>
+    <Card interactive={linked} className={cn("h-full", className)}>
       <CardHeader>
         <div className="mb-1 flex size-10 items-center justify-center rounded-(--radius-lg) bg-surface-sunken text-text">
           <Icon icon={IconComponent} size="md" tone="muted" />
         </div>
         <CardTitle>
-          <Link href={href} className="link-overlay rounded-sm focus-ring">
-            {service.title}
-          </Link>
+          {linked && href ? (
+            <Link
+              href={href as Route}
+              className="link-overlay rounded-sm focus-ring"
+            >
+              {service.title}
+            </Link>
+          ) : (
+            service.title
+          )}
         </CardTitle>
         <CardDescription>{service.description}</CardDescription>
       </CardHeader>
@@ -74,10 +88,12 @@ export function ServiceCard({ service, className }: ServiceCardProps) {
         ) : (
           <span />
         )}
-        <span className="inline-flex items-center gap-1 text-body-sm font-medium text-text-muted">
-          Learn more
-          <ArrowUpRight className="size-3.5" aria-hidden />
-        </span>
+        {linked ? (
+          <span className="inline-flex items-center gap-1 text-body-sm font-medium text-text-muted">
+            Learn more
+            <ArrowUpRight className="size-3.5" aria-hidden />
+          </span>
+        ) : null}
       </CardFooter>
     </Card>
   );

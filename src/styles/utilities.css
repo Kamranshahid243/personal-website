@@ -143,6 +143,30 @@
   color: transparent;
 }
 
+/* --- Scroll reveal (CSS only — zero JS) ----------------------------------- */
+
+/*
+ * Progressive enhancement: Chromium/Safari with scroll-driven animations get
+ * a subtle rise as the block enters the viewport. Everyone else sees static
+ * content immediately — no layout shift, no hydration cost, no Framer bundle.
+ */
+@utility reveal-on-scroll {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: rise var(--duration-slower) var(--ease-out-expo) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+/* Hero-only entrance on first paint. Stagger with animation-delay utilities. */
+@utility reveal-on-load {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: rise var(--duration-slower) var(--ease-out-expo) both;
+  }
+}
+
 /* --- Loading -------------------------------------------------------------- */
 
 /* Placeholder sweep, matched to the shimmer keyframes in tokens/motion.css. */

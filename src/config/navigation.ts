@@ -3,12 +3,11 @@ import { siteConfig } from "@/config/site";
 export type NavItem = {
   title: string;
   /**
-   * Typed as `string` while the route tree is still being built. Once the
-   * pages exist, narrow this to next's `Route` type and `typedRoutes` (already
-   * enabled in next.config.ts) turns every broken link into a compile error.
+   * Typed as `string` while detail routes are still landing. Narrow to
+   * `Route` once `/projects` and `/blog` pages exist and `typedRoutes` can
+   * validate every href at compile time.
    */
   href: string;
-  /** Renders as a new-tab link with the appropriate rel attributes. */
   external?: boolean;
   description?: string;
 };
@@ -19,30 +18,25 @@ export type NavSection = {
 };
 
 /**
- * Navigation lives in config, not inside the header component, so the desktop
- * nav, the mobile sheet, the footer and the sitemap all render from one list
- * and can never drift apart.
- *
- * The ordering is a conversion decision rather than an alphabetical one: proof
- * of work first, then the offer, then credibility, then the ask.
+ * Public nav matches the v1 IA: Projects and Blog only.
+ * Contact is a CTA (mailto / calendar), not a page.
  */
 export const mainNav: NavItem[] = [
-  { title: "Work", href: "/work" },
-  { title: "Services", href: "/services" },
-  { title: "About", href: "/about" },
-  { title: "Writing", href: "/blog" },
+  { title: "Projects", href: "/projects" },
+  { title: "Blog", href: "/blog" },
 ];
 
-/** The single persistent call to action, rendered beside the nav. */
+/** Persistent ask — email by default; swap to calendar when a booking link exists. */
 export const primaryCta: NavItem = {
   title: "Get in touch",
-  href: "/contact",
+  href: siteConfig.links.calendar || `mailto:${siteConfig.email}`,
+  external: true,
 };
 
 export const footerNav: NavSection[] = [
   {
     title: "Site",
-    items: [...mainNav, primaryCta],
+    items: [{ title: "Home", href: "/" }, ...mainNav, primaryCta],
   },
   {
     title: "Elsewhere",
@@ -50,13 +44,6 @@ export const footerNav: NavSection[] = [
       { title: "GitHub", href: siteConfig.links.github, external: true },
       { title: "LinkedIn", href: siteConfig.links.linkedin, external: true },
       { title: "X", href: siteConfig.links.x, external: true },
-    ],
-  },
-  {
-    title: "Legal",
-    items: [
-      { title: "Privacy", href: "/privacy" },
-      { title: "Terms", href: "/terms" },
     ],
   },
 ];

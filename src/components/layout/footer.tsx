@@ -51,8 +51,12 @@ export function Footer() {
                       {item.external ? (
                         <a
                           href={item.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          {...(item.href.startsWith("http")
+                            ? {
+                                target: "_blank" as const,
+                                rel: "noopener noreferrer",
+                              }
+                            : {})}
                           className="rounded-sm text-body-sm text-text-muted focus-ring transition-ui hover:text-text"
                         >
                           {item.title}

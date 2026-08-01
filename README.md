@@ -77,6 +77,7 @@ Documentation:
 - [`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) — tokens and primitives
 - [`docs/SITE-ARCHITECTURE.md`](./docs/SITE-ARCHITECTURE.md) — routes, layouts,
   metadata, images, SEO for `/`, Projects and Blog
+- [`docs/HOMEPAGE.md`](./docs/HOMEPAGE.md) — homepage UX and section order
 
 ## Next steps
 

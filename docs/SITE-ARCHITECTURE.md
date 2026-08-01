@@ -12,27 +12,28 @@ Related docs:
 
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md) — repository layout and module rules
 - [`DESIGN-SYSTEM.md`](./DESIGN-SYSTEM.md) — tokens and primitives
+- [`HOMEPAGE.md`](./HOMEPAGE.md) — homepage UX, section order, conversion rationale
 
 ---
 
 ## Public information architecture
 
-| URL | Purpose | Content source |
-| --- | --- | --- |
-| `/` | Pitch: who you are, proof, selected work, writing, ask | Composed from `siteConfig` + featured projects + recent posts |
-| `/projects` | Full project index | `src/data/projects.ts` |
-| `/projects/[slug]` | One case study | Same collection, keyed by `slug` |
-| `/blog` | Writing index | `content/blog/*.mdx` via `src/lib/content/blog.ts` |
-| `/blog/[slug]` | One article | One MDX file, compiled at build time |
+| URL                | Purpose                                                | Content source                                                |
+| ------------------ | ------------------------------------------------------ | ------------------------------------------------------------- |
+| `/`                | Pitch: who you are, proof, selected work, writing, ask | Composed from `siteConfig` + featured projects + recent posts |
+| `/projects`        | Full project index                                     | `src/data/projects.ts`                                        |
+| `/projects/[slug]` | One case study                                         | Same collection, keyed by `slug`                              |
+| `/blog`            | Writing index                                          | `content/blog/*.mdx` via `src/lib/content/blog.ts`            |
+| `/blog/[slug]`     | One article                                            | One MDX file, compiled at build time                          |
 
 ### What is deliberately not a page
 
-| Need | How it is handled instead |
-| --- | --- |
-| Contact | Primary CTA → `mailto:` or `siteConfig.links.calendar`. No `/contact` form page in v1. |
-| About / Services | Folded into the home page (short bio, how you work, offer) so the site stays three clicks deep. |
-| Legal | Deferred. Add `(legal)` only when a real privacy/terms obligation exists. |
-| Design / Components | Stay under `(dev)/`, `noIndex`, out of the sitemap. Internal tooling only. |
+| Need                | How it is handled instead                                                                       |
+| ------------------- | ----------------------------------------------------------------------------------------------- |
+| Contact             | Primary CTA → `mailto:` or `siteConfig.links.calendar`. No `/contact` form page in v1.          |
+| About / Services    | Folded into the home page (short bio, how you work, offer) so the site stays three clicks deep. |
+| Legal               | Deferred. Add `(legal)` only when a real privacy/terms obligation exists.                       |
+| Design / Components | Stay under `(dev)/`, `noIndex`, out of the sitemap. Internal tooling only.                      |
 
 Fewer URLs means every indexed page has a job. A thin `/about` that restates
 the home page is worse than no `/about`.
@@ -101,10 +102,10 @@ src/app/
 
 Both detail routes are **fully static**.
 
-| Route | `generateStaticParams` source | Missing slug |
-| --- | --- | --- |
+| Route              | `generateStaticParams` source                           | Missing slug                         |
+| ------------------ | ------------------------------------------------------- | ------------------------------------ |
 | `/projects/[slug]` | `projects.map(p => p.slug)` from `src/data/projects.ts` | `notFound()` → local `not-found.tsx` |
-| `/blog/[slug]` | `getAllPostSlugs()` from the content layer | `notFound()` → local `not-found.tsx` |
+| `/blog/[slug]`     | `getAllPostSlugs()` from the content layer              | `notFound()` → local `not-found.tsx` |
 
 `dynamicParams = false` on both detail segments once implemented: an unknown
 slug is a 404 at the edge, not an on-demand render of an empty page.
@@ -120,10 +121,10 @@ The scaffold still mentions `/work`, `/services`, `/about`, `/contact`. When
 pages land, add permanent redirects so nothing bookmarked during development
 rots:
 
-| From | To |
-| --- | --- |
-| `/work` | `/projects` |
-| `/work/:slug` | `/projects/:slug` |
+| From                              | To                                  |
+| --------------------------------- | ----------------------------------- |
+| `/work`                           | `/projects`                         |
+| `/work/:slug`                     | `/projects/:slug`                   |
 | `/services`, `/about`, `/contact` | `/` (or remove once nav is updated) |
 
 ---
@@ -180,12 +181,12 @@ src/
 
 ### Content ownership
 
-| Kind | Lives in | Why |
-| --- | --- | --- |
-| Projects | `src/data/projects.ts` | Structured, relational, small. Typed fields (`problem` / `approach` / `outcome` / `metrics`) are the persuading shape. |
-| Blog posts | `content/blog/*.mdx` | Long-form prose. Frontmatter validated by Zod at read time. |
-| Site identity | `src/config/site.ts` | Name, tagline, email, socials — referenced by shell, metadata and JSON-LD. |
-| Navigation | `src/config/navigation.ts` | Desktop nav, mobile nav, footer, sitemap — one list. |
+| Kind          | Lives in                   | Why                                                                                                                    |
+| ------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Projects      | `src/data/projects.ts`     | Structured, relational, small. Typed fields (`problem` / `approach` / `outcome` / `metrics`) are the persuading shape. |
+| Blog posts    | `content/blog/*.mdx`       | Long-form prose. Frontmatter validated by Zod at read time.                                                            |
+| Site identity | `src/config/site.ts`       | Name, tagline, email, socials — referenced by shell, metadata and JSON-LD.                                             |
+| Navigation    | `src/config/navigation.ts` | Desktop nav, mobile nav, footer, sitemap — one list.                                                                   |
 
 Projects do **not** become MDX in v1. A case study is a data object rendered by
 a fixed template (problem → approach → outcome). That template is the product;
@@ -245,13 +246,13 @@ renders inside this layout. One place to change header/footer behaviour.
 
 Prefer **section composition inside `page.tsx`** over another layout layer:
 
-| Page | Composes |
-| --- | --- |
-| `/` | Hero → Featured projects → Selected writing → CTA |
-| `/projects` | SectionHeading → project grid |
+| Page               | Composes                                                                      |
+| ------------------ | ----------------------------------------------------------------------------- |
+| `/`                | Hero → Featured projects → Selected writing → CTA                             |
+| `/projects`        | SectionHeading → project grid                                                 |
 | `/projects/[slug]` | Case study template (header, metrics, problem/approach/outcome, stack, links) |
-| `/blog` | SectionHeading → post list/grid |
-| `/blog/[slug]` | Article header → `<MdxContent />` → adjacent posts / CTA |
+| `/blog`            | SectionHeading → post list/grid                                               |
+| `/blog/[slug]`     | Article header → `<MdxContent />` → adjacent posts / CTA                      |
 
 Use a **nested layout** only when two or more routes share persistent UI that
 is not the site chrome. Candidates worth considering later (not v1):
@@ -275,13 +276,13 @@ metadata harder to colocate.
 
 ### Measure rules (layout behaviour without extra layouts)
 
-| Surface | Container width | Why |
-| --- | --- | --- |
-| Home sections | `content` / `wide` | Marketing rhythm |
-| Project index | `wide` | Card grid |
+| Surface        | Container width                           | Why                                   |
+| -------------- | ----------------------------------------- | ------------------------------------- |
+| Home sections  | `content` / `wide`                        | Marketing rhythm                      |
+| Project index  | `wide`                                    | Card grid                             |
 | Project detail | `content` for narrative, `wide` for media | Readable story + room for screenshots |
-| Blog index | `content` or `wide` | List or card grid |
-| Blog article | `prose` via `.prose` | Comfortable measure for reading |
+| Blog index     | `content` or `wide`                       | List or card grid                     |
+| Blog article   | `prose` via `.prose`                      | Comfortable measure for reading       |
 
 ---
 
@@ -303,14 +304,14 @@ metadata harder to colocate.
 
 ### Per-route metadata plan
 
-| Route | `title` | `description` | `image` | Extra |
-| --- | --- | --- | --- | --- |
-| `/` | default (`Name — Role`) | `siteConfig.description` | OG via `/api/og?title={tagline}` | — |
-| `/projects` | `Projects` | Short index blurb (config or constant) | Default OG | — |
-| `/projects/[slug]` | `project.title` | `project.summary` | Project cover if present, else `/api/og?title=…` | Optional keywords from `stack` |
-| `/blog` | `Writing` or `Blog` | Index blurb | Default OG | — |
-| `/blog/[slug]` | `post.title` | `post.description` | `post.image` or `/api/og?title=…` | `publishedTime`, `modifiedTime`, `type: article` |
-| `(dev)/*` | whatever | — | — | `noIndex: true` |
+| Route              | `title`                 | `description`                          | `image`                                          | Extra                                            |
+| ------------------ | ----------------------- | -------------------------------------- | ------------------------------------------------ | ------------------------------------------------ |
+| `/`                | default (`Name — Role`) | `siteConfig.description`               | OG via `/api/og?title={tagline}`                 | —                                                |
+| `/projects`        | `Projects`              | Short index blurb (config or constant) | Default OG                                       | —                                                |
+| `/projects/[slug]` | `project.title`         | `project.summary`                      | Project cover if present, else `/api/og?title=…` | Optional keywords from `stack`                   |
+| `/blog`            | `Writing` or `Blog`     | Index blurb                            | Default OG                                       | —                                                |
+| `/blog/[slug]`     | `post.title`            | `post.description`                     | `post.image` or `/api/og?title=…`                | `publishedTime`, `modifiedTime`, `type: article` |
+| `(dev)/*`          | whatever                | —                                      | —                                                | `noIndex: true`                                  |
 
 ### Implementation pattern (when coding pages)
 
@@ -383,31 +384,31 @@ in `public/images`.
 
 ### Formats and delivery
 
-| Rule | Detail |
-| --- | --- |
-| Pipeline | Always `next/image` in app code. MDX uses the mapped `Img` component (already in `mdx-components.tsx`), never a raw `<img>`, when dimensions are known. |
-| Formats | `avif` + `webp` already enabled in `next.config.ts`. Source files: high-quality JPEG or PNG; avoid shipping huge PNGs for photos. |
-| Remote images | `remotePatterns: []` until a real CMS or asset host exists. No `*.githubusercontent.com` wildcard “just in case”. |
-| Cover aspect | **16:10** for project cards (matches `ProjectCard`). Crop sources to that ratio before commit. |
-| Article inline | Prefer full-bleed within the prose measure; width ≤ 2400px. |
-| Favicons | `app/icon.svg` / `apple-icon.png` (App Router file convention) or `public/` equivalents — one approach, not both. |
+| Rule           | Detail                                                                                                                                                  |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pipeline       | Always `next/image` in app code. MDX uses the mapped `Img` component (already in `mdx-components.tsx`), never a raw `<img>`, when dimensions are known. |
+| Formats        | `avif` + `webp` already enabled in `next.config.ts`. Source files: high-quality JPEG or PNG; avoid shipping huge PNGs for photos.                       |
+| Remote images  | `remotePatterns: []` until a real CMS or asset host exists. No `*.githubusercontent.com` wildcard “just in case”.                                       |
+| Cover aspect   | **16:10** for project cards (matches `ProjectCard`). Crop sources to that ratio before commit.                                                          |
+| Article inline | Prefer full-bleed within the prose measure; width ≤ 2400px.                                                                                             |
+| Favicons       | `app/icon.svg` / `apple-icon.png` (App Router file convention) or `public/` equivalents — one approach, not both.                                       |
 
 ### `sizes` hints (to apply when coding)
 
-| Placement | `sizes` |
-| --- | --- |
-| Project card cover | `(max-width: 768px) 100vw, 33vw` (already on `ProjectCard`) |
-| Project detail hero | `(max-width: 768px) 100vw, 80vw` |
-| Blog card (if imaged later) | `(max-width: 768px) 100vw, 40vw` |
-| MDX inline via `Img` | `(max-width: 768px) 100vw, 42rem` (already set) |
+| Placement                   | `sizes`                                                     |
+| --------------------------- | ----------------------------------------------------------- |
+| Project card cover          | `(max-width: 768px) 100vw, 33vw` (already on `ProjectCard`) |
+| Project detail hero         | `(max-width: 768px) 100vw, 80vw`                            |
+| Blog card (if imaged later) | `(max-width: 768px) 100vw, 40vw`                            |
+| MDX inline via `Img`        | `(max-width: 768px) 100vw, 42rem` (already set)             |
 
 ### Alt text
 
-| Image | `alt` |
-| --- | --- |
-| Project cover | Concrete outcome or UI description from `cover.alt` (required in the type when `cover` is set) |
-| Decorative atmosphere | Empty alt / `aria-hidden` (e.g. `AnimatedBackground`) |
-| Blog image | Described in MDX; required for `Img` |
+| Image                 | `alt`                                                                                          |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| Project cover         | Concrete outcome or UI description from `cover.alt` (required in the type when `cover` is set) |
+| Decorative atmosphere | Empty alt / `aria-hidden` (e.g. `AnimatedBackground`)                                          |
+| Blog image            | Described in MDX; required for `Img`                                                           |
 
 ### LCP discipline
 
@@ -431,34 +432,34 @@ The site is not a content farm. Index quality over page count.
 
 ### Crawl & index
 
-| Mechanism | Plan |
-| --- | --- |
-| `robots.ts` | Allow `/`; disallow `/api/`. No need to disallow `(dev)` paths if they send `noIndex`. |
+| Mechanism    | Plan                                                                                                                                                          |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `robots.ts`  | Allow `/`; disallow `/api/`. No need to disallow `(dev)` paths if they send `noIndex`.                                                                        |
 | `sitemap.ts` | Emit `/`, `/projects`, each project slug, `/blog`, each published post. **Remove** obsolete `/work`, `/services`, `/about`, `/contact` entries when updating. |
-| Drafts | Excluded from sitemap and from production listings via the content layer. |
-| Canonical | Set per page through `createMetadata`. |
+| Drafts       | Excluded from sitemap and from production listings via the content layer.                                                                                     |
+| Canonical    | Set per page through `createMetadata`.                                                                                                                        |
 
 Priorities (suggested):
 
-| Path | priority | changefreq |
-| --- | --- | --- |
-| `/` | 1.0 | monthly |
-| `/projects` | 0.9 | monthly |
-| `/projects/[slug]` | 0.8 | yearly |
-| `/blog` | 0.8 | weekly |
-| `/blog/[slug]` | 0.6 | yearly |
+| Path               | priority | changefreq |
+| ------------------ | -------- | ---------- |
+| `/`                | 1.0      | monthly    |
+| `/projects`        | 0.9      | monthly    |
+| `/projects/[slug]` | 0.8      | yearly     |
+| `/blog`            | 0.8      | weekly     |
+| `/blog/[slug]`     | 0.6      | yearly     |
 
 ### Structured data (JSON-LD)
 
 Already partially wired. Target graph:
 
-| Page | Types |
-| --- | --- |
-| All (root layout) | `Person`, `WebSite` |
+| Page               | Types                                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| All (root layout)  | `Person`, `WebSite`                                                                                          |
 | `/projects/[slug]` | `CreativeWork` or `SoftwareSourceCode` with `author` → `Person`, `dateCreated` / year, `keywords` from stack |
-| `/blog/[slug]` | `BlogPosting` (helper already exists) with `headline`, `datePublished`, `dateModified`, `author` |
-| `/blog` | Optional `Blog` collection; not required for v1 |
-| `/projects` | Optional `ItemList`; not required for v1 |
+| `/blog/[slug]`     | `BlogPosting` (helper already exists) with `headline`, `datePublished`, `dateModified`, `author`             |
+| `/blog`            | Optional `Blog` collection; not required for v1                                                              |
+| `/projects`        | Optional `ItemList`; not required for v1                                                                     |
 
 Emit with the existing `<JsonLd />` component. One graph per page is enough;
 do not duplicate `Person` on every article if the root layout already exposes
@@ -466,13 +467,13 @@ it — reference `@id` (`${siteConfig.url}/#person`).
 
 ### On-page SEO (content rules, not components)
 
-| Page | H1 | Notes |
-| --- | --- | --- |
-| `/` | One clear claim (tagline or outcome-led statement) | Follow with proof (projects), then writing, then ask |
-| `/projects` | “Projects” (or equivalent) | Cards carry the keywords via titles/summaries |
-| `/projects/[slug]` | Project title | Then problem / approach / outcome as H2s |
-| `/blog` | “Writing” / “Blog” | |
-| `/blog/[slug]` | Post title | MDX provides H2+; do not invent a second H1 |
+| Page               | H1                                                 | Notes                                                |
+| ------------------ | -------------------------------------------------- | ---------------------------------------------------- |
+| `/`                | One clear claim (tagline or outcome-led statement) | Follow with proof (projects), then writing, then ask |
+| `/projects`        | “Projects” (or equivalent)                         | Cards carry the keywords via titles/summaries        |
+| `/projects/[slug]` | Project title                                      | Then problem / approach / outcome as H2s             |
+| `/blog`            | “Writing” / “Blog”                                 |                                                      |
+| `/blog/[slug]`     | Post title                                         | MDX provides H2+; do not invent a second H1          |
 
 Internal links:
 
@@ -508,11 +509,16 @@ Thin pages. No data fetching inside cards or sections.
 
 ### `/` — Home
 
-1. Hero — name/role claim, availability, primary CTA, secondary → `/projects`
-2. Featured projects — `projects.filter(p => p.featured)` → `ProjectCard`
-3. Selected writing — latest 3 from `getAllPosts()` → `BlogCard`
-4. About strip — short bio from `siteConfig` / a small constant (not a CMS)
-5. CTA — mailto / calendar
+Section order, copy brief and conversion rationale are in
+[`HOMEPAGE.md`](./HOMEPAGE.md). Summary:
+
+1. Hero — claim, availability, CTAs
+2. Positioning — who I help
+3. Selected work — featured `ProjectCard`s
+4. How I work — engagement clarity
+5. About — short bio + highlights
+6. Writing — recent `BlogCard`s (omit if &lt; 2 posts)
+7. Final CTA — mailto / calendar
 
 ### `/projects`
 

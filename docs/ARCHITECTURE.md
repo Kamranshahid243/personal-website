@@ -108,12 +108,11 @@ sections, export metadata.
 
 ```
 src/app/
-├── (marketing)/         Route group: the commercial site, shared header/footer
-├── (legal)/             Route group: privacy and terms, narrow layout, noindex
-├── (dev)/design/        Design system reference. Internal tooling, noindex.
+├── (marketing)/         Public site shell — /, /projects, /blog (+ detail routes)
+├── (dev)/               Internal tooling (/design, /components), noindex
+├── (legal)/             Deferred — empty in v1
 ├── api/og/route.tsx     Dynamic Open Graph image generation
 ├── layout.tsx           Root document: fonts, providers, skip link, global JSON-LD
-├── page.tsx             Temporary placeholder home route
 ├── not-found.tsx        404
 ├── error.tsx            Route-level error boundary
 ├── global-error.tsx     Last-resort boundary for root layout failures
@@ -121,6 +120,10 @@ src/app/
 ├── robots.ts            Generated robots.txt
 └── manifest.ts          Generated web app manifest
 ```
+
+The public URL map and the target file tree under `(marketing)/` are defined in
+[`SITE-ARCHITECTURE.md`](./SITE-ARCHITECTURE.md). Do not add routes that are
+not on that list without updating that doc first.
 
 **Route groups** (`(marketing)`, `(legal)`, `(dev)`) are folders whose names
 never appear in a URL. Their entire purpose is to let sets of routes have

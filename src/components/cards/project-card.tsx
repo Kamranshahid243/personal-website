@@ -35,7 +35,7 @@ export function ProjectCard({
   className,
   showCover = true,
 }: ProjectCardProps) {
-  const href = `/work/${project.slug}` as Route;
+  const href = `/projects/${project.slug}` as Route;
   const metric = project.metrics[0];
 
   return (
