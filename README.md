@@ -71,16 +71,19 @@ src/styles/          Design tokens, base, utilities, prose
 src/types/           Shared type definitions
 ```
 
-Every folder, and the reasoning behind it, is documented in
-[`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md). The tokens, primitives and
-the rules for extending them are in
-[`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md).
+Documentation:
+
+- [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) — repository and modules
+- [`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md) — tokens and primitives
+- [`docs/SITE-ARCHITECTURE.md`](./docs/SITE-ARCHITECTURE.md) — routes, layouts,
+  metadata, images, SEO for `/`, Projects and Blog
 
 ## Next steps
 
-1. Fill in `src/config/site.ts` — every placeholder is marked.
-2. Replace the sample entries in `src/data` with real work.
-3. Compose the real pages from the components in `src/components/sections`
-   and `src/components/cards`.
-4. Add real articles to `content/blog`.
-5. Add favicons, `icon.svg` and `apple-icon.png` to `public/`.
+1. Personalise `src/config/site.ts`.
+2. Align navigation and sitemap with the three-surface IA in
+   `SITE-ARCHITECTURE.md`.
+3. Build `/projects` and `/projects/[slug]`, then blog routes, then the real
+   home page — pages not coded yet by design.
+4. Replace sample `src/data` entries and add real `content/blog` articles.
+5. Add favicons under `app/` or `public/`.

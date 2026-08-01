@@ -1,11 +1,9 @@
 # `(legal)` route group
 
-Privacy policy, terms, and anything else that is legally necessary but
-commercially irrelevant.
+Deferred for v1.
 
-Separated from `(marketing)` because these pages want a different layout: a
-narrow prose measure, no conversion furniture, and `noIndex` metadata. Keeping
-them in their own group means the marketing layout never has to branch on
-pathname to hide a call to action.
-
-Planned routes: `/privacy`, `/terms`.
+The public site is limited to `/`, `/projects`, and `/blog` (see
+[`docs/SITE-ARCHITECTURE.md`](../../../docs/SITE-ARCHITECTURE.md)). Privacy and
+terms only land here when there is a real legal obligation — at which point
+this group gets a narrow prose layout, no conversion chrome, and `noIndex`
+metadata.

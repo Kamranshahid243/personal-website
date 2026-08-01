@@ -10,6 +10,10 @@ why SEO and structured data are first-class, why case studies are typed as
 `problem / approach / outcome`, and why the design token layer exists before a
 single page does.
 
+The **public page map** (home, projects, blog — routes, layouts, metadata,
+images, SEO) is specified in [`SITE-ARCHITECTURE.md`](./SITE-ARCHITECTURE.md).
+This file remains the repository and module guide.
+
 ---
 
 ## Guiding principles
@@ -47,7 +51,7 @@ inline exception.
 ├── .github/workflows/   CI: typecheck, lint, format, build on every PR
 ├── .vscode/             Shared editor settings and extension recommendations
 ├── content/             MDX articles — the only content edited without touching code
-├── docs/                This file, DESIGN-SYSTEM.md, and decision notes
+├── docs/                ARCHITECTURE, DESIGN-SYSTEM, SITE-ARCHITECTURE
 ├── public/              Static assets served verbatim from the site root
 └── src/                 All application code
 ```
