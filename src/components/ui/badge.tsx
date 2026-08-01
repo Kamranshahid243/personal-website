@@ -4,32 +4,46 @@ import { Slot } from "radix-ui";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Badge — a state, not a label.
+ *
+ * "Available for work", "Shipped", "Draft". Never interactive, never a link.
+ * For taxonomy — a stack chip, a filter, a tag on a post — use `<Tag>`
+ * instead; the two look deliberately different so a visitor can tell at a
+ * glance whether something is clickable.
+ *
+ * Each variant pairs a status text colour with its matching surface and
+ * border from the colour tokens, so a badge can never end up with a colour
+ * combination nobody checked for contrast.
+ */
 const badgeVariants = cva(
-  "group/badge inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3!",
+  [
+    "inline-flex w-fit shrink-0 items-center justify-center",
+    "h-(--badge-h) gap-1.5 px-(--badge-px) text-(length:--badge-text)",
+    "rounded-(--badge-radius) border font-medium tracking-wide whitespace-nowrap uppercase",
+    "[&>svg]:size-3 [&>svg]:shrink-0",
+  ],
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground [a]:hover:bg-primary/80",
-        secondary:
-          "bg-secondary text-secondary-foreground [a]:hover:bg-secondary/80",
-        destructive:
-          "bg-destructive/10 text-destructive focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:focus-visible:ring-destructive/40 [a]:hover:bg-destructive/20",
-        outline:
-          "border-border text-foreground [a]:hover:bg-muted [a]:hover:text-muted-foreground",
-        ghost:
-          "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
-        link: "text-primary underline-offset-4 hover:underline",
+        neutral: "border-line bg-surface-sunken text-text-muted",
+        brand: "border-info-line bg-info-surface text-info",
+        success: "border-success-line bg-success-surface text-success",
+        warning: "border-warning-line bg-warning-surface text-warning",
+        danger: "border-danger-line bg-danger-surface text-danger",
+        /** Highest contrast. For the one badge that must be noticed. */
+        solid: "border-transparent bg-primary text-primary-foreground",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "neutral",
     },
   },
 );
 
 function Badge({
   className,
-  variant = "default",
+  variant = "neutral",
   asChild = false,
   ...props
 }: React.ComponentProps<"span"> &

@@ -1,30 +1,42 @@
 import type { Transition, Variants } from "framer-motion";
 
 /**
- * Shared motion vocabulary.
+ * Shared motion vocabulary for Framer Motion.
  *
- * Animation is a design token like any other. Centralising the curves and
- * durations here is what makes movement across the site feel like one hand
- * made it, and it keeps individual components from inventing their own
- * timings.
+ * These values mirror the CSS tokens in `src/styles/tokens/motion.css` exactly,
+ * so a JS-driven entrance and a CSS hover on the same element agree. Two motion
+ * systems with different timings is one of the more expensive kinds of
+ * inconsistency to notice and the easiest to avoid.
  *
- * House style, borrowed from the Linear/Vercel school: short, decelerating,
- * never bouncy. Motion should confirm an action, not perform.
+ * House style: short, decelerating, never bouncy. Motion should confirm an
+ * action, not perform one.
  */
 
-/** Mirrors `--ease-out-expo` in tokens.css. */
+/** Mirrors `--ease-out-expo`. */
 export const easeOutExpo = [0.16, 1, 0.3, 1] as const;
+/** Mirrors `--ease-out-quart`. */
+export const easeOutQuart = [0.25, 1, 0.5, 1] as const;
+
+/** Seconds. Mirrors the `--duration-*` tokens. */
+export const durations = {
+  instant: 0.1,
+  fast: 0.15,
+  base: 0.25,
+  slow: 0.4,
+  slower: 0.7,
+} as const;
 
 export const transitions = {
-  fast: { duration: 0.15, ease: easeOutExpo },
-  base: { duration: 0.35, ease: easeOutExpo },
-  slow: { duration: 0.6, ease: easeOutExpo },
+  fast: { duration: durations.fast, ease: easeOutQuart },
+  base: { duration: durations.base, ease: easeOutQuart },
+  slow: { duration: durations.slow, ease: easeOutExpo },
+  slower: { duration: durations.slower, ease: easeOutExpo },
 } satisfies Record<string, Transition>;
 
 /** Fade and rise. The default entrance for anything that scrolls into view. */
 export const riseVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: transitions.slow },
+  visible: { opacity: 1, y: 0, transition: transitions.slower },
 };
 
 export const fadeVariants: Variants = {
@@ -34,7 +46,7 @@ export const fadeVariants: Variants = {
 
 /**
  * Parent variant that walks its children in. Pair with `riseVariants` on each
- * child; the children inherit the `visible` state automatically.
+ * child; children inherit the `visible` state automatically.
  */
 export function staggerVariants(stagger = 0.06, delay = 0): Variants {
   return {

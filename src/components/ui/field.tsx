@@ -1,98 +1,102 @@
 "use client";
 
-import { useMemo } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
+import { Slot } from "radix-ui";
 
-import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
-function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
-  return (
-    <fieldset
-      data-slot="field-set"
-      className={cn(
-        "flex flex-col gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
-        className,
-      )}
-      {...props}
-    />
-  );
+/**
+ * Form field composition.
+ *
+ * Wiring a field up correctly means a unique id shared by the label and the
+ * control, an `aria-describedby` pointing at the description *and* the error,
+ * and an `aria-invalid` that matches what is rendered. That is four things to
+ * get right per field, and in practice one of them is always missing.
+ *
+ * `<Field>` generates the ids and shares them through context, and
+ * `<FieldControl>` injects them onto whatever control it wraps. The result is
+ * that an accessible field is the path of least effort rather than a checklist.
+ *
+ * ```tsx
+ * <Field invalid={!!errors.email}>
+ *   <FieldLabel>Email</FieldLabel>
+ *   <FieldControl>
+ *     <Input {...register("email")} />
+ *   </FieldControl>
+ *   <FieldDescription>Where the reply goes.</FieldDescription>
+ *   <FieldError>{errors.email?.message}</FieldError>
+ * </Field>
+ * ```
+ */
+
+type FieldContextValue = {
+  id: string;
+  descriptionId: string;
+  errorId: string;
+  invalid: boolean;
+  hasDescription: boolean;
+  hasError: boolean;
+  registerDescription: () => void;
+  registerError: () => void;
+};
+
+const FieldContext = React.createContext<FieldContextValue | null>(null);
+
+function useField() {
+  const context = React.useContext(FieldContext);
+  if (!context) {
+    throw new Error("Field components must be used inside a <Field>.");
+  }
+  return context;
 }
 
-function FieldLegend({
+/* -------------------------------------------------------------------------- */
+
+function Field({
   className,
-  variant = "legend",
+  invalid = false,
+  children,
   ...props
-}: React.ComponentProps<"legend"> & { variant?: "legend" | "label" }) {
+}: React.ComponentProps<"div"> & { invalid?: boolean }) {
+  const id = React.useId();
+  const [hasDescription, setHasDescription] = React.useState(false);
+  const [hasError, setHasError] = React.useState(false);
+
+  const value = React.useMemo<FieldContextValue>(
+    () => ({
+      id,
+      descriptionId: `${id}-description`,
+      errorId: `${id}-error`,
+      invalid,
+      hasDescription,
+      hasError,
+      registerDescription: () => setHasDescription(true),
+      registerError: () => setHasError(true),
+    }),
+    [id, invalid, hasDescription, hasError],
+  );
+
   return (
-    <legend
-      data-slot="field-legend"
-      data-variant={variant}
-      className={cn(
-        "mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base",
-        className,
-      )}
-      {...props}
-    />
+    <FieldContext.Provider value={value}>
+      <div
+        data-slot="field"
+        data-invalid={invalid || undefined}
+        className={cn("flex flex-col gap-(--spacing-stack-xs)", className)}
+        {...props}
+      >
+        {children}
+      </div>
+    </FieldContext.Provider>
   );
 }
 
+/** Vertical rhythm for a stack of fields. */
 function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="field-group"
-      className={cn(
-        "group/field-group @container/field-group flex w-full flex-col gap-5 data-[slot=checkbox-group]:gap-3 *:data-[slot=field-group]:gap-4",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-const fieldVariants = cva(
-  "group/field flex w-full gap-2 data-[invalid=true]:text-destructive",
-  {
-    variants: {
-      orientation: {
-        vertical: "flex-col *:w-full [&>.sr-only]:w-auto",
-        horizontal:
-          "flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
-        responsive:
-          "flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
-      },
-    },
-    defaultVariants: {
-      orientation: "vertical",
-    },
-  },
-);
-
-function Field({
-  className,
-  orientation = "vertical",
-  ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof fieldVariants>) {
-  return (
-    <div
-      role="group"
-      data-slot="field"
-      data-orientation={orientation}
-      className={cn(fieldVariants({ orientation }), className)}
-      {...props}
-    />
-  );
-}
-
-function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="field-content"
-      className={cn(
-        "group/field-content flex flex-1 flex-col gap-0.5 leading-snug",
-        className,
-      )}
+      className={cn("flex flex-col gap-(--spacing-stack-md)", className)}
       {...props}
     />
   );
@@ -102,137 +106,107 @@ function FieldLabel({
   className,
   ...props
 }: React.ComponentProps<typeof Label>) {
+  const field = useField();
+
   return (
     <Label
       data-slot="field-label"
-      className={cn(
-        "group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-data-checked:border-primary/30 has-data-checked:bg-primary/5 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border *:data-[slot=field]:p-2.5 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10",
-        "has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
-        className,
-      )}
+      htmlFor={field.id}
+      className={cn("text-body-sm text-text", className)}
       {...props}
     />
   );
 }
 
-function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
+/**
+ * Injects id and ARIA wiring onto its child control.
+ *
+ * Uses Radix's `Slot`, so it renders no element of its own — the props land
+ * directly on the `<Input>`, `<Textarea>` or custom control inside.
+ */
+function FieldControl({ children }: { children: React.ReactNode }) {
+  const field = useField();
+
+  const describedBy =
+    [
+      field.hasDescription ? field.descriptionId : null,
+      field.hasError ? field.errorId : null,
+    ]
+      .filter(Boolean)
+      .join(" ") || undefined;
+
   return (
-    <div
-      data-slot="field-label"
-      className={cn(
-        "flex w-fit items-center gap-2 text-sm font-medium group-data-[disabled=true]/field:opacity-50",
-        className,
-      )}
-      {...props}
-    />
+    <Slot.Root
+      id={field.id}
+      aria-describedby={describedBy}
+      aria-invalid={field.invalid || undefined}
+    >
+      {children}
+    </Slot.Root>
   );
 }
 
+/** Helper text. Always visible — hint text that only appears on error is a
+ *  hint nobody read in time. */
 function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
+  const field = useField();
+  const { registerDescription } = field;
+
+  React.useEffect(() => {
+    registerDescription();
+  }, [registerDescription]);
+
   return (
     <p
       data-slot="field-description"
-      className={cn(
-        "text-left text-sm leading-normal font-normal text-muted-foreground group-has-data-horizontal/field:text-balance [[data-variant=legend]+&]:-mt-1.5",
-        "last:mt-0 nth-last-2:-mt-1",
-        "[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
-        className,
-      )}
+      id={field.descriptionId}
+      className={cn("text-caption text-text-muted", className)}
       {...props}
     />
   );
 }
 
-function FieldSeparator({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"div"> & {
-  children?: React.ReactNode;
-}) {
-  return (
-    <div
-      data-slot="field-separator"
-      data-content={!!children}
-      className={cn(
-        "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
-        className,
-      )}
-      {...props}
-    >
-      <Separator className="absolute inset-0 top-1/2" />
-      {children && (
-        <span
-          className="relative mx-auto block w-fit bg-background px-2 text-muted-foreground"
-          data-slot="field-separator-content"
-        >
-          {children}
-        </span>
-      )}
-    </div>
-  );
-}
-
+/**
+ * Validation message.
+ *
+ * Renders nothing when there is no error, and announces itself politely when
+ * one appears — `role="alert"` would interrupt a screen reader mid-word while
+ * the visitor is still typing.
+ */
 function FieldError({
   className,
   children,
-  errors,
   ...props
-}: React.ComponentProps<"div"> & {
-  errors?: Array<{ message?: string } | undefined>;
-}) {
-  const content = useMemo(() => {
-    if (children) {
-      return children;
-    }
+}: React.ComponentProps<"p">) {
+  const field = useField();
+  const { registerError } = field;
+  const hasContent = Boolean(children);
 
-    if (!errors?.length) {
-      return null;
-    }
+  React.useEffect(() => {
+    if (hasContent) registerError();
+  }, [hasContent, registerError]);
 
-    const uniqueErrors = [
-      ...new Map(errors.map((error) => [error?.message, error])).values(),
-    ];
-
-    if (uniqueErrors?.length == 1) {
-      return uniqueErrors[0]?.message;
-    }
-
-    return (
-      <ul className="ml-4 flex list-disc flex-col gap-1">
-        {uniqueErrors.map(
-          (error, index) =>
-            error?.message && <li key={index}>{error.message}</li>,
-        )}
-      </ul>
-    );
-  }, [children, errors]);
-
-  if (!content) {
-    return null;
-  }
+  if (!hasContent) return null;
 
   return (
-    <div
-      role="alert"
+    <p
       data-slot="field-error"
-      className={cn("text-sm font-normal text-destructive", className)}
+      id={field.errorId}
+      aria-live="polite"
+      className={cn("text-caption text-danger", className)}
       {...props}
     >
-      {content}
-    </div>
+      {children}
+    </p>
   );
 }
 
 export {
   Field,
+  FieldGroup,
   FieldLabel,
+  FieldControl,
   FieldDescription,
   FieldError,
-  FieldGroup,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-  FieldContent,
-  FieldTitle,
+  useField,
 };

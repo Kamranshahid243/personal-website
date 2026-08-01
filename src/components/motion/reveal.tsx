@@ -37,7 +37,7 @@ export function Reveal({ children, delay = 0, ...props }: RevealProps) {
       initial="hidden"
       whileInView="visible"
       viewport={revealViewport}
-      transition={{ ...transitions.slow, delay }}
+      transition={{ ...transitions.slower, delay }}
       {...props}
     >
       {children}
