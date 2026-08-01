@@ -4,9 +4,12 @@ The source for a personal software engineering site. Not a portfolio gallery —
 its job is to convince recruiters, founders and business owners to get in
 touch.
 
-This repository currently contains the **project architecture only**. The
-toolchain, design system, content pipeline and SEO layer are in place and
-verified; the pages have not been designed yet.
+This repository currently contains the **architecture and design system only**.
+The toolchain, tokens, component primitives, content pipeline and SEO layer are
+in place and verified; the pages have not been designed yet.
+
+Run `pnpm dev` and open [`/design`](http://localhost:3000/design) to see every
+token and primitive rendered in both themes.
 
 ## Stack
 
@@ -61,12 +64,14 @@ src/data/            Typed content: projects, services, testimonials, experience
 src/hooks/           Reusable client hooks
 src/lib/             Content, MDX, SEO, validation, utilities
 src/server/          Server actions and services
-src/styles/          Design tokens, base, utilities, typography
+src/styles/          Design tokens, base, utilities, prose
 src/types/           Shared type definitions
 ```
 
 Every folder, and the reasoning behind it, is documented in
-[`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
+[`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md). The tokens, primitives and
+the rules for extending them are in
+[`docs/DESIGN-SYSTEM.md`](./docs/DESIGN-SYSTEM.md).
 
 ## Next steps
 
