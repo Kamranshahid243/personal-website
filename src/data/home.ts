@@ -15,7 +15,6 @@ import { primaryCta } from "@/config/navigation";
  */
 export const homeCopy: HomeCopy = {
   hero: {
-    eyebrow: "Software Engineer · Available for hire",
     lead: "I help product teams and founders ship fast, accessible web applications — from performance-critical surfaces to design systems that scale.",
     primaryCta: {
       label: primaryCta.title,

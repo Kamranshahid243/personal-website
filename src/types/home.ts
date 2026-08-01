@@ -34,8 +34,6 @@ export type SectionCopy = {
 /** Homepage-only copy that is not site-wide identity. */
 export type HomeCopy = {
   hero: {
-    /** Small line above the claim — usually role + availability framing. */
-    eyebrow: string;
     /** Supporting line under the site tagline. */
     lead: string;
     primaryCta: { label: string; href: string };
