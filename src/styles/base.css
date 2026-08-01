@@ -1,58 +1,92 @@
 /*
- * Element-level defaults.
+ * BASE
  *
- * Anything that should be true of every page without a class being applied
- * belongs here — and nothing else. Component styling stays in components.
+ * Element-level defaults: what should be true of every page without a class
+ * being applied, and nothing else. Component styling stays in components.
  */
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    border-color: var(--color-line);
   }
 
   html {
-    @apply font-sans antialiased;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
     /* Keeps anchor targets clear of the sticky header. */
     scroll-padding-top: 6rem;
-    /* Avoids layout shift when a page grows past the fold. */
+    /* Reserves the scrollbar so a short page and a long one do not shift. */
     scrollbar-gutter: stable;
     -webkit-tap-highlight-color: transparent;
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body);
     text-rendering: optimizeLegibility;
+    /* Never let the browser fake a weight the variable font can render. */
     font-synthesis-weight: none;
   }
 
-  /* Tabular figures in headings stop numbers from jittering in animated
-     counters and metric callouts. */
+  /* Tabular figures stop numbers jittering in animated counters and metric
+     callouts; balanced wrapping keeps a two-line headline from leaving one
+     orphaned word. */
   h1,
   h2,
   h3,
-  h4 {
-    @apply font-heading text-balance;
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
     font-variant-numeric: tabular-nums;
+    text-wrap: balance;
   }
 
   p {
-    @apply text-pretty;
+    text-wrap: pretty;
   }
 
   ::selection {
-    @apply bg-foreground text-background;
+    background-color: var(--color-text);
+    color: var(--color-text-inverse);
   }
 
-  /* A visible, high-contrast focus ring is non-negotiable for keyboard users;
-     `:focus-visible` keeps it away from mouse users. */
+  /*
+   * Global focus fallback.
+   *
+   * Components apply the `focus-ring` utility explicitly; this catches
+   * anything that does not, so no interactive element can ever ship without a
+   * visible focus indicator.
+   */
   :focus-visible {
-    @apply ring-2 ring-ring ring-offset-2 outline-none;
-    --tw-ring-offset-color: var(--background);
+    outline: var(--focus-ring-width) solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
   }
 
-  /* Respect the OS-level motion preference: animation becomes a near-instant
-     state change instead of movement. */
+  /* Disabled controls stop responding to the pointer as well as looking
+     inert — a greyed-out button that still shows a pointer cursor reads as
+     broken rather than unavailable. */
+  [disabled],
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
+
+  /* Anything mid-request dims and stops accepting clicks, driven by the same
+     `aria-busy` attribute that tells a screen reader what is happening. */
+  [aria-busy="true"] {
+    cursor: progress;
+  }
+
+  /*
+   * Respect the OS-level motion preference. Animation becomes a near-instant
+   * state change rather than movement — the content still updates, it just
+   * does not travel.
+   */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;

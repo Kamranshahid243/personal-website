@@ -1,0 +1,100 @@
+/*
+ * MOTION
+ *
+ * Motion is a token like any other. Centralising the curves and durations is
+ * what makes movement across the site feel like one hand made it — a hover
+ * that takes 150ms next to one that takes 400ms reads as broken long before
+ * anyone can say why.
+ *
+ * House style: short, decelerating, never bouncy. Motion should confirm an
+ * action, not perform one. Anything above ~600ms on an interaction makes the
+ * interface feel slower than doing nothing at all.
+ *
+ * The Framer Motion equivalents live in `src/lib/motion.ts` and mirror these
+ * exact values, so CSS transitions and JS animations agree.
+ */
+
+@theme {
+  /* --- Easing ------------------------------------------------------------
+     Nearly everything uses `out`: fast start, slow settle, which is what
+     "responsive" feels like. `in-out` is only for things that both enter and
+     leave, such as an accordion. There is no `ease-in` — starting slowly makes
+     a UI feel like it is thinking. */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* --- Named animations --------------------------------------------------
+     Available as `animate-fade-in`, `animate-rise`, and so on. */
+  --animate-fade-in: fade-in var(--duration-slow) var(--ease-out-quart) both;
+  --animate-rise: rise var(--duration-slower) var(--ease-out-expo) both;
+  --animate-shimmer: shimmer 1.8s linear infinite;
+  --animate-spin-slow: spin 1.2s linear infinite;
+  --animate-pulse-subtle: pulse-subtle 2s var(--ease-in-out-quart) infinite;
+}
+
+/*
+ * Durations.
+ *
+ * Not in `@theme` because Tailwind has no duration namespace; they are applied
+ * through the `transition-ui*` utilities in utilities.css, which is the only
+ * thing components should use.
+ */
+:root {
+  --duration-instant: 100ms;
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 700ms;
+
+  /* The property set worth transitioning on hover/focus. Excludes `all`,
+     which forces the browser to watch every property and animates layout by
+     accident. */
+  --transition-properties:
+    color, background-color, border-color, outline-color, text-decoration-color,
+    fill, stroke, opacity, box-shadow, transform, translate;
+
+  /* How far an element lifts on hover. One value, so every lift matches. */
+  --hover-lift: -2px;
+  /* How much a surface shifts toward the foreground on hover. */
+  --hover-tint: 6%;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes pulse-subtle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}

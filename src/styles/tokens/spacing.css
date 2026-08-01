@@ -1,0 +1,76 @@
+/*
+ * SPACE
+ *
+ * Spaciousness is the single most legible signal of a premium interface, and
+ * it is almost never achieved by making one thing bigger — it comes from a
+ * consistent, generous rhythm applied at every level of the hierarchy.
+ *
+ * Four levels, largest to smallest, and a component should only ever reach for
+ * the one that matches its scope:
+ *
+ *   section  space between major page sections
+ *   block    space between blocks inside a section
+ *   stack    space between elements inside a block
+ *   gutter   horizontal page margin
+ *
+ * Section and gutter are fluid, so the page breathes more on a large display
+ * instead of leaving one enormous column of white. Stack values are fixed,
+ * because the relationship between a heading and its paragraph should not
+ * change with window width.
+ *
+ * Tailwind's numeric scale (`p-4`, `gap-6`) is still available and correct for
+ * component internals. These tokens are for page composition.
+ */
+
+@theme {
+  /* --- Page rhythm -------------------------------------------------------- */
+  --spacing-section-sm: clamp(2.5rem, 1.75rem + 3vw, 4rem);
+  --spacing-section: clamp(4rem, 2.5rem + 6vw, 8rem);
+  --spacing-section-lg: clamp(6rem, 3.5rem + 9vw, 11rem);
+
+  --spacing-block: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  --spacing-gutter: clamp(1.25rem, 0.75rem + 2vw, 2rem);
+
+  /* --- Within a block ----------------------------------------------------- */
+  --spacing-stack-xs: 0.5rem;
+  --spacing-stack-sm: 0.75rem;
+  --spacing-stack-md: 1.25rem;
+  --spacing-stack-lg: 2rem;
+
+  /* --- Measure -----------------------------------------------------------
+     Named max-widths. `prose` holds the 60-75 character line length that is
+     comfortable to read; `content` is the standard section width; `wide` is
+     for full-bleed grids that would look cramped at `content`. */
+  --container-narrow: 36rem;
+  --container-prose: 42rem;
+  --container-content: 68rem;
+  --container-wide: 80rem;
+
+  /* --- Breakpoints -------------------------------------------------------
+     Tailwind's defaults, restated explicitly so the set is documented and
+     tunable in one place, plus `xs` for small phones. In rem, so the layout
+     responds to the user's font size rather than ignoring it. */
+  --breakpoint-xs: 30rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}
+
+/*
+ * Stacking order.
+ *
+ * A named ladder, because `z-50` scattered across twenty files is how a
+ * dropdown ends up behind a sticky header. Not in `@theme` — these are read
+ * through `z-(--z-sticky)`, which keeps the arbitrary numbers out of markup.
+ */
+:root {
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-overlay: 30;
+  --z-modal: 40;
+  --z-toast: 50;
+  --z-tooltip: 60;
+}

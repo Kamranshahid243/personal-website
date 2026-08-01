@@ -1,18 +1,21 @@
 /*
- * Long-form typography for MDX articles.
+ * PROSE
+ *
+ * Long-form typography for MDX articles, applied by adding `class="prose"`.
  *
  * Written by hand rather than pulling in @tailwindcss/typography: the plugin
  * ships opinions for a dozen elements this site will never use, and reading
- * comfort in an engineering blog (measure, rhythm, code blocks) is worth
- * owning directly. Applied by adding `class="prose"` to the MDX wrapper.
+ * comfort in an engineering blog is worth owning directly. Every value is a
+ * design token, so an article inherits the site's type scale rather than
+ * running a parallel one.
  */
 
 @layer components {
   .prose {
     max-width: var(--container-prose);
-    color: var(--color-foreground);
-    font-size: 1.0625rem;
-    line-height: 1.75;
+    color: var(--color-text);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-relaxed);
   }
 
   .prose > * + * {
@@ -22,27 +25,28 @@
   .prose h2,
   .prose h3,
   .prose h4 {
+    /* Clears the sticky header when an anchor link jumps here. */
     scroll-margin-block-start: 6rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--tracking-heading);
     text-wrap: balance;
   }
 
   .prose h2 {
     margin-block-start: 2.5em;
-    font-size: 1.5rem;
-    line-height: 1.3;
+    font-size: var(--text-heading-lg);
+    line-height: var(--leading-heading);
   }
 
   .prose h3 {
     margin-block-start: 2em;
-    font-size: 1.25rem;
-    line-height: 1.4;
+    font-size: var(--text-heading-md);
+    line-height: var(--leading-snug);
   }
 
   .prose h4 {
     margin-block-start: 1.75em;
-    font-size: 1.0625rem;
+    font-size: var(--text-heading-sm);
   }
 
   .prose p {
@@ -50,7 +54,7 @@
   }
 
   .prose a {
-    color: var(--color-foreground);
+    color: var(--color-text);
     text-decoration: underline;
     text-decoration-color: var(--color-line-strong);
     text-underline-offset: 3px;
@@ -62,7 +66,7 @@
   }
 
   .prose strong {
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
   }
 
   .prose ul,
@@ -79,7 +83,7 @@
   }
 
   .prose li::marker {
-    color: var(--color-muted-foreground);
+    color: var(--color-text-subtle);
   }
 
   .prose li + li {
@@ -89,7 +93,7 @@
   .prose blockquote {
     padding-inline-start: 1.25em;
     border-inline-start: 2px solid var(--color-line-strong);
-    color: var(--color-muted-foreground);
+    color: var(--color-text-muted);
     font-style: normal;
   }
 
@@ -100,24 +104,23 @@
 
   .prose img,
   .prose video {
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     border: 1px solid var(--color-line);
   }
 
   .prose figcaption {
     margin-block-start: 0.75em;
-    color: var(--color-muted-foreground);
-    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-caption);
     text-align: center;
   }
 
-  /* Inline code. Block code is styled below, under the rehype-pretty-code
-     output, and must not inherit these. */
+  /* Inline code only. Block code is styled below and must not inherit this. */
   .prose :not(pre) > code {
     padding: 0.15em 0.4em;
     border: 1px solid var(--color-line);
     border-radius: var(--radius-sm);
-    background-color: var(--color-muted);
+    background-color: var(--color-surface-sunken);
     font-family: var(--font-mono);
     font-size: 0.875em;
   }
@@ -126,7 +129,7 @@
     display: block;
     width: 100%;
     overflow-x: auto;
-    font-size: 0.9375rem;
+    font-size: var(--text-body-sm);
   }
 
   .prose th,
@@ -137,7 +140,7 @@
   }
 
   .prose th {
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
   }
 }
 
@@ -145,17 +148,17 @@
  * Syntax highlighting.
  *
  * rehype-pretty-code compiles both a light and a dark Shiki theme into inline
- * CSS variables at build time. Swapping which variable is read means theme
- * changes are instant with zero client-side highlighting cost.
+ * CSS variables at build time. Choosing which variable to read means theme
+ * changes are instant and highlighting costs nothing at runtime.
  */
 @layer components {
   .prose pre {
     overflow-x: auto;
     padding-block: 1rem;
     border: 1px solid var(--color-line);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     background-color: var(--shiki-light-bg);
-    font-size: 0.875rem;
+    font-size: var(--text-body-sm);
     line-height: 1.7;
     tab-size: 2;
   }
@@ -185,10 +188,10 @@
   .prose code > .line--highlighted {
     background-color: color-mix(
       in oklch,
-      var(--color-accent-500) 12%,
+      var(--color-brand-500) 12%,
       transparent
     );
-    box-shadow: inset 2px 0 0 var(--color-accent-500);
+    box-shadow: inset 2px 0 0 var(--color-brand-500);
   }
 
   .prose code .word--highlighted {
@@ -196,7 +199,7 @@
     border-radius: var(--radius-sm);
     background-color: color-mix(
       in oklch,
-      var(--color-accent-500) 16%,
+      var(--color-brand-500) 16%,
       transparent
     );
   }
@@ -207,12 +210,12 @@
     padding: 0.5rem 1rem;
     border: 1px solid var(--color-line);
     border-bottom: none;
-    border-start-start-radius: var(--radius-lg);
-    border-start-end-radius: var(--radius-lg);
-    background-color: var(--color-muted);
-    color: var(--color-muted-foreground);
+    border-start-start-radius: var(--radius-xl);
+    border-start-end-radius: var(--radius-xl);
+    background-color: var(--color-surface-sunken);
+    color: var(--color-text-muted);
     font-family: var(--font-mono);
-    font-size: 0.8125rem;
+    font-size: var(--text-caption);
     text-align: start;
   }
 
