@@ -31,13 +31,25 @@ export type SectionCopy = {
   subheading?: string;
 };
 
+export type HeroCta = {
+  label: string;
+  href: string;
+};
+
 /** Homepage-only copy that is not site-wide identity. */
 export type HomeCopy = {
   hero: {
-    /** Supporting line under the site tagline. */
-    lead: string;
-    primaryCta: { label: string; href: string };
-    secondaryCta: { label: string; href: string };
+    /** One-line claim under the name — the reason to keep reading. */
+    valueProposition: string;
+    /** Two sentences max for recruiters and clients. */
+    introduction: string;
+    /** Booking / hiring window, distinct from the availability badge. */
+    status: string;
+    /** Quiet stack strip under the hero actions. */
+    techHighlights: string[];
+    primaryCta: HeroCta;
+    secondaryCta: HeroCta;
+    resumeCta: HeroCta;
   };
   about: SectionCopy & {
     body: string[];

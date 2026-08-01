@@ -31,6 +31,7 @@
   --animate-shimmer: shimmer 1.8s linear infinite;
   --animate-spin-slow: spin 1.2s linear infinite;
   --animate-pulse-subtle: pulse-subtle 2s var(--ease-in-out-quart) infinite;
+  --animate-drift: drift 18s var(--ease-in-out-quart) infinite alternate;
 }
 
 /*
@@ -96,5 +97,15 @@
   }
   50% {
     opacity: 0.55;
+  }
+}
+
+/* Slow atmospheric drift for hero glows — confirm presence, never distract. */
+@keyframes drift {
+  from {
+    transform: translate3d(-2%, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3%, 4%, 0) scale(1.06);
   }
 }

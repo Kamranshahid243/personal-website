@@ -6,7 +6,7 @@ type AnimatedBackgroundProps = {
   /**
    * Visual treatment.
    * - `dots` — faint grid, the default for heroes
-   * - `glow` — soft brand wash behind content
+   * - `glow` — soft brand wash behind content (premium SaaS atmosphere)
    * - `grid` — larger engineering-style grid
    */
   variant?: "dots" | "glow" | "grid";
@@ -16,10 +16,9 @@ type AnimatedBackgroundProps = {
 /**
  * Decorative atmosphere behind a section.
  *
- * CSS only. The slow drift on `glow` is a single transform animation that
- * stops under prefers-reduced-motion (handled globally in base.css). No
- * canvas, no WebGL, no mouse-tracking — those cost more than they return on a
- * marketing site, and they fight the "fast" requirement.
+ * CSS only. The slow drift on `glow` is a transform animation that stops under
+ * prefers-reduced-motion (handled globally in base.css). No canvas, no WebGL,
+ * no mouse-tracking — those cost more than they return on a marketing site.
  *
  * Positioned absolute and pointer-events-none so it never intercepts clicks
  * or affect layout. The parent must be `relative` (or another positioning
@@ -60,13 +59,27 @@ export function AnimatedBackground({
       {variant === "glow" ? (
         <>
           <div
-            className="absolute top-[-20%] left-1/2 size-[min(80vw,40rem)] -translate-x-1/2 animate-pulse-subtle rounded-full opacity-40 blur-3xl"
+            className="absolute top-[-25%] left-[-10%] size-[min(70vw,36rem)] animate-drift rounded-full opacity-50 blur-3xl"
             style={{
               background:
-                "radial-gradient(circle, color-mix(in oklch, var(--color-brand-400) 35%, transparent), transparent 70%)",
+                "radial-gradient(circle, color-mix(in oklch, var(--color-brand-400) 40%, transparent), transparent 70%)",
             }}
           />
-          <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-40" />
+          <div
+            className="absolute right-[-15%] bottom-[-30%] size-[min(65vw,32rem)] animate-drift rounded-full opacity-35 blur-3xl [animation-delay:-8s]"
+            style={{
+              background:
+                "radial-gradient(circle, color-mix(in oklch, var(--color-brand-600) 32%, transparent), transparent 72%)",
+            }}
+          />
+          <div
+            className="absolute top-[35%] left-[40%] size-[min(40vw,18rem)] animate-pulse-subtle rounded-full opacity-25 blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, color-mix(in oklch, var(--color-brand-300) 30%, transparent), transparent 70%)",
+            }}
+          />
+          <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-35" />
         </>
       ) : null}
     </div>

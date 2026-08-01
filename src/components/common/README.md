@@ -15,6 +15,7 @@ system primitives in `components/ui`:
 | `timeline`            | CSS-only vertical rail                         |
 | `code-window`         | Editor chrome around a snippet                 |
 | `animated-background` | CSS-only dots / grid / glow atmospheres        |
+| `portrait`            | Hero headshot or initials placeholder          |
 
 The line against `components/ui` matters: `ui` is the design system and knows
 nothing about this site. Anything here is free to import from `@/config`,
