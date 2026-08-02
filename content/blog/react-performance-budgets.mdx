@@ -1,0 +1,35 @@
+---
+title: "React performance budgets that teams actually keep"
+description: "Practical budgets for JS weight, interaction delay, and render cost — plus the CI hooks that stop regressions from becoming culture."
+publishedAt: "2026-02-04"
+category: "Performance"
+tags: ["React", "Performance", "Frontend"]
+draft: false
+featured: false
+---
+
+Performance advice dies in slide decks. Budgets survive when they are small,
+owned, and enforced where code merges.
+
+## Pick budgets that map to money or trust
+
+- **LCP** on the marketing and product entry routes
+- **INP** on the flows people click repeatedly
+- **JS weight** on the client bundles that ship to every visitor
+
+If a metric cannot be tied to a user outcome, it will be negotiated away.
+
+## Measure in CI and in the field
+
+Lab scores catch obvious regressions. RUM tells you whether a mid-tier Android
+device on LTE still feels the product you designed on a MacBook.
+
+## Attack the critical path, not the average component
+
+Profile the route. Delete or defer the work on the first interaction. Memo
+theatre after the fact rarely moves the needle.
+
+## Make the budget visible
+
+A failing check with a clear owner beats a dashboard nobody opens. Pair the
+number with the PR that broke it.

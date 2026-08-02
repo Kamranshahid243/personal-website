@@ -1,5 +1,3 @@
-import Link from "next/link";
-import type { Route } from "next";
 import { ArrowUpRight } from "lucide-react";
 
 import { Icon } from "@/components/ui/icon";
@@ -12,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Text } from "@/components/ui/typography";
+import { siteConfig } from "@/config/site";
 import { getIcon } from "@/lib/icons";
 import type { Service } from "@/types/content";
 import { cn } from "@/lib/utils";
@@ -19,44 +18,27 @@ import { cn } from "@/lib/utils";
 type ServiceCardProps = {
   service: Service;
   className?: string;
-  /**
-   * Where the card navigates. Omit (or pass null) for a static card — used on
-   * the homepage while a dedicated services route is out of scope.
-   */
-  href?: string | null;
 };
 
 /**
- * Packaged freelance offer.
- *
- * Concrete scope over vague capability: the title and deliverables let a
- * business owner recognise their problem before they write the email.
+ * Packaged freelance offer with a direct inquire CTA.
  */
-export function ServiceCard({
-  service,
-  className,
-  href = null,
-}: ServiceCardProps) {
+export function ServiceCard({ service, className }: ServiceCardProps) {
   const IconComponent = getIcon(service.icon);
-  const linked = Boolean(href);
+  const inquireHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
+    `Inquiry: ${service.title}`,
+  )}`;
 
   return (
-    <Card interactive={linked} className={cn("h-full", className)}>
+    <Card interactive className={cn("h-full", className)}>
       <CardHeader>
         <div className="mb-1 flex size-10 items-center justify-center rounded-(--radius-lg) bg-surface-sunken text-text">
           <Icon icon={IconComponent} size="md" tone="muted" />
         </div>
-        <CardTitle>
-          {linked && href ? (
-            <Link
-              href={href as Route}
-              className="link-overlay rounded-sm focus-ring"
-            >
-              {service.title}
-            </Link>
-          ) : (
-            service.title
-          )}
+        <CardTitle as="h2">
+          <a href={inquireHref} className="link-overlay rounded-sm focus-ring">
+            {service.title}
+          </a>
         </CardTitle>
         <CardDescription>{service.description}</CardDescription>
       </CardHeader>
@@ -80,7 +62,7 @@ export function ServiceCard({
         </CardContent>
       ) : null}
 
-      <CardFooter className="justify-between">
+      <CardFooter className="relative z-10 justify-between">
         {service.startingAt ? (
           <Text size="sm" weight="medium">
             {service.startingAt}
@@ -88,12 +70,13 @@ export function ServiceCard({
         ) : (
           <span />
         )}
-        {linked ? (
-          <span className="inline-flex items-center gap-1 text-body-sm font-medium text-text-muted">
-            Learn more
-            <ArrowUpRight className="size-3.5" aria-hidden />
-          </span>
-        ) : null}
+        <a
+          href={inquireHref}
+          className="inline-flex items-center gap-1 text-body-sm font-medium text-text-muted transition-ui hover:text-text"
+        >
+          Inquire
+          <ArrowUpRight className="size-3.5" aria-hidden />
+        </a>
       </CardFooter>
     </Card>
   );

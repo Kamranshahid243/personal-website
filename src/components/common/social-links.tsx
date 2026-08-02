@@ -8,6 +8,7 @@ import {
 } from "@/components/common/social-icons";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { isUsableHref } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
 type SocialLink = {
@@ -28,7 +29,7 @@ function getLinks(): SocialLink[] {
     },
   ];
 
-  return links.filter((link) => Boolean(link.href));
+  return links.filter((link) => isUsableHref(link.href));
 }
 
 type SocialLinksProps = {
@@ -40,9 +41,8 @@ type SocialLinksProps = {
 /**
  * Social and contact links, drawn from `siteConfig`.
  *
- * One component so the header, the footer and the contact page never disagree
- * about which profiles exist. Empty hrefs are filtered out, so clearing a
- * handle in config is enough to hide it everywhere.
+ * Empty or placeholder hrefs are filtered out so the template never ships
+ * fake `/username` profiles.
  */
 export function SocialLinks({
   variant = "icon",
@@ -50,6 +50,8 @@ export function SocialLinks({
   ...props
 }: SocialLinksProps) {
   const links = getLinks();
+
+  if (links.length === 0) return null;
 
   return (
     <ul

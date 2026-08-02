@@ -8,6 +8,7 @@ import matter from "gray-matter";
 import readingTime from "reading-time";
 
 import { postFrontmatterSchema } from "@/lib/content/schema";
+import type { BlogCategory } from "@/lib/content/schema";
 import type { Post, PostSummary } from "@/types/blog";
 
 /**
@@ -26,6 +27,9 @@ import type { Post, PostSummary } from "@/types/blog";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "blog");
 const MDX_EXTENSION = ".mdx";
+
+/** Page size for the writing index. */
+export const POSTS_PER_PAGE = 4;
 
 async function listSlugs(): Promise<string[]> {
   try {
@@ -73,7 +77,7 @@ async function readPost(slug: string): Promise<Post | null> {
   };
 }
 
-/** Every published post, newest first. Drafts are excluded in production. */
+/** Every published post, featured first then newest. Drafts excluded in prod. */
 export const getAllPosts = cache(async (): Promise<PostSummary[]> => {
   const slugs = await listSlugs();
   const posts = await Promise.all(slugs.map(readPost));
@@ -82,7 +86,10 @@ export const getAllPosts = cache(async (): Promise<PostSummary[]> => {
     .filter((post): post is Post => post !== null)
     .filter((post) => !post.draft || process.env.NODE_ENV === "development")
     .map(({ content: _content, ...summary }) => summary)
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+    .sort((a, b) => {
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      return b.publishedAt.localeCompare(a.publishedAt);
+    });
 });
 
 /** A single post including its raw MDX body. `null` when the slug is unknown. */
@@ -113,3 +120,126 @@ export const getAllTags = cache(
       .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
   },
 );
+
+/** Category counts for the writing index filter. */
+export const getAllCategories = cache(
+  async (): Promise<{ category: BlogCategory; count: number }[]> => {
+    const posts = await getAllPosts();
+    const counts = new Map<BlogCategory, number>();
+
+    for (const post of posts) {
+      counts.set(post.category, (counts.get(post.category) ?? 0) + 1);
+    }
+
+    return [...counts.entries()]
+      .map(([category, count]) => ({ category, count }))
+      .sort((a, b) => b.count - a.count || a.category.localeCompare(b.category));
+  },
+);
+
+export type PostFilters = {
+  query?: string;
+  tag?: string;
+  category?: string;
+};
+
+/** Filter the index by search text, tag, and/or category. */
+export function filterPosts(
+  posts: readonly PostSummary[],
+  filters: PostFilters,
+): PostSummary[] {
+  const query = filters.query?.trim().toLowerCase() ?? "";
+  const tag = filters.tag?.trim();
+  const category = filters.category?.trim();
+
+  return posts.filter((post) => {
+    if (category && post.category !== category) return false;
+    if (tag && !post.tags.includes(tag)) return false;
+    if (!query) return true;
+
+    const haystack = [
+      post.title,
+      post.description,
+      post.category,
+      ...post.tags,
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    return haystack.includes(query);
+  });
+}
+
+export type PaginatedPosts = {
+  posts: PostSummary[];
+  page: number;
+  pageCount: number;
+  total: number;
+};
+
+/** Slice a filtered list into a page for the writing index. */
+export function paginatePosts(
+  posts: readonly PostSummary[],
+  page = 1,
+  pageSize = POSTS_PER_PAGE,
+): PaginatedPosts {
+  const total = posts.length;
+  const pageCount = Math.max(1, Math.ceil(total / pageSize));
+  const safePage = Math.min(Math.max(1, page), pageCount);
+  const start = (safePage - 1) * pageSize;
+
+  return {
+    posts: posts.slice(start, start + pageSize),
+    page: safePage,
+    pageCount,
+    total,
+  };
+}
+
+/** Related articles: shared tags first, then same category, then recent. */
+export async function getRelatedPosts(
+  post: Pick<PostSummary, "slug" | "tags" | "category">,
+  limit = 2,
+): Promise<PostSummary[]> {
+  const posts = await getAllPosts();
+
+  return posts
+    .filter((entry) => entry.slug !== post.slug)
+    .map((entry) => {
+      const tagOverlap = entry.tags.filter((tag) =>
+        post.tags.includes(tag),
+      ).length;
+      const categoryBonus = entry.category === post.category ? 2 : 0;
+      return { entry, score: tagOverlap * 3 + categoryBonus };
+    })
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return b.entry.publishedAt.localeCompare(a.entry.publishedAt);
+    })
+    .slice(0, limit)
+    .map(({ entry }) => entry);
+}
+
+/**
+ * Adjacent posts in chronological order (newest → oldest listing).
+ * `newer` is the previous item in that list; `older` is the next.
+ */
+export async function getAdjacentPosts(slug: string): Promise<{
+  newer: PostSummary | null;
+  older: PostSummary | null;
+}> {
+  const posts = await getAllPosts();
+  const chronological = [...posts].sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt),
+  );
+  const index = chronological.findIndex((post) => post.slug === slug);
+
+  if (index === -1) {
+    return { newer: null, older: null };
+  }
+
+  return {
+    newer: chronological[index - 1] ?? null,
+    older: chronological[index + 1] ?? null,
+  };
+}

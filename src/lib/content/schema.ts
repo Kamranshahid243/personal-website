@@ -1,6 +1,21 @@
 import { z } from "zod";
 
 /**
+ * Curated blog categories. Kept short so the writing index stays scannable.
+ */
+export const BLOG_CATEGORIES = [
+  "Architecture",
+  "Performance",
+  "Frontend",
+  "Backend",
+  "DevOps",
+  "Career",
+  "Meta",
+] as const;
+
+export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
+
+/**
  * Frontmatter contract for MDX articles.
  *
  * Validating at read time means a typo in a date or a missing description
@@ -15,10 +30,11 @@ export const postFrontmatterSchema = z.object({
   /** ISO date, e.g. 2026-01-31. */
   publishedAt: z.iso.date(),
   updatedAt: z.iso.date().optional(),
+  category: z.enum(BLOG_CATEGORIES),
   tags: z.array(z.string()).default([]),
   /** Hidden from listings and excluded from the sitemap, but reachable by URL. */
   draft: z.boolean().default(false),
-  /** Pins a post to the top of the writing index. */
+  /** Pins a post above chronological peers on the writing index. */
   featured: z.boolean().default(false),
   image: z.string().optional(),
 });

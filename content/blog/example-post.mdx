@@ -1,27 +1,37 @@
 ---
-title: "Example post"
-description: "A reference article showing every frontmatter field and the MDX features the pipeline supports. Delete this once real writing exists."
+title: "Authoring guide: MDX features this blog supports"
+description: "A reference article showing every frontmatter field and the MDX features the pipeline supports — headings, GFM, and Shiki-highlighted code."
 publishedAt: "2026-01-01"
-tags: ["meta"]
+category: "Meta"
+tags: ["MDX", "Writing"]
 draft: false
 featured: false
 ---
 
-This file documents the authoring contract. It is marked `draft: true`, so it
-appears in development and is excluded from production builds, the writing
-index and the sitemap.
+This file documents the authoring contract for `content/blog`. Keep it around
+as a living checklist, or delete it once your real writing covers the same
+ground.
 
 ## Frontmatter
 
 Validated by `postFrontmatterSchema` in `src/lib/content/schema.ts` when the
-file is read. A missing `description` or a malformed `publishedAt` fails the
-build and names this file, rather than shipping an empty `<meta>` tag.
+file is read. A missing `description`, `category`, or a malformed `publishedAt`
+fails the build and names this file, rather than shipping an empty `<meta>` tag.
+
+Required fields:
+
+- `title`
+- `description`
+- `publishedAt`
+- `category`
+
+Optional fields: `updatedAt`, `tags`, `draft`, `featured`, `image`.
 
 ## What the pipeline gives you
 
 GitHub-flavoured markdown is enabled, so tables, ~~strikethrough~~ and task
 lists all work. Headings get `id` attributes and become anchor links
-automatically.
+automatically — the article table of contents uses the same slugs.
 
 Code fences are highlighted at build time by Shiki, in both themes at once:
 

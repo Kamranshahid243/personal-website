@@ -20,8 +20,7 @@ export const homeCopy: HomeCopy = {
       "I help founders and hiring teams ship web products that convert, stay fast, and hold up in production.",
     introduction:
       "Senior ownership for revenue-critical surfaces, design systems, and MVPs — clear scope, weekly demos, and outcomes you can measure. Not a ticket-taker: a partner who will push back on the wrong work.",
-    status:
-      "Open to full-time roles · Booking select freelance engagements this quarter",
+    status: "Open to full-time roles and select freelance engagements",
     techHighlights: ["TypeScript", "Next.js", "React", "Node.js", "PostgreSQL"],
     primaryCta: {
       label: primaryCta.title,
@@ -162,7 +161,7 @@ export const techStack: TechCategory[] = [
   },
   {
     title: "Frontend",
-    items: ["React", "Next.js", "Tailwind CSS", "Framer Motion"],
+    items: ["React", "Next.js", "Tailwind CSS", "Radix UI"],
   },
   {
     title: "Backend & data",

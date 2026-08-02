@@ -17,7 +17,6 @@ export const experience: Experience[] = [
       "Cut median LCP across the marketing surface by 48%.",
     ],
     stack: ["TypeScript", "Next.js", "PostgreSQL", "AWS"],
-    url: "https://example.com",
   },
   {
     company: "Northline",

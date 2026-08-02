@@ -1,17 +1,18 @@
 import Link from "next/link";
 import type { Route } from "next";
-import { ArrowUpRight, FileDown, Mail } from "lucide-react";
+import { ArrowUpRight, FileDown } from "lucide-react";
 
 import { AnimatedBackground } from "@/components/common/animated-background";
 import { AvailabilityBadge } from "@/components/common/availability-badge";
 import { Portrait } from "@/components/common/portrait";
-import { GitHubIcon, LinkedInIcon } from "@/components/common/social-icons";
+import { SocialLinks } from "@/components/common/social-links";
 import { TechStack } from "@/components/common/tech-stack";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { Display, Heading, Lead, Text } from "@/components/ui/typography";
 import { siteConfig } from "@/config/site";
 import { homeCopy } from "@/data/home";
+import { publicAssetExists } from "@/lib/public-asset";
 import { cn } from "@/lib/utils";
 
 export type HeroSectionProps = {
@@ -27,16 +28,15 @@ function isExternalHref(href: string): boolean {
 }
 
 /**
- * Homepage hero — credibility first.
+ * Homepage hero — one clear ask.
  *
- * Brand (name) leads at display scale, then title, value proposition,
- * introduction, and a clear ask. The portrait is a full-bleed visual plane on
- * large screens and leads the stack on mobile. Motion stays CSS-only and off
- * the LCP path for primary copy.
+ * Brand leads, then the claim and a single primary CTA. Secondary work link
+ * and optional résumé stay subordinate. Socials use the shared component so
+ * placeholder profiles never render.
  */
 export function HeroSection({ className }: HeroSectionProps) {
   const { hero } = homeCopy;
-  const emailHref = `mailto:${siteConfig.email}`;
+  const showResume = publicAssetExists(siteConfig.links.resume);
 
   return (
     <header
@@ -98,56 +98,25 @@ export function HeroSection({ className }: HeroSectionProps) {
                   )}
                 </Button>
 
-                <Button asChild size="lg" variant="ghost">
-                  <a
-                    href={hero.resumeCta.href}
-                    download
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FileDown />
-                    {hero.resumeCta.label}
-                  </a>
-                </Button>
+                {showResume ? (
+                  <Button asChild size="lg" variant="ghost">
+                    <a
+                      href={hero.resumeCta.href}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FileDown />
+                      {hero.resumeCta.label}
+                    </a>
+                  </Button>
+                ) : null}
               </div>
 
-              <ul
-                className="flex reveal-on-load flex-wrap items-center gap-2"
+              <SocialLinks
+                className="reveal-on-load"
                 aria-label="Profiles and contact"
-              >
-                <li>
-                  <Button asChild variant="secondary" size="md">
-                    <a
-                      href={siteConfig.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <GitHubIcon className="size-(--icon-sm)" />
-                      GitHub
-                    </a>
-                  </Button>
-                </li>
-                <li>
-                  <Button asChild variant="secondary" size="md">
-                    <a
-                      href={siteConfig.links.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <LinkedInIcon className="size-(--icon-sm)" />
-                      LinkedIn
-                    </a>
-                  </Button>
-                </li>
-                <li>
-                  <Button asChild variant="secondary" size="md">
-                    <a href={emailHref}>
-                      <Mail className="size-(--icon-sm)" />
-                      Email
-                    </a>
-                  </Button>
-                </li>
-              </ul>
+              />
             </div>
           </div>
 
@@ -161,7 +130,7 @@ export function HeroSection({ className }: HeroSectionProps) {
             <Text
               as="p"
               size="caption"
-              tone="subtle"
+              tone="muted"
               weight="medium"
               className="shrink-0 font-mono tracking-[0.14em] uppercase"
             >

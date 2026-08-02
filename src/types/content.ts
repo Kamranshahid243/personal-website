@@ -12,35 +12,69 @@ export type Link = {
   href: string;
 };
 
+/** Curated taxonomy for the projects index filters. */
+export const PROJECT_CATEGORIES = [
+  "Performance",
+  "Product",
+  "Design System",
+  "Platform",
+  "Developer Tools",
+] as const;
+
+export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
+
+export type ProjectScreenshot = {
+  /** Optional photo under `/public`. Decorative plate renders when absent. */
+  src?: string;
+  alt: string;
+  /** Shown under the figure; defaults to `alt` when omitted. */
+  caption?: string;
+};
+
 /**
- * A case study. Deliberately outcome-shaped rather than screenshot-shaped:
- * `problem` / `approach` / `outcome` is the structure that persuades a founder,
- * and `metrics` is what a recruiter skims for.
+ * A case study. The index card leads with problem and stack; the detail route
+ * expands into a fixed engagement narrative so every project reads as a
+ * professional write-up rather than a portfolio tile.
  */
 export type Project = {
   slug: string;
   title: string;
-  /** One sentence, shown on the card. */
+  /** One sentence, shown on the card and as the meta description fallback. */
   summary: string;
+  category: ProjectCategory;
   /** The client, employer, or "Personal project". */
   client: string;
   year: number;
   role: string;
+  /** Short problem statement shown on the card. */
   problem: string;
   approach: string;
   outcome: string;
+  /** Opening narrative on the case-study page. */
+  overview: string;
+  businessProblem: string;
+  goals: string[];
+  /** What was learned before building — users, constraints, diagnostics. */
+  research: string;
+  roleSummary: string;
+  solution: string;
+  architecture: string;
+  challenges: string[];
+  results: string;
+  lessonsLearned: string[];
   /** Quantified results, e.g. `{ label: "LCP", value: "-62%" }`. */
   metrics: { label: string; value: string }[];
   stack: string[];
   links: {
     live?: string;
     repository?: string;
-    caseStudy?: string;
   };
-  cover?: {
-    src: string;
+  cover: {
+    /** Optional photo under `/public`. Decorative cover renders when absent. */
+    src?: string;
     alt: string;
   };
+  screenshots?: ProjectScreenshot[];
   /** Surfaces on the home page. */
   featured: boolean;
 };

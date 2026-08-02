@@ -8,15 +8,19 @@ import type { Graph } from "schema-dts";
  * crawlers, and it has no execution cost, so deferring it would only make it
  * less reliable.
  *
- * `JSON.stringify` output is inserted as-is. The input is always
- * developer-authored data from `src/lib/seo/json-ld.ts`, never user input; if
- * that ever changes, the `<` characters must be escaped first.
+ * Serialised JSON escapes `<` so a content string cannot prematurely close the
+ * script tag even if a future CMS source is less trusted than today's data.
  */
 export function JsonLd({ graph }: { graph: Graph }) {
+  const json = JSON.stringify(graph)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026");
+
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+      dangerouslySetInnerHTML={{ __html: json }}
     />
   );
 }

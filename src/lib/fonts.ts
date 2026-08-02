@@ -13,4 +13,13 @@ import { GeistSans } from "geist/font/sans";
  * Swapping in a different face is a change to this file plus that token block,
  * and nothing else.
  */
-export const fontVariables = [GeistSans.variable, GeistMono.variable].join(" ");
+export const fontVariables = [
+  GeistSans.variable,
+  GeistMono.variable,
+].join(" ");
+
+/** Expose the resolved family names for edge OG routes that cannot use CSS vars. */
+export const fontFamilies = {
+  sans: GeistSans.style.fontFamily,
+  mono: GeistMono.style.fontFamily,
+} as const;

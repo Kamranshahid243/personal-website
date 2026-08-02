@@ -1,0 +1,32 @@
+---
+title: "Preview environments that match production closely enough"
+description: "How to design PR previews, secrets, and teardown so review feels real — without turning your cloud bill into a second product."
+publishedAt: "2026-01-18"
+category: "DevOps"
+tags: ["CI", "DevOps", "DX"]
+draft: false
+featured: false
+---
+
+A preview that lies is worse than no preview. Reviewers approve fiction, and
+production still surprises you on Friday.
+
+## Same image, different config
+
+Build once. Promote the artifact. Inject environment-specific config at deploy
+time so “works in preview” means something about the bits you will ship.
+
+## Time-to-live is a feature
+
+Idle previews should expire. Orphaned namespaces are how side projects eat the
+infrastructure budget.
+
+## Seed just enough data
+
+Reviewers need representative records, not a full production dump. Synthetic
+fixtures with realistic shapes beat anonymisation theatre.
+
+## Link failures to traces
+
+When a preview smoke test fails, the notification should open the failing span
+or log line — not a generic “job failed” toast.

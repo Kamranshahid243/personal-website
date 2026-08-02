@@ -38,7 +38,7 @@ export function ServicesSection({ services, className }: ServicesSectionProps) {
               className={cn("h-full reveal-on-scroll")}
               style={{ animationDelay: `${index * 60}ms` }}
             >
-              <ServiceCard service={service} href={null} className="h-full" />
+              <ServiceCard service={service} className="h-full" />
             </li>
           ))}
         </ul>

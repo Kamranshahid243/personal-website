@@ -1,0 +1,43 @@
+---
+title: "Typing API boundaries so frontend and backend stay honest"
+description: "How I keep request and response contracts shared, versioned, and painful to violate — without drowning the codebase in generics."
+publishedAt: "2026-02-20"
+category: "Backend"
+tags: ["TypeScript", "API", "Architecture"]
+draft: false
+featured: true
+---
+
+The fastest way to ship a bug across the stack is a hand-written TypeScript
+type that drifted from the real payload. This note is the contract habit I use
+on product teams.
+
+## Put the schema at the edge
+
+Validate at the boundary — route handlers, Server Actions, webhooks — with a
+single schema the UI can import for forms. Zod (or equivalent) is the source of
+truth; inferred types are the convenience layer.
+
+```ts title="lib/schemas/checkout.ts"
+export const checkoutInputSchema = z.object({
+  cartId: z.string().uuid(),
+  promoCode: z.string().trim().min(1).optional(),
+});
+
+export type CheckoutInput = z.infer<typeof checkoutInputSchema>;
+```
+
+## Prefer result types over thrown strings
+
+Callers should branch on success and failure without parsing error messages.
+A small `Result<T, E>` or discriminated union keeps UI states exhaustive.
+
+## Version breaking changes deliberately
+
+When a field renames, ship a compatibility window or a migration note — do not
+silently accept both forever. Silent dual support becomes permanent debt.
+
+## Test the contract, not the framework
+
+A handful of fixture-driven tests against the schema catch more production
+surprises than another layer of mocks around the HTTP client.

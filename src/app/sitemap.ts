@@ -9,25 +9,39 @@ import { getAllPosts } from "@/lib/content/blog";
  * Drafts are filtered out by `getAllPosts` in production.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticRoutes: {
-    path: string;
-    changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
-    priority: number;
-  }[] = [
-    { path: "/", changeFrequency: "monthly", priority: 1 },
-    { path: "/projects", changeFrequency: "monthly", priority: 0.9 },
-    { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
-  ];
-
   const posts = await getAllPosts();
+  const newestPostDate = posts[0]
+    ? new Date(posts[0].updatedAt ?? posts[0].publishedAt)
+    : undefined;
+  const newestProjectYear = projects.reduce(
+    (max, project) => Math.max(max, project.year),
+    2024,
+  );
+  const newestProjectDate = new Date(`${newestProjectYear}-01-01T00:00:00.000Z`);
+  const siteLastModified =
+    newestPostDate && newestPostDate > newestProjectDate
+      ? newestPostDate
+      : newestProjectDate;
 
   return [
-    ...staticRoutes.map((route) => ({
-      url: `${siteConfig.url}${route.path}`,
-      lastModified: new Date(),
-      changeFrequency: route.changeFrequency,
-      priority: route.priority,
-    })),
+    {
+      url: `${siteConfig.url}/`,
+      lastModified: siteLastModified,
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+    {
+      url: `${siteConfig.url}/projects`,
+      lastModified: newestProjectDate,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteConfig.url}/blog`,
+      lastModified: newestPostDate ?? siteLastModified,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
     ...projects.map((project) => ({
       url: `${siteConfig.url}/projects/${project.slug}`,
       lastModified: new Date(`${project.year}-01-01T00:00:00.000Z`),
@@ -37,8 +51,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...posts.map((post) => ({
       url: `${siteConfig.url}/blog/${post.slug}`,
       lastModified: new Date(post.updatedAt ?? post.publishedAt),
-      changeFrequency: "yearly" as const,
-      priority: 0.6,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
     })),
   ];
 }

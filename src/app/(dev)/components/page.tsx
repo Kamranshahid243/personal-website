@@ -52,6 +52,7 @@ const samplePost: PostSummary = {
   description:
     "A reference article showing every frontmatter field the pipeline supports.",
   publishedAt: "2026-01-01",
+  category: "Meta",
   tags: ["meta", "architecture"],
   draft: true,
   featured: false,

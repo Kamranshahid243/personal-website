@@ -8,6 +8,7 @@ import { env } from "@/env";
  * generator. Changing a handle should never mean grepping the codebase.
  *
  * TODO(personalise): replace every placeholder below before the first deploy.
+ * Leave social URLs empty until they are real — empty values are hidden.
  */
 export const siteConfig = {
   name: "Your Name",
@@ -25,13 +26,16 @@ export const siteConfig = {
   /** IANA zone, used to render availability and response times honestly. */
   timezone: "UTC",
   email: "hello@example.com",
-  /** Falls back to a static file; the /api/og route generates per-page images. */
-  ogImage: "/opengraph-image.png",
   /**
-   * Headshot for the homepage hero. Leave empty to show the initials
-   * placeholder; drop a file at this path when you have a real portrait.
+   * Default share image. File-based `app/opengraph-image.tsx` and `/api/og`
+   * generate branded cards; this path is the static fallback URL for tooling.
    */
-  portrait: "/images/portrait.jpg",
+  ogImage: "/opengraph-image",
+  /**
+   * Headshot for the homepage hero. Leave empty for the initials mark; set to
+   * a path under `/public` when the file exists (e.g. `/images/portrait.jpg`).
+   */
+  portrait: "",
   keywords: [
     "software engineer",
     "freelance developer",
@@ -41,18 +45,19 @@ export const siteConfig = {
     "React",
   ],
   links: {
-    github: "https://github.com/username",
-    linkedin: "https://www.linkedin.com/in/username",
-    x: "https://x.com/username",
-    /** Booking link for the contact page's primary CTA. */
+    /** Empty until personalised — fake `/username` URLs are never rendered. */
+    github: "",
+    linkedin: "",
+    x: "",
+    /** Booking link for the primary CTA. Falls back to mailto when empty. */
     calendar: "",
-    /** PDF in `/public`. Replace the file before sharing the résumé link. */
+    /** Path under `/public`. The résumé button only renders when the file exists. */
     resume: "/resume.pdf",
   },
   /** Drives the availability badge and the contact page's framing. */
   availability: {
     status: "open" as "open" | "limited" | "closed",
-    label: "Available for new work",
+    label: "Open to opportunities",
   },
 } as const;
 

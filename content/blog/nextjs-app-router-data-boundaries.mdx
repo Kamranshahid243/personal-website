@@ -1,0 +1,58 @@
+---
+title: "Designing Next.js App Router data boundaries that stay fast"
+description: "A practical approach to Server Components, caching, and fetch boundaries so your Next.js app stays maintainable under real product pressure."
+publishedAt: "2026-03-15"
+category: "Architecture"
+tags: ["Next.js", "React", "Architecture", "Performance"]
+draft: false
+featured: true
+---
+
+Hiring managers and founders care less about framework trivia and more about
+whether you can ship a product that stays fast after the third feature request.
+This note captures how I draw data boundaries in the App Router.
+
+## Start from the user-visible surface
+
+Before choosing `fetch`, a Server Action, or a client query library, name the
+**page job**:
+
+1. What must be correct on first paint?
+2. What can stream?
+3. What must update without a full navigation?
+
+Those answers drive the boundary — not habit.
+
+## Prefer Server Components for read paths
+
+Most product pages are read-heavy. Keep them as Server Components and push
+client JavaScript only where interaction requires it: filters that feel
+instant, optimistic mutations, or rich editors.
+
+```ts title="app/dashboard/page.tsx"
+export default async function DashboardPage() {
+  const metrics = await getDashboardMetrics();
+  return <MetricsPanel metrics={metrics} />;
+}
+```
+
+## Make caching an explicit product decision
+
+Default caching is not a strategy. For each query, decide:
+
+- **Static enough** for build-time or long revalidation
+- **User-specific** and therefore dynamic
+- **Freshness-critical** and therefore uncached with a clear loading state
+
+Document the choice next to the fetch. Future you will thank present you.
+
+## Stream the slow parts
+
+When a page has a fast shell and a slow widget, stream the widget. The user
+sees structure immediately; the expensive work arrives when it is ready.
+
+## Close the loop with measurement
+
+Boundaries without budgets drift. Pair Lighthouse CI or RUM thresholds with
+the routes that matter commercially — checkout, dashboard, pricing — so a
+clever abstraction cannot quietly regress conversion.

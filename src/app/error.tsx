@@ -1,17 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { Display, Text } from "@/components/ui/typography";
+import { primaryCta } from "@/config/navigation";
 
 /**
  * Route-level error boundary.
  *
  * Catches render and data-fetching errors below the root layout, so the header
- * and footer survive and the visitor keeps their navigation. Must be a client
- * component — React needs the boundary on the client to offer a retry.
+ * and footer survive and the visitor keeps their navigation.
  */
 export default function Error({
   error,
@@ -21,7 +22,6 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Replace with the error reporter (Sentry et al) when one is added.
     console.error(error);
   }, [error]);
 
@@ -35,9 +35,17 @@ export default function Error({
         <Text tone="muted">
           An unexpected error occurred. Trying again usually fixes it.
         </Text>
-        <Button size="lg" onClick={reset} className="mt-2">
-          Try again
-        </Button>
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
+          <Button size="lg" onClick={reset}>
+            Try again
+          </Button>
+          <Button asChild size="lg" variant="secondary">
+            <Link href="/projects">View projects</Link>
+          </Button>
+          <Button asChild size="lg" variant="ghost">
+            <a href={primaryCta.href}>{primaryCta.title}</a>
+          </Button>
+        </div>
       </Container>
     </main>
   );

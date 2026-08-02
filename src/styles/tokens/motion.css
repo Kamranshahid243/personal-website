@@ -10,8 +10,7 @@
  * action, not perform one. Anything above ~600ms on an interaction makes the
  * interface feel slower than doing nothing at all.
  *
- * The Framer Motion equivalents live in `src/lib/motion.ts` and mirror these
- * exact values, so CSS transitions and JS animations agree.
+ * CSS reveal utilities in `utilities.css` consume these tokens.
  */
 
 @theme {

@@ -24,19 +24,24 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  compress: true,
 
   // Generates `Route` union types so a typo in an <Link href> fails typecheck.
   typedRoutes: true,
 
   images: {
     formats: ["image/avif", "image/webp"],
+    // Tuned for a marketing site: fewer candidates, long CDN cache.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
     // Add remote hosts here rather than disabling optimisation.
     remotePatterns: [],
   },
 
   experimental: {
     // Barrel-heavy packages: import only the icons/exports actually used.
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["lucide-react", "radix-ui"],
   },
 
   async headers() {

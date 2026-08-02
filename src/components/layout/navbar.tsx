@@ -1,14 +1,26 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Route } from "next";
 
 import { AvailabilityBadge } from "@/components/common/availability-badge";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 import { Container } from "@/components/layout/container";
-import { MobileNav } from "@/components/layout/mobile-nav";
 import { NavLinks } from "@/components/layout/nav-links";
 import { Button } from "@/components/ui/button";
 import { primaryCta } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
+
+/**
+ * Mobile sheet pulls in Radix Dialog. Dynamic import keeps that out of the
+ * critical desktop path while preserving the same UI when the chunk loads.
+ */
+const MobileNav = dynamic(
+  () =>
+    import("@/components/layout/mobile-nav").then((mod) => mod.MobileNav),
+  {
+    loading: () => <span className="inline-flex size-9 md:hidden" aria-hidden />,
+  },
+);
 
 /**
  * Site header.
