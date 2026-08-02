@@ -52,8 +52,8 @@
   }
 
   ::selection {
-    background-color: var(--color-text);
-    color: var(--color-text-inverse);
+    background-color: color-mix(in oklch, var(--color-brand-400) 45%, transparent);
+    color: var(--color-text);
   }
 
   /*

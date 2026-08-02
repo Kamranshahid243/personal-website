@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Route } from "next";
 
+import { Reveal } from "@/components/common/reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { ProjectCard } from "@/components/cards/project-card";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,6 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { homeCopy } from "@/data/home";
 import type { Project } from "@/types/content";
-import { cn } from "@/lib/utils";
 
 export type FeaturedProjectsSectionProps = {
   projects: readonly Project[];
@@ -29,7 +29,7 @@ export function FeaturedProjectsSection({
       className={className}
     >
       <Container width="wide">
-        <div className="flex reveal-on-scroll flex-col gap-(--spacing-stack-md) sm:flex-row sm:items-end sm:justify-between">
+        <Reveal className="flex flex-col gap-(--spacing-stack-md) sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
             id="work-heading"
             eyebrow={copy.eyebrow}
@@ -43,17 +43,18 @@ export function FeaturedProjectsSection({
           >
             <Link href={"/projects" as Route}>View all projects</Link>
           </Button>
-        </div>
+        </Reveal>
 
-        <ul className="mt-(--spacing-stack-lg) grid list-none gap-6 p-0 md:grid-cols-2">
+        <ul className="mt-(--spacing-stack-lg) grid list-none gap-4 p-0 md:grid-cols-2 xl:grid-cols-3">
           {projects.map((project, index) => (
-            <li
+            <Reveal
               key={project.slug}
-              className={cn("h-full reveal-on-scroll")}
-              style={{ animationDelay: `${index * 60}ms` }}
+              as="li"
+              delay={index * 100}
+              className="h-full"
             >
               <ProjectCard project={project} className="h-full" />
-            </li>
+            </Reveal>
           ))}
         </ul>
       </Container>

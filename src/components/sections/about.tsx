@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/common/reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
@@ -22,20 +23,24 @@ export function AboutSection({ className }: AboutSectionProps) {
       <Container>
         <div
           className={cn(
-            "grid reveal-on-scroll gap-(--spacing-stack-lg)",
+            "grid gap-(--spacing-stack-lg)",
             "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-16",
           )}
         >
-          <SectionHeading
-            id="about-heading"
-            eyebrow={about.eyebrow}
-            heading={about.heading}
-          />
+          <Reveal>
+            <SectionHeading
+              id="about-heading"
+              eyebrow={about.eyebrow}
+              heading={about.heading}
+            />
+          </Reveal>
           <div className="grid gap-(--spacing-stack-sm)">
-            {about.body.map((paragraph) => (
-              <Text key={paragraph} as="p" size="lg" tone="muted">
-                {paragraph}
-              </Text>
+            {about.body.map((paragraph, index) => (
+              <Reveal key={paragraph} delay={80 + index * 80}>
+                <Text as="p" size="lg" tone="muted">
+                  {paragraph}
+                </Text>
+              </Reveal>
             ))}
           </div>
         </div>

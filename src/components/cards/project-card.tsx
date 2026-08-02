@@ -28,11 +28,7 @@ type ProjectCardProps = {
 };
 
 /**
- * Case study card — outcome first.
- *
- * Metric and title do the persuading; problem and stack support the scan.
- * The case-study link stretches across the card; external actions sit above
- * the overlay so they remain independently reachable.
+ * Compact case-study tile — metric + title lead; detail lives on the case study.
  */
 export function ProjectCard({
   project,
@@ -47,15 +43,22 @@ export function ProjectCard({
   return (
     <Card
       interactive
-      padding="none"
-      className={cn("h-full gap-0 overflow-hidden", className)}
+      className={cn(
+        "h-full gap-0 overflow-hidden pt-0",
+        "[--card-padding:1rem] sm:[--card-padding:1.125rem]",
+        className,
+      )}
     >
       {showCover ? (
-        <ProjectCover project={project} className="border-b border-line" />
+        <ProjectCover
+          project={project}
+          aspectClassName="aspect-[16/9] max-h-[11rem] w-full sm:max-h-[12.5rem]"
+          className="border-b border-line"
+        />
       ) : null}
 
       <CardHeader className="pt-(--card-padding)">
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
           <Tag variant="brand">{project.category}</Tag>
           <span className="font-mono text-caption text-text-muted">
             <span>{project.client}</span>
@@ -65,35 +68,32 @@ export function ProjectCard({
             <time dateTime={String(project.year)}>{project.year}</time>
           </span>
         </div>
-        <CardTitle as="h2" className="mt-1">
+        <CardTitle as="h2" className="mt-1.5 text-heading-sm">
           <Link href={href} className="link-overlay rounded-sm focus-ring">
             {project.title}
           </Link>
         </CardTitle>
-        <CardDescription>{project.summary}</CardDescription>
+        <CardDescription className="line-clamp-2">
+          {project.summary}
+        </CardDescription>
       </CardHeader>
 
-      <CardContent className="flex flex-1 flex-col gap-4">
+      <CardContent className="flex flex-1 flex-col gap-3 pb-(--card-padding)">
         {metric ? (
-          <p className="flex items-baseline gap-2">
-            <span className="font-heading text-heading-md font-semibold tabular-nums">
+          <p className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+            <span className="font-heading text-heading-sm font-semibold tabular-nums text-brand-700 dark:text-brand-300">
               {metric.value}
             </span>
-            <Text as="span" size="sm" tone="muted">
+            <Text as="span" size="caption" tone="muted">
               {metric.label}
             </Text>
           </p>
         ) : null}
 
-        <Text as="p" size="sm" tone="muted" className="text-pretty">
-          <span className="font-medium text-text">Problem · </span>
-          {project.problem}
-        </Text>
-
-        <TechStack items={project.stack} max={4} />
+        <TechStack items={project.stack} max={3} />
       </CardContent>
 
-      <CardFooter className="relative z-10 flex-wrap gap-2 border-t border-line pb-(--card-padding) pt-(--card-padding)">
+      <CardFooter className="relative z-10 flex-wrap gap-1.5 border-t border-line pt-3">
         <Button asChild size="sm" variant="secondary">
           <Link href={href}>Case study</Link>
         </Button>

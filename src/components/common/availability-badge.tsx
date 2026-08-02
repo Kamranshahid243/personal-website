@@ -3,7 +3,7 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 const statusVariant = {
-  open: "success",
+  open: "brand",
   limited: "warning",
   closed: "neutral",
 } as const;
@@ -26,7 +26,7 @@ export function AvailabilityBadge({ className }: { className?: string }) {
       {status === "open" ? (
         <span
           aria-hidden
-          className="size-1.5 animate-pulse-subtle rounded-full bg-success"
+          className="size-1.5 animate-pulse-subtle rounded-full bg-brand-500"
         />
       ) : null}
       {label}

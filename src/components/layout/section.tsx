@@ -27,6 +27,7 @@ const sectionVariants = cva("", {
     surface: {
       none: "",
       sunken: "bg-surface-sunken",
+      tint: "bg-surface-tint",
       /** Hairline above, for a visual break without a colour change. */
       bordered: "border-t border-line",
     },

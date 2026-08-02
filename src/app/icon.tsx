@@ -5,10 +5,6 @@ import { siteConfig } from "@/config/site";
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
-/**
- * Generated favicon — initials on brand so install/share chrome works without
- * a hand-authored asset in `/public`.
- */
 export default function Icon() {
   const initials = siteConfig.shortName.slice(0, 2).toUpperCase();
 
@@ -21,8 +17,8 @@ export default function Icon() {
           justifyContent: "center",
           width: "100%",
           height: "100%",
-          background: "#2563eb",
-          color: "#ffffff",
+          background: "#0f6e72",
+          color: "#eef7f6",
           fontSize: 16,
           fontWeight: 700,
           letterSpacing: "-0.04em",

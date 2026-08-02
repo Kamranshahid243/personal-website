@@ -33,7 +33,7 @@ export function Navbar() {
     <header className="sticky top-0 z-(--z-sticky) border-b border-line bg-surface/80 backdrop-blur-xl">
       <Container
         width="wide"
-        className="flex h-16 items-center justify-between gap-4"
+        className="flex h-(--nav-h) items-center justify-between gap-4"
       >
         <div className="flex items-center gap-6">
           <Link

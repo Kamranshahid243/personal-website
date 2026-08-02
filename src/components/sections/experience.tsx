@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/common/reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Timeline } from "@/components/common/timeline";
 import { ExperienceCard } from "@/components/cards/experience-card";
@@ -26,21 +27,24 @@ export function ExperienceSection({
       className={className}
     >
       <Container width="content">
-        <SectionHeading
-          id="experience-heading"
-          eyebrow={copy.eyebrow}
-          heading={copy.heading}
-          subheading={copy.subheading}
-          className="reveal-on-scroll"
-        />
+        <Reveal>
+          <SectionHeading
+            id="experience-heading"
+            eyebrow={copy.eyebrow}
+            heading={copy.heading}
+            subheading={copy.subheading}
+          />
+        </Reveal>
 
-        <Timeline className="mt-(--spacing-stack-lg) reveal-on-scroll">
-          {experience.map((item) => (
+        <Timeline className="mt-(--spacing-stack-lg)">
+          {experience.map((item, index) => (
             <Timeline.Item
               key={`${item.company}-${item.role}-${item.start}`}
               label={item.start.slice(0, 4)}
             >
-              <ExperienceCard experience={item} />
+              <Reveal delay={index * 100}>
+                <ExperienceCard experience={item} />
+              </Reveal>
             </Timeline.Item>
           ))}
         </Timeline>

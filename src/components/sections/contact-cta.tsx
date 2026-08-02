@@ -1,6 +1,5 @@
 import { CtaSection } from "@/components/sections/cta";
 import { homeCopy } from "@/data/home";
-import { cn } from "@/lib/utils";
 
 export type ContactCtaSectionProps = {
   className?: string;
@@ -21,7 +20,7 @@ export function ContactCtaSection({ className }: ContactCtaSectionProps) {
       subheading={contact.subheading}
       secondaryLabel={contact.secondaryLabel}
       secondaryHref={contact.secondaryHref}
-      className={cn("reveal-on-scroll", className)}
+      className={className}
     />
   );
 }

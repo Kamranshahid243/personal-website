@@ -6,10 +6,6 @@ export const alt = `${siteConfig.name} — ${siteConfig.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/**
- * Default Open Graph image for routes that do not set a custom `image`.
- * Mirrors `/api/og` so share cards stay on-brand without a static PNG in public.
- */
 export default function OpenGraphImage() {
   return new ImageResponse(
     (
@@ -21,22 +17,31 @@ export default function OpenGraphImage() {
           width: "100%",
           height: "100%",
           padding: 80,
-          backgroundColor: "#0a0a0a",
-          color: "#fafafa",
+          backgroundColor: "#eef7f6",
+          color: "#142422",
           backgroundImage:
-            "radial-gradient(circle at 1px 1px, #ffffff26 1px, transparent 0)",
-          backgroundSize: "32px 32px",
+            "radial-gradient(ellipse 80% 60% at 0% 0%, #7ec8c488, transparent 55%), radial-gradient(ellipse 50% 40% at 100% 100%, #f0b27a55, transparent 50%)",
         }}
       >
         <div
           style={{
             display: "flex",
-            fontSize: 24,
+            alignItems: "center",
+            gap: 14,
+            fontSize: 22,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: "#a1a1a1",
+            color: "#0f6e72",
           }}
         >
+          <div
+            style={{
+              width: 12,
+              height: 12,
+              borderRadius: 4,
+              background: "#0f6e72",
+            }}
+          />
           {siteConfig.role}
         </div>
         <div
@@ -50,7 +55,7 @@ export default function OpenGraphImage() {
         >
           {siteConfig.name}
         </div>
-        <div style={{ display: "flex", fontSize: 26, color: "#a1a1a1" }}>
+        <div style={{ display: "flex", fontSize: 26, color: "#4a6664" }}>
           {siteConfig.tagline}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Route } from "next";
 
+import { Reveal } from "@/components/common/reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { BlogCard } from "@/components/cards/blog-card";
 import { Button } from "@/components/ui/button";
@@ -8,7 +9,6 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { homeCopy } from "@/data/home";
 import type { PostSummary } from "@/types/blog";
-import { cn } from "@/lib/utils";
 
 export type LatestBlogPostsSectionProps = {
   posts: readonly PostSummary[];
@@ -33,7 +33,7 @@ export function LatestBlogPostsSection({
       className={className}
     >
       <Container width="wide">
-        <div className="flex reveal-on-scroll flex-col gap-(--spacing-stack-md) sm:flex-row sm:items-end sm:justify-between">
+        <Reveal className="flex flex-col gap-(--spacing-stack-md) sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
             id="writing-heading"
             eyebrow={copy.eyebrow}
@@ -47,17 +47,18 @@ export function LatestBlogPostsSection({
           >
             <Link href={"/blog" as Route}>All posts</Link>
           </Button>
-        </div>
+        </Reveal>
 
         <ul className="mt-(--spacing-stack-lg) grid list-none gap-6 p-0 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (
-            <li
+            <Reveal
               key={post.slug}
-              className={cn("h-full reveal-on-scroll")}
-              style={{ animationDelay: `${index * 60}ms` }}
+              as="li"
+              delay={index * 90}
+              className="h-full"
             >
               <BlogCard post={post} className="h-full" />
-            </li>
+            </Reveal>
           ))}
         </ul>
       </Container>

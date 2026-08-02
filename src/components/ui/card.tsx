@@ -40,7 +40,7 @@ const cardVariants = cva(
         lg: "[--card-padding:var(--card-padding-lg)]",
       },
       interactive: {
-        true: "hover-lift transition-ui-base focus-within:border-line-strong hover:border-line-strong hover:shadow-raised",
+        true: "hover-lift transition-ui-base focus-within:border-brand-300 hover:border-brand-400/60 hover:shadow-raised dark:focus-within:border-brand-600 dark:hover:border-brand-500/50",
         false: "",
       },
     },

@@ -18,22 +18,21 @@
 
 @theme {
   /* --- Families ----------------------------------------------------------
-     Geist Sans/Mono, self-hosted through next/font (see src/lib/fonts.ts):
-     no network request, no layout shift. `--font-heading` is deliberately
-     separate so introducing a display face is a one-line change here. */
+     Bricolage Grotesque (display), Onest (body), JetBrains Mono — see fonts.ts. */
   --font-sans:
-    var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    var(--font-onest), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
   --font-heading:
-    var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    var(--font-bricolage), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
   --font-mono:
-    var(--font-geist-mono), ui-monospace, "SFMono-Regular", Menlo, monospace;
+    var(--font-jetbrains-mono), ui-monospace, "SFMono-Regular", Menlo,
+    monospace;
 
   /* --- Weights -----------------------------------------------------------
-     Four, not nine. Geist is a variable font, so every weight between is
-     available — the restriction is a design decision, not a technical one.
-     Marketing copy above 600 starts to look like shouting. */
+     Four, not nine. Both Bricolage Grotesque and Onest are variable fonts,
+     so every weight between is available — the restriction is a design
+     decision, not a technical one. Marketing copy above 600 looks like shouting. */
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -42,8 +41,8 @@
   /* --- Tracking ----------------------------------------------------------
      Large text needs negative tracking; small uppercase text needs positive.
      Named by role so the relationship is not re-derived per component. */
-  --tracking-display: -0.032em;
-  --tracking-heading: -0.02em;
+  --tracking-display: -0.04em;
+  --tracking-heading: -0.025em;
   --tracking-body: 0em;
   --tracking-wide: 0.04em;
   --tracking-eyebrow: 0.12em;
@@ -60,23 +59,23 @@
   /* --- Display: hero and section headlines ------------------------------- */
   --text-display-xl: clamp(3.25rem, 1.9rem + 5.4vw, 6rem);
   --text-display-xl--line-height: 1;
-  --text-display-xl--letter-spacing: -0.038em;
-  --text-display-xl--font-weight: 600;
+  --text-display-xl--letter-spacing: -0.045em;
+  --text-display-xl--font-weight: 700;
 
   --text-display-lg: clamp(2.75rem, 1.8rem + 3.8vw, 4.5rem);
   --text-display-lg--line-height: 1.05;
-  --text-display-lg--letter-spacing: -0.032em;
-  --text-display-lg--font-weight: 600;
+  --text-display-lg--letter-spacing: -0.04em;
+  --text-display-lg--font-weight: 700;
 
   --text-display-md: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
   --text-display-md--line-height: 1.1;
-  --text-display-md--letter-spacing: -0.028em;
-  --text-display-md--font-weight: 600;
+  --text-display-md--letter-spacing: -0.035em;
+  --text-display-md--font-weight: 700;
 
   --text-display-sm: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
   --text-display-sm--line-height: 1.15;
-  --text-display-sm--letter-spacing: -0.024em;
-  --text-display-sm--font-weight: 600;
+  --text-display-sm--letter-spacing: -0.03em;
+  --text-display-sm--font-weight: 700;
 
   /* --- Heading: subsections, card titles ---------------------------------- */
   --text-heading-lg: 1.5rem;

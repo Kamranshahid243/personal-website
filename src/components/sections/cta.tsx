@@ -2,7 +2,9 @@ import Link from "next/link";
 import type { Route } from "next";
 import type { ReactNode } from "react";
 
+import { AnimatedBackground } from "@/components/common/animated-background";
 import { AvailabilityBadge } from "@/components/common/availability-badge";
+import { Reveal } from "@/components/common/reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
@@ -47,47 +49,54 @@ export function CtaSection({
   showAvailability = true,
   className,
 }: CtaSectionProps) {
+  const headingId = id ? `${id}-heading` : undefined;
+
   return (
     <Section
       id={id}
+      aria-labelledby={headingId}
       spacing="lg"
-      surface="bordered"
-      className={cn("relative", className)}
+      surface="tint"
+      className={cn("relative overflow-hidden", className)}
     >
+      <AnimatedBackground variant="mesh" />
       <Container
         width="content"
-        className="flex flex-col items-center gap-(--spacing-stack-lg) text-center"
+        className="relative flex flex-col items-center gap-(--spacing-stack-lg) text-center"
       >
-        {showAvailability ? <AvailabilityBadge /> : null}
+        <Reveal className="flex flex-col items-center gap-(--spacing-stack-lg)">
+          {showAvailability ? <AvailabilityBadge /> : null}
 
-        <SectionHeading
-          eyebrow={eyebrow}
-          heading={heading}
-          subheading={subheading}
-          size="display"
-          align="center"
-        />
+          <SectionHeading
+            id={headingId}
+            eyebrow={eyebrow}
+            heading={heading}
+            subheading={subheading}
+            size="display"
+            align="center"
+          />
 
-        <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-          <Button asChild size="lg">
-            {primaryHref.startsWith("http") ||
-            primaryHref.startsWith("mailto:") ? (
-              <a href={primaryHref}>{primaryLabel}</a>
-            ) : (
-              <Link href={primaryHref as Route}>{primaryLabel}</Link>
-            )}
-          </Button>
-          {secondaryLabel && secondaryHref ? (
-            <Button asChild size="lg" variant="secondary">
-              {secondaryHref.startsWith("http") ||
-              secondaryHref.startsWith("mailto:") ? (
-                <a href={secondaryHref}>{secondaryLabel}</a>
+          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <Button asChild size="lg">
+              {primaryHref.startsWith("http") ||
+              primaryHref.startsWith("mailto:") ? (
+                <a href={primaryHref}>{primaryLabel}</a>
               ) : (
-                <Link href={secondaryHref as Route}>{secondaryLabel}</Link>
+                <Link href={primaryHref as Route}>{primaryLabel}</Link>
               )}
             </Button>
-          ) : null}
-        </div>
+            {secondaryLabel && secondaryHref ? (
+              <Button asChild size="lg" variant="secondary">
+                {secondaryHref.startsWith("http") ||
+                secondaryHref.startsWith("mailto:") ? (
+                  <a href={secondaryHref}>{secondaryLabel}</a>
+                ) : (
+                  <Link href={secondaryHref as Route}>{secondaryLabel}</Link>
+                )}
+              </Button>
+            ) : null}
+          </div>
+        </Reveal>
       </Container>
     </Section>
   );

@@ -4,25 +4,17 @@ import { cn } from "@/lib/utils";
 
 type AnimatedBackgroundProps = {
   /**
-   * Visual treatment.
-   * - `dots` — faint grid, the default for heroes
-   * - `glow` — soft brand wash behind content (premium SaaS atmosphere)
-   * - `grid` — larger engineering-style grid
+   * - `dots` — faint grid
+   * - `glow` — soft teal/warm washes
+   * - `mesh` — animated multi-orb mesh (hero / CTA)
+   * - `grid` — engineering grid
    */
-  variant?: "dots" | "glow" | "grid";
+  variant?: "dots" | "glow" | "mesh" | "grid";
   className?: string;
 } & Omit<ComponentProps<"div">, "children">;
 
 /**
- * Decorative atmosphere behind a section.
- *
- * CSS only. The slow drift on `glow` is a transform animation that stops under
- * prefers-reduced-motion (handled globally in base.css). No canvas, no WebGL,
- * no mouse-tracking — those cost more than they return on a marketing site.
- *
- * Positioned absolute and pointer-events-none so it never intercepts clicks
- * or affect layout. The parent must be `relative` (or another positioning
- * context) and typically `overflow-hidden`.
+ * Decorative atmosphere — CSS only, respects reduced motion via global policy.
  */
 export function AnimatedBackground({
   variant = "dots",
@@ -40,12 +32,12 @@ export function AnimatedBackground({
       {...props}
     >
       {variant === "dots" ? (
-        <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-60" />
+        <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-50" />
       ) : null}
 
       {variant === "grid" ? (
         <div
-          className="absolute inset-0 mask-fade-out opacity-50"
+          className="absolute inset-0 mask-fade-out opacity-45"
           style={{
             backgroundImage: `
               linear-gradient(to right, var(--color-line) 1px, transparent 1px),
@@ -56,32 +48,78 @@ export function AnimatedBackground({
         />
       ) : null}
 
-      {variant === "glow" ? (
+      {variant === "glow" || variant === "mesh" ? (
         <>
           <div
-            className="absolute top-[-25%] left-[-10%] size-[min(70vw,36rem)] animate-drift rounded-full opacity-50 blur-3xl"
+            className="absolute inset-0"
             style={{
-              background:
-                "radial-gradient(circle, color-mix(in oklch, var(--color-brand-400) 40%, transparent), transparent 70%)",
+              background: `
+                radial-gradient(
+                  ellipse 85% 65% at 0% 0%,
+                  color-mix(in oklch, var(--color-brand-300) 55%, transparent),
+                  transparent 55%
+                ),
+                radial-gradient(
+                  ellipse 70% 55% at 100% 100%,
+                  color-mix(in oklch, var(--color-sky-400) 35%, transparent),
+                  transparent 50%
+                ),
+                linear-gradient(
+                  165deg,
+                  var(--color-surface-tint),
+                  var(--color-surface) 50%,
+                  color-mix(in oklch, var(--color-brand-50) 60%, var(--color-surface))
+                )
+              `,
             }}
           />
           <div
-            className="absolute right-[-15%] bottom-[-30%] size-[min(65vw,32rem)] animate-drift rounded-full opacity-35 blur-3xl [animation-delay:-8s]"
+            className={cn(
+              "absolute top-[-20%] left-[-8%] size-[min(62vw,34rem)] rounded-full opacity-50 blur-3xl",
+              variant === "mesh" ? "animate-mesh" : "animate-drift",
+            )}
             style={{
               background:
-                "radial-gradient(circle, color-mix(in oklch, var(--color-brand-600) 32%, transparent), transparent 72%)",
+                "radial-gradient(circle, color-mix(in oklch, var(--color-brand-400) 50%, transparent), transparent 70%)",
             }}
           />
           <div
-            className="absolute top-[35%] left-[40%] size-[min(40vw,18rem)] animate-pulse-subtle rounded-full opacity-25 blur-3xl"
+            className={cn(
+              "absolute right-[-14%] bottom-[-24%] size-[min(54vw,28rem)] rounded-full opacity-35 blur-3xl [animation-delay:-7s]",
+              variant === "mesh" ? "animate-mesh" : "animate-drift",
+            )}
             style={{
               background:
-                "radial-gradient(circle, color-mix(in oklch, var(--color-brand-300) 30%, transparent), transparent 70%)",
+                "radial-gradient(circle, color-mix(in oklch, var(--color-warm-400) 45%, transparent), transparent 72%)",
             }}
           />
-          <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-35" />
+          {variant === "mesh" ? (
+            <div
+              className="absolute top-[28%] left-[42%] size-[min(38vw,18rem)] animate-float rounded-full opacity-30 blur-3xl"
+              style={{
+                background:
+                  "radial-gradient(circle, color-mix(in oklch, var(--color-sky-400) 50%, transparent), transparent 70%)",
+              }}
+            />
+          ) : null}
+          <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-20" />
+          <div className="absolute inset-0 bg-grain opacity-[0.035] mix-blend-overlay dark:opacity-[0.06]" />
         </>
       ) : null}
     </div>
+  );
+}
+
+/** Fixed film-grain overlay for the whole marketing shell. */
+export function GrainOverlay({ className }: { className?: string }) {
+  return (
+    <div
+      aria-hidden
+      data-slot="grain-overlay"
+      className={cn(
+        "pointer-events-none fixed inset-0 z-(--z-raised) bg-grain opacity-[0.045] mix-blend-overlay dark:opacity-[0.08]",
+        className,
+      )}
+    />
   );
 }

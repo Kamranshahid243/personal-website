@@ -61,7 +61,7 @@ export default function ProjectsPage() {
         className="pt-section"
       >
         <Container width="wide">
-          <ul className="grid list-none gap-8 p-0 lg:grid-cols-2">
+          <ul className="grid list-none gap-4 p-0 sm:grid-cols-2 xl:grid-cols-3">
             {projects.map((project, index) => (
               <li
                 key={project.slug}

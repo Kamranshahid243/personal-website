@@ -37,7 +37,7 @@ export function Portrait({ className, priority = false }: PortraitProps) {
     <figure
       data-slot="portrait"
       className={cn(
-        "relative isolate h-full min-h-[20rem] w-full overflow-hidden bg-surface-sunken sm:min-h-[26rem] lg:min-h-0",
+        "relative isolate h-full min-h-0 w-full overflow-hidden bg-surface-sunken",
         className,
       )}
     >
@@ -55,9 +55,9 @@ export function Portrait({ className, priority = false }: PortraitProps) {
           aria-hidden
           className="absolute inset-0 flex items-center justify-center"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(100%_80%_at_20%_10%,color-mix(in_oklch,var(--color-brand-400)_34%,transparent),transparent_55%),radial-gradient(90%_70%_at_85%_90%,color-mix(in_oklch,var(--color-brand-700)_22%,transparent),transparent_52%),linear-gradient(165deg,color-mix(in_oklch,var(--color-surface-sunken)_70%,var(--color-brand-100)),var(--color-surface))]" />
-          <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-50" />
-          <span className="relative font-heading text-[clamp(4rem,14vw,7.5rem)] font-semibold tracking-tight text-text/25 select-none">
+          <div className="absolute inset-0 bg-[radial-gradient(100%_80%_at_18%_8%,color-mix(in_oklch,var(--color-brand-300)_50%,transparent),transparent_58%),radial-gradient(85%_65%_at_90%_90%,color-mix(in_oklch,var(--color-warm-400)_28%,transparent),transparent_50%),linear-gradient(165deg,var(--color-surface-tint),var(--color-surface))]" />
+          <div className="absolute inset-0 bg-dot-grid mask-fade-out opacity-30" />
+          <span className="relative font-heading text-[clamp(4rem,14vw,7.5rem)] font-semibold tracking-tight text-brand-800/20 select-none dark:text-brand-200/25">
             {initials}
           </span>
         </div>

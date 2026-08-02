@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/common/reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
@@ -18,30 +19,27 @@ export function WhyWorkWithMeSection({ className }: WhyWorkWithMeSectionProps) {
       id="why"
       aria-labelledby="why-heading"
       spacing="lg"
-      surface="sunken"
+      surface="tint"
       className={className}
     >
       <Container>
-        <SectionHeading
-          id="why-heading"
-          eyebrow={copy.eyebrow}
-          heading={copy.heading}
-          subheading={copy.subheading}
-          className="reveal-on-scroll"
-        />
+        <Reveal>
+          <SectionHeading
+            id="why-heading"
+            eyebrow={copy.eyebrow}
+            heading={copy.heading}
+            subheading={copy.subheading}
+          />
+        </Reveal>
 
         <ul className="mt-(--spacing-stack-lg) grid list-none gap-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
           {differentiators.map((item, index) => {
             const IconComponent = getIcon(item.icon);
             return (
-              <li
-                key={item.title}
-                className="reveal-on-scroll"
-                style={{ animationDelay: `${index * 60}ms` }}
-              >
-                <article>
-                  <div className="mb-3 flex size-10 items-center justify-center rounded-(--radius-lg) bg-surface text-text">
-                    <Icon icon={IconComponent} size="md" tone="muted" />
+              <Reveal key={item.title} as="li" delay={index * 100}>
+                <article className="group transition-ui-base hover:-translate-y-1">
+                  <div className="mb-3 flex size-10 items-center justify-center rounded-(--radius-lg) bg-brand-100 text-brand-700 transition-ui group-hover:scale-105 dark:bg-brand-900 dark:text-brand-300">
+                    <Icon icon={IconComponent} size="md" />
                   </div>
                   <Heading as="h3" size="sm">
                     {item.title}
@@ -50,7 +48,7 @@ export function WhyWorkWithMeSection({ className }: WhyWorkWithMeSectionProps) {
                     {item.description}
                   </Text>
                 </article>
-              </li>
+              </Reveal>
             );
           })}
         </ul>

@@ -135,39 +135,86 @@
    once per page at most, or it stops being emphasis. */
 @utility text-gradient {
   background-image: linear-gradient(
-    180deg,
-    var(--color-text) 30%,
-    color-mix(in oklch, var(--color-text) 55%, transparent)
+    120deg,
+    var(--color-brand-700) 0%,
+    var(--color-brand-500) 45%,
+    var(--color-sky-500) 100%
   );
   background-clip: text;
   color: transparent;
 }
 
-/* --- Scroll reveal (CSS only — zero JS) ----------------------------------- */
+/* --- Scroll / entrance reveals -------------------------------------------- */
 
 /*
  * Progressive enhancement: Chromium/Safari with scroll-driven animations get
- * a subtle rise as the block enters the viewport. Everyone else sees static
- * content immediately — no layout shift, no hydration cost, no Framer bundle.
+ * a view-timeline rise. Everyone else relies on the client <Reveal> component
+ * (`.reveal-io`), which uses IntersectionObserver.
  */
 @utility reveal-on-scroll {
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      animation: rise var(--duration-slower) var(--ease-out-expo) both;
+      animation: rise-blur var(--duration-reveal) var(--ease-out-expo) both;
       animation-timeline: view();
-      animation-range: entry 0% entry 35%;
+      animation-range: entry 0% entry 40%;
     }
   }
 }
 
 /*
- * Hero-only entrance on first paint. Stagger with animation-delay utilities.
- * Uses `backwards` (not `both`) so the settled state is not forced after the
- * animation — and critical copy should prefer no reveal at all for LCP.
+ * Hero-only entrance on first paint. Stagger with [animation-delay:*].
  */
 @utility reveal-on-load {
   @media (prefers-reduced-motion: no-preference) {
-    animation: rise var(--duration-slow) var(--ease-out-expo) backwards;
+    animation: rise-blur var(--duration-reveal) var(--ease-out-expo) backwards;
+  }
+}
+
+@utility reveal-scale-on-load {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: scale-in var(--duration-reveal) var(--ease-out-expo) backwards;
+  }
+}
+
+/*
+ * IntersectionObserver-driven reveal (see components/common/reveal.tsx).
+ * Starts hidden; `.is-visible` unlocks the settled state.
+ */
+@utility reveal-io {
+  @media (prefers-reduced-motion: no-preference) {
+    opacity: 0;
+    transform: translate3d(0, 1.4rem, 0);
+    filter: blur(6px);
+    transition:
+      opacity var(--duration-reveal) var(--ease-out-expo),
+      transform var(--duration-reveal) var(--ease-out-expo),
+      filter var(--duration-reveal) var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform, filter;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+    }
+  }
+}
+
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+/*
+ * Keep a surface inside one screen on large viewports (accounts for sticky nav).
+ * Use on heroes, media planes, and self-contained cards — not long prose sections.
+ */
+@utility viewport-bound {
+  max-height: 100svh;
+
+  @media (min-width: 64rem) {
+    max-height: var(--viewport-content);
   }
 }
 

@@ -50,7 +50,7 @@ function TimelineItem({ children, label, className }: TimelineItemProps) {
     >
       <span
         aria-hidden
-        className="absolute top-1.5 left-0 size-3.5 rounded-full border-2 border-line-strong bg-surface"
+        className="absolute top-1.5 left-0 size-3.5 rounded-full border-2 border-brand-500 bg-brand-100 shadow-[0_0_0_4px_color-mix(in_oklch,var(--color-brand-400)_18%,transparent)] dark:bg-brand-900"
       />
       {label ? (
         <div className="font-mono text-caption text-text-subtle">{label}</div>

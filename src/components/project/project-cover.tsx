@@ -8,34 +8,34 @@ const categoryAccent: Record<
   { from: string; via: string; to: string; grid: string }
 > = {
   Performance: {
-    from: "color-mix(in oklch, var(--color-brand-500) 42%, transparent)",
-    via: "color-mix(in oklch, var(--color-brand-700) 18%, transparent)",
-    to: "var(--color-surface-sunken)",
-    grid: "opacity-40",
-  },
-  Product: {
-    from: "color-mix(in oklch, var(--color-brand-400) 36%, transparent)",
-    via: "color-mix(in oklch, var(--color-brand-800) 16%, transparent)",
-    to: "var(--color-surface-sunken)",
+    from: "color-mix(in oklch, var(--color-brand-400) 55%, transparent)",
+    via: "color-mix(in oklch, var(--color-brand-600) 28%, transparent)",
+    to: "var(--color-surface-tint)",
     grid: "opacity-35",
   },
-  "Design System": {
-    from: "color-mix(in oklch, var(--color-brand-300) 40%, transparent)",
-    via: "color-mix(in oklch, var(--color-brand-600) 20%, transparent)",
+  Product: {
+    from: "color-mix(in oklch, var(--color-sky-400) 50%, transparent)",
+    via: "color-mix(in oklch, var(--color-brand-500) 22%, transparent)",
     to: "var(--color-surface-sunken)",
-    grid: "opacity-45",
+    grid: "opacity-30",
+  },
+  "Design System": {
+    from: "color-mix(in oklch, var(--color-warm-400) 48%, transparent)",
+    via: "color-mix(in oklch, var(--color-brand-400) 24%, transparent)",
+    to: "var(--color-surface-tint)",
+    grid: "opacity-40",
   },
   Platform: {
-    from: "color-mix(in oklch, var(--color-brand-600) 38%, transparent)",
-    via: "color-mix(in oklch, var(--color-brand-900) 22%, transparent)",
+    from: "color-mix(in oklch, var(--color-brand-600) 48%, transparent)",
+    via: "color-mix(in oklch, var(--color-sky-500) 26%, transparent)",
     to: "var(--color-surface-sunken)",
     grid: "opacity-30",
   },
   "Developer Tools": {
-    from: "color-mix(in oklch, var(--color-brand-500) 30%, transparent)",
-    via: "color-mix(in oklch, var(--color-brand-800) 24%, transparent)",
-    to: "var(--color-surface-sunken)",
-    grid: "opacity-50",
+    from: "color-mix(in oklch, var(--color-sky-500) 42%, transparent)",
+    via: "color-mix(in oklch, var(--color-warm-500) 22%, transparent)",
+    to: "var(--color-surface-tint)",
+    grid: "opacity-45",
   },
 };
 
@@ -57,7 +57,7 @@ export function ProjectCover({
   project,
   className,
   priority = false,
-  aspectClassName = "aspect-[16/10]",
+  aspectClassName = "aspect-[16/10] max-h-[min(20rem,36svh)] w-full",
 }: ProjectCoverProps) {
   const accent = categoryAccent[project.category];
   const initials = project.client
@@ -71,7 +71,7 @@ export function ProjectCover({
     <div
       data-slot="project-cover"
       className={cn(
-        "relative isolate overflow-hidden bg-surface-sunken",
+        "relative isolate w-full overflow-hidden bg-surface-sunken",
         aspectClassName,
         className,
       )}

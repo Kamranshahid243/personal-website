@@ -5,7 +5,6 @@ import { siteConfig } from "@/config/site";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-/** Apple touch icon — matches the generated favicon treatment. */
 export default function AppleIcon() {
   const initials = siteConfig.shortName.slice(0, 2).toUpperCase();
 
@@ -18,8 +17,8 @@ export default function AppleIcon() {
           justifyContent: "center",
           width: "100%",
           height: "100%",
-          background: "#2563eb",
-          color: "#ffffff",
+          background: "#0f6e72",
+          color: "#eef7f6",
           fontSize: 72,
           fontWeight: 700,
           letterSpacing: "-0.04em",

@@ -1,25 +1,32 @@
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
+import { Bricolage_Grotesque, JetBrains_Mono, Onest } from "next/font/google";
 
 /**
- * Typefaces, self-hosted via next/font.
- *
- * next/font subsets, preloads and emits a `size-adjust` fallback at build time,
- * so there is no third-party request and no cumulative layout shift when the
- * webfont swaps in. The variables (`--font-geist-sans`, `--font-geist-mono`)
- * are mapped onto the `--font-sans` / `--font-mono` design tokens in
- * `src/styles/tokens.css`.
- *
- * Swapping in a different face is a change to this file plus that token block,
- * and nothing else.
+ * Cool, contemporary type stack:
+ * Bricolage Grotesque — distinctive display (craft signal)
+ * Onest — clean modern body
+ * JetBrains Mono — technical captions/code
  */
-export const fontVariables = [
-  GeistSans.variable,
-  GeistMono.variable,
-].join(" ");
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+});
 
-/** Expose the resolved family names for edge OG routes that cannot use CSS vars. */
-export const fontFamilies = {
-  sans: GeistSans.style.fontFamily,
-  mono: GeistMono.style.fontFamily,
-} as const;
+const onest = Onest({
+  subsets: ["latin"],
+  variable: "--font-onest",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+  weight: ["400", "500"],
+});
+
+export const fontVariables = [
+  bricolage.variable,
+  onest.variable,
+  jetbrainsMono.variable,
+].join(" ");

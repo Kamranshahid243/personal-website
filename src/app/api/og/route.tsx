@@ -38,38 +38,75 @@ export function GET(request: Request) {
         width: "100%",
         height: "100%",
         padding: 80,
-        backgroundColor: "#0a0a0a",
-        color: "#fafafa",
-        // Faint grid, echoing the site's dot-grid backdrop.
+        backgroundColor: "#0d1f1e",
+        color: "#f0faf9",
+        // Faint teal dot grid, echoing the site's mesh backdrop.
         backgroundImage:
-          "radial-gradient(circle at 1px 1px, #ffffff26 1px, transparent 0)",
+          "radial-gradient(circle at 1px 1px, #14b8a626 1px, transparent 0)",
         backgroundSize: "32px 32px",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          fontSize: 24,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: "#a1a1a1",
-        }}
-      >
-        {eyebrow}
+      {/* Top accent bar */}
+      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        <div
+          style={{
+            display: "flex",
+            width: 32,
+            height: 4,
+            borderRadius: 4,
+            backgroundColor: "#14b8a6",
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            fontSize: 22,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "#5eead4",
+            fontWeight: 500,
+          }}
+        >
+          {eyebrow}
+        </div>
       </div>
+
+      {/* Main headline */}
       <div
         style={{
           display: "flex",
-          fontSize: title.length > 60 ? 60 : 76,
-          fontWeight: 600,
+          fontSize: title.length > 60 ? 58 : 72,
+          fontWeight: 700,
           letterSpacing: "-0.03em",
           lineHeight: 1.1,
+          color: "#f0faf9",
+          maxWidth: 900,
         }}
       >
         {title}
       </div>
-      <div style={{ display: "flex", fontSize: 26, color: "#a1a1a1" }}>
-        {siteConfig.url.replace(/^https?:\/\//, "")}
+
+      {/* Footer row: domain + name */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ display: "flex", fontSize: 22, color: "#99f6e4" }}>
+          {siteConfig.url.replace(/^https?:\/\//, "")}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 22,
+            color: "#5eead4",
+            fontWeight: 600,
+          }}
+        >
+          {siteConfig.name}
+        </div>
       </div>
     </div>,
     { width: 1200, height: 630 },

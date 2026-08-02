@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 
 import { TechStack } from "@/components/common/tech-stack";
-import { Text } from "@/components/ui/typography";
+import { Heading, Text } from "@/components/ui/typography";
 import { formatDateRange } from "@/lib/format";
 import type { Experience } from "@/types/content";
 import { cn } from "@/lib/utils";
@@ -29,7 +29,7 @@ export function ExperienceCard({ experience, className }: ExperienceCardProps) {
     >
       <header className="grid gap-1">
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h3 className="font-heading text-heading-sm">
+          <Heading as="h3" size="sm">
             {role}
             <span className="font-normal text-text-muted">
               {" "}
@@ -48,14 +48,14 @@ export function ExperienceCard({ experience, className }: ExperienceCardProps) {
                 company
               )}
             </span>
-          </h3>
+          </Heading>
           <Text
             as="p"
             size="caption"
             tone="subtle"
             className="font-mono whitespace-nowrap"
           >
-            <time dateTime={start}>{formatDateRange(start, end)}</time>
+            {formatDateRange(start, end)}
           </Text>
         </div>
         <Text size="sm" tone="muted">

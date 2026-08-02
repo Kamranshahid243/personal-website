@@ -30,21 +30,20 @@
 }
 
 :root {
-  /* `--shadow-tint` is the one dial for shadow character across the theme. */
-  --shadow-tint: 0 0 0;
+  --shadow-tint: 0.32 0.04 185;
 
   --elevation-subtle:
-    0 1px 2px oklch(var(--shadow-tint) / 4%),
-    0 1px 3px -1px oklch(var(--shadow-tint) / 6%);
+    0 1px 2px oklch(var(--shadow-tint) / 5%),
+    0 1px 3px -1px oklch(var(--shadow-tint) / 7%);
   --elevation-raised:
-    0 2px 4px oklch(var(--shadow-tint) / 4%),
-    0 8px 16px -4px oklch(var(--shadow-tint) / 8%);
+    0 2px 6px oklch(var(--shadow-tint) / 6%),
+    0 10px 24px -8px oklch(var(--shadow-tint) / 12%);
   --elevation-overlay:
-    0 4px 8px oklch(var(--shadow-tint) / 4%),
-    0 16px 40px -8px oklch(var(--shadow-tint) / 12%);
+    0 4px 10px oklch(var(--shadow-tint) / 6%),
+    0 18px 44px -10px oklch(var(--shadow-tint) / 14%);
   --elevation-floating:
-    0 8px 16px oklch(var(--shadow-tint) / 6%),
-    0 32px 64px -16px oklch(var(--shadow-tint) / 16%);
+    0 8px 18px oklch(var(--shadow-tint) / 7%),
+    0 28px 56px -14px oklch(var(--shadow-tint) / 16%);
 
   --elevation-focus: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
 }

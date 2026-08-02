@@ -30,10 +30,16 @@ export function ServiceCard({ service, className }: ServiceCardProps) {
   )}`;
 
   return (
-    <Card interactive className={cn("h-full", className)}>
+    <Card
+      interactive
+      className={cn(
+        "h-full max-h-[100svh] lg:max-h-(--viewport-content)",
+        className,
+      )}
+    >
       <CardHeader>
-        <div className="mb-1 flex size-10 items-center justify-center rounded-(--radius-lg) bg-surface-sunken text-text">
-          <Icon icon={IconComponent} size="md" tone="muted" />
+        <div className="mb-1 flex size-10 items-center justify-center rounded-(--radius-lg) bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300">
+          <Icon icon={IconComponent} size="md" />
         </div>
         <CardTitle as="h2">
           <a href={inquireHref} className="link-overlay rounded-sm focus-ring">
@@ -70,13 +76,13 @@ export function ServiceCard({ service, className }: ServiceCardProps) {
         ) : (
           <span />
         )}
-        <a
-          href={inquireHref}
-          className="inline-flex items-center gap-1 text-body-sm font-medium text-text-muted transition-ui hover:text-text"
+        <span
+          aria-hidden
+          className="inline-flex items-center gap-1 text-body-sm font-medium text-text-muted transition-ui"
         >
           Inquire
-          <ArrowUpRight className="size-3.5" aria-hidden />
-        </a>
+          <ArrowUpRight className="size-3.5" />
+        </span>
       </CardFooter>
     </Card>
   );

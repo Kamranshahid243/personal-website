@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/common/reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { TechStack } from "@/components/common/tech-stack";
 import { Container } from "@/components/layout/container";
@@ -20,26 +21,23 @@ export function TechStackSection({ className }: TechStackSectionProps) {
       className={className}
     >
       <Container>
-        <SectionHeading
-          id="stack-heading"
-          eyebrow={copy.eyebrow}
-          heading={copy.heading}
-          subheading={copy.subheading}
-          className="reveal-on-scroll"
-        />
+        <Reveal>
+          <SectionHeading
+            id="stack-heading"
+            eyebrow={copy.eyebrow}
+            heading={copy.heading}
+            subheading={copy.subheading}
+          />
+        </Reveal>
 
         <div className="mt-(--spacing-stack-lg) grid gap-8 sm:grid-cols-2">
           {techStack.map((category, index) => (
-            <div
-              key={category.title}
-              className="reveal-on-scroll"
-              style={{ animationDelay: `${index * 50}ms` }}
-            >
+            <Reveal key={category.title} delay={index * 80}>
               <Heading as="h3" size="sm">
                 {category.title}
               </Heading>
               <TechStack items={category.items} className="mt-4" />
-            </div>
+            </Reveal>
           ))}
         </div>
       </Container>

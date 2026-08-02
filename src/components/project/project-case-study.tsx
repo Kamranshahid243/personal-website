@@ -86,7 +86,7 @@ function BulletList({ items }: { items: readonly string[] }) {
         <li key={item} className="flex gap-3 text-body text-text-muted">
           <span
             aria-hidden
-            className="mt-2.5 size-1.5 shrink-0 rounded-full bg-brand"
+            className="mt-2.5 size-1.5 shrink-0 rounded-full bg-brand-500"
           />
           <span className="text-pretty">{item}</span>
         </li>
@@ -150,7 +150,7 @@ function ScreenshotFigure({
 
   return (
     <figure className="overflow-hidden rounded-(--radius-lg) border border-line bg-surface">
-      <div className="relative aspect-[16/10] bg-surface-sunken">
+      <div className="relative aspect-[16/10] max-h-[min(22rem,40svh)] w-full bg-surface-sunken">
         {shot.src ? (
           <Image
             src={shot.src}
@@ -345,7 +345,7 @@ export function ProjectCaseStudy({ project, related }: ProjectCaseStudyProps) {
           <ProjectCover
             project={project}
             priority
-            aspectClassName="aspect-[16/9]"
+            aspectClassName="aspect-[16/9] max-h-[min(24rem,45svh)] w-full"
             className="rounded-(--radius-lg) border border-line"
           />
         </Container>
@@ -480,7 +480,7 @@ export function ProjectCaseStudy({ project, related }: ProjectCaseStudyProps) {
               subheading="Adjacent engagements with a similar problem shape or stack."
               className="reveal-on-scroll"
             />
-            <ul className="mt-(--spacing-stack-lg) grid list-none gap-6 p-0 md:grid-cols-2">
+            <ul className="mt-(--spacing-stack-lg) grid list-none gap-4 p-0 md:grid-cols-2 xl:grid-cols-3">
               {related.map((item) => (
                 <li key={item.slug} className="h-full reveal-on-scroll">
                   <ProjectCard project={item} className="h-full" />
