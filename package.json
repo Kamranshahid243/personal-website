@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.33.3",
   "engines": {
     "node": ">=20.11.0"
   },
@@ -16,7 +15,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "pnpm typecheck && pnpm lint && pnpm format:check",
+    "check": "npm run typecheck && npm run lint && npm run format:check",
     "ui:add": "shadcn add"
   },
   "dependencies": {

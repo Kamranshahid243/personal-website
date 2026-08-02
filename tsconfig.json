@@ -14,7 +14,7 @@
     "incremental": true,
     "noEmit": true,
     /* Type-safety guardrails. Tightened beyond the Next.js defaults so that
-       whole classes of runtime bugs surface during `pnpm typecheck`. */
+       whole classes of runtime bugs surface during `npm run typecheck`. */
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,

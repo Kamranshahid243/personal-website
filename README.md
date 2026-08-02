@@ -8,7 +8,7 @@ This repository currently contains the **architecture and design system only**.
 The toolchain, tokens, component primitives, content pipeline and SEO layer are
 in place and verified; the pages have not been designed yet.
 
-Run `pnpm dev` and open:
+Run `npm run dev` and open:
 
 - [`/design`](http://localhost:3000/design) — every token and primitive
 - [`/components`](http://localhost:3000/components) — every reusable component
@@ -33,9 +33,9 @@ Run `pnpm dev` and open:
 ## Getting started
 
 ```bash
-pnpm install
+npm install
 cp .env.example .env.local
-pnpm dev
+npm run dev
 ```
 
 Then personalise `src/config/site.ts` — name, role, tagline, email and social
@@ -43,16 +43,16 @@ links. Everything else reads from there.
 
 ## Scripts
 
-| Command              | What it does                                   |
-| -------------------- | ---------------------------------------------- |
-| `pnpm dev`           | Dev server on http://localhost:3000            |
-| `pnpm build`         | Production build                               |
-| `pnpm start`         | Serve the production build                     |
-| `pnpm typecheck`     | `tsc --noEmit`                                 |
-| `pnpm lint`          | ESLint                                         |
-| `pnpm format`        | Prettier, writing changes                      |
-| `pnpm check`         | Typecheck + lint + format check (what CI runs) |
-| `pnpm ui:add <name>` | Add a shadcn/ui primitive                      |
+| Command               | What it does                                   |
+| --------------------- | ---------------------------------------------- |
+| `npm run dev`         | Dev server on http://localhost:3000            |
+| `npm run build`       | Production build                               |
+| `npm start`           | Serve the production build                     |
+| `npm run typecheck`   | `tsc --noEmit`                                 |
+| `npm run lint`        | ESLint                                         |
+| `npm run format`      | Prettier, writing changes                      |
+| `npm run check`       | Typecheck + lint + format check (what CI runs) |
+| `npm run ui:add <name>` | Add a shadcn/ui primitive                    |
 
 ## Layout
 

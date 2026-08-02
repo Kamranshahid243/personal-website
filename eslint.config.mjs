@@ -10,7 +10,6 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
     "node_modules/**",
-    "pnpm-lock.yaml",
   ]),
 
   ...nextVitals,

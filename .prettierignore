@@ -3,6 +3,6 @@ out
 build
 node_modules
 coverage
-pnpm-lock.yaml
+package-lock.json
 *.lock
 next-env.d.ts

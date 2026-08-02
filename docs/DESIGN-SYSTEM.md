@@ -3,7 +3,7 @@
 Every value the site is allowed to use, and every component built from them.
 
 The live reference is at [`/design`](http://localhost:3000/design) — run
-`pnpm dev` and open it. That page renders every token and primitive in both
+`npm run dev` and open it. That page renders every token and primitive in both
 themes and is the fastest way to review a change before it reaches a real page.
 
 ---
@@ -254,7 +254,7 @@ shadcn Nova preset is tuned for dashboard density (a 32px default button); this
 site needs 40px. That retune belongs in the variant table, not in a `className`
 on every call site.
 
-Practical consequence: `pnpm ui:add <name> --overwrite` will discard local
+Practical consequence: `npm run ui:add -- <name> --overwrite` will discard local
 styling for that component. Re-apply the tokens afterwards, or add new
 components without `--overwrite`.
 

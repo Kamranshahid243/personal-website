@@ -188,7 +188,7 @@ The design system's component layer, documented in full in
 `@/data` or `@/lib/content` — a primitive knows nothing about this site, which
 is what makes it reusable and what keeps the layering honest.
 
-Most files start as shadcn/ui output from `pnpm ui:add <component>`. Their
+Most files start as shadcn/ui output from `npm run ui:add -- <component>`. Their
 **structure and behaviour stay upstream** — the Radix wiring, the `data-slot`
 attributes, `asChild` — so an accessibility fix upstream can be pulled in by
 re-running the CLI and reading the diff. Their **variant tables are ours** and
