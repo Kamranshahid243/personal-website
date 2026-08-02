@@ -40,8 +40,14 @@ export function Footer() {
               >
                 <a href={primaryCta.href}>{primaryCta.title}</a>
               </Button>
-              <SocialLinks className="[&_a]:text-brand-100/80 [&_a:hover]:text-brand-50" />
+              <SocialLinks className="[&_a]:text-brand-100 [&_a:hover]:text-brand-50 [&_button]:text-brand-100" />
             </div>
+            <a
+              href={`mailto:${siteConfig.email}`}
+              className="w-fit rounded-sm text-body-sm text-brand-100/90 transition-ui hover:text-brand-50 focus-ring"
+            >
+              {siteConfig.email}
+            </a>
           </div>
 
           {siteLinks ? (
@@ -103,6 +109,14 @@ export function Footer() {
                     </a>
                   </li>
                 ))}
+                <li>
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    className="rounded-sm text-body-sm text-brand-100/85 transition-ui hover:text-brand-50 focus-ring"
+                  >
+                    {siteConfig.email}
+                  </a>
+                </li>
               </ul>
             </div>
           ) : (

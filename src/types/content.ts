@@ -14,11 +14,10 @@ export type Link = {
 
 /** Curated taxonomy for the projects index filters. */
 export const PROJECT_CATEGORIES = [
-  "Performance",
-  "Product",
-  "Design System",
+  "Web",
+  "Automation",
   "Platform",
-  "Developer Tools",
+  "Product",
 ] as const;
 
 export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];

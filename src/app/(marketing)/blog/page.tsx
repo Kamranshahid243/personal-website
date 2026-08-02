@@ -49,9 +49,15 @@ type BlogPageProps = {
 export const metadata = createMetadata({
   title: "Blog",
   description:
-    "Technical writing on Next.js, React, TypeScript, architecture, performance, automation, and AI — practical notes from shipping production software.",
+    "Writing by Kamran Shahid on React, Next.js, TypeScript, automation, and shipping maintainable web software.",
   pathname: "/blog",
-  keywords: ["engineering blog", "Next.js", "TypeScript", "React"],
+  keywords: [
+    "Kamran Shahid blog",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "AI automation",
+  ],
 });
 
 /**
@@ -181,8 +187,8 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       </Section>
 
       <CtaSection
-        heading="Need this expertise on your product?"
-        subheading="Open to full-time roles and select freelance projects. Tell me what you are building."
+        heading="Have an idea? Let’s discuss it"
+        subheading="Open to full-time roles and select freelance projects. Tell me what you’re building."
         secondaryLabel="View projects"
         secondaryHref="/projects"
       />

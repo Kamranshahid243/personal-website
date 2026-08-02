@@ -40,8 +40,8 @@ type CtaSectionProps = {
 export function CtaSection({
   id,
   eyebrow = "Next step",
-  heading = "Have a project in mind?",
-  subheading = `Tell me what you're building. I usually reply within one business day (${siteConfig.timezone}).`,
+  heading = "Ready to modernize your business?",
+  subheading = `Have an idea or a role in mind? Let’s discuss it — I usually reply within one business day (${siteConfig.timezone}).`,
   primaryLabel = primaryCta.title,
   primaryHref = primaryCta.href,
   secondaryLabel,

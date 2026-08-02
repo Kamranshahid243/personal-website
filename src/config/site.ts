@@ -7,25 +7,27 @@ import { env } from "@/env";
  * header, the footer, page metadata, JSON-LD, the sitemap and the OG image
  * generator. Changing a handle should never mean grepping the codebase.
  *
- * TODO(personalise): replace every placeholder below before the first deploy.
- * Leave social URLs empty until they are real — empty values are hidden.
+ * TODO(personalise):
+ * - Add a calendar booking link if you use one
+ * - Add `/public/resume.pdf` if you want the résumé button to appear
  */
 export const siteConfig = {
-  name: "Your Name",
+  name: "Kamran Shahid",
   /** Used where the full name is too long, e.g. the header wordmark. */
-  shortName: "YN",
-  role: "Software Engineer",
+  shortName: "KS",
+  role: "Full Stack Software Engineer",
   /** One line. This is the first thing a recruiter reads — make it a claim. */
   tagline:
-    "I ship web products that convert, stay fast, and hold up after launch.",
+    "I build scalable web apps and AI-powered automations that save businesses time.",
   /** 150-160 characters: the length Google renders without truncating. */
   description:
-    "Software engineer for product teams and founders. I design and ship production web applications with clear scope, measurable outcomes, and senior ownership end to end.",
+    "Kamran Shahid is a full stack software engineer in Pakistan specializing in React, Next.js, TypeScript, Node.js, and AI workflow automation for modern business applications.",
   url: env.NEXT_PUBLIC_SITE_URL,
   locale: "en_US",
-  /** IANA zone, used to render availability and response times honestly. */
-  timezone: "UTC",
-  email: "hello@example.com",
+  /** IANA zone — Pakistan Standard Time. */
+  timezone: "Asia/Karachi",
+  location: "Pakistan",
+  email: "kamranshahid243@gmail.com",
   /**
    * Default share image. File-based `app/opengraph-image.tsx` and `/api/og`
    * generate branded cards; this path is the static fallback URL for tooling.
@@ -35,21 +37,26 @@ export const siteConfig = {
    * Headshot for the homepage hero. Leave empty for the initials mark; set to
    * a path under `/public` when the file exists (e.g. `/images/portrait.jpg`).
    */
-  portrait: "",
+  portrait: "/images/portrait.jpg",
   keywords: [
-    "software engineer",
-    "freelance developer",
-    "web development",
-    "Next.js",
-    "TypeScript",
-    "React",
+    "Kamran Shahid",
+    "full stack software engineer",
+    "React developer",
+    "Next.js developer",
+    "Node.js developer",
+    "TypeScript developer",
+    "automation engineer",
+    "AI automation",
+    "Pakistan software engineer",
+    "freelance web developer",
+    "SaaS development",
+    "headless CMS",
   ],
   links: {
-    /** Empty until personalised — fake `/username` URLs are never rendered. */
-    github: "",
-    linkedin: "",
-    x: "",
-    /** Booking link for the primary CTA. Falls back to mailto when empty. */
+    github: "https://github.com/Kamranshahid243",
+    linkedin: "https://linkedin.com/in/kamran-shahid-1a7719193",
+    x: "https://x.com/Kamran8696",
+    /** Leave empty to use mailto for the primary CTA. */
     calendar: "",
     /** Path under `/public`. The résumé button only renders when the file exists. */
     resume: "/resume.pdf",

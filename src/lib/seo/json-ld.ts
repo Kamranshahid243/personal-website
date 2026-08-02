@@ -41,7 +41,25 @@ export function personSchema(): Person {
     url: siteConfig.url,
     jobTitle: siteConfig.role,
     description: siteConfig.description,
-    email: `mailto:${siteConfig.email}`,
+    ...(siteConfig.email
+      ? { email: `mailto:${siteConfig.email}` }
+      : {}),
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "PK",
+      addressLocality: siteConfig.location,
+    },
+    knowsAbout: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "Full stack development",
+      "AI automation",
+      "Workflow automation",
+      "Headless CMS",
+      "SaaS development",
+    ],
     ...(siteConfig.portrait
       ? { image: new URL(siteConfig.portrait, siteConfig.url).toString() }
       : {}),

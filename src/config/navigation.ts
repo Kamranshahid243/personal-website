@@ -26,7 +26,7 @@ export const mainNav: NavItem[] = [
 
 /** Persistent ask — email by default; swap to calendar when a booking link exists. */
 export const primaryCta: NavItem = {
-  title: "Get in touch",
+  title: "Let’s talk",
   href: siteConfig.links.calendar || `mailto:${siteConfig.email}`,
   external: true,
 };

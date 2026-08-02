@@ -32,7 +32,7 @@ export function WhyWorkWithMeSection({ className }: WhyWorkWithMeSectionProps) {
           />
         </Reveal>
 
-        <ul className="mt-(--spacing-stack-lg) grid list-none gap-8 p-0 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-(--spacing-stack-lg) grid list-none gap-8 p-0 sm:grid-cols-2">
           {differentiators.map((item, index) => {
             const IconComponent = getIcon(item.icon);
             return (

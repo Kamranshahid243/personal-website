@@ -7,23 +7,17 @@ const categoryAccent: Record<
   ProjectCategory,
   { from: string; via: string; to: string; grid: string }
 > = {
-  Performance: {
+  Web: {
     from: "color-mix(in oklch, var(--color-brand-400) 55%, transparent)",
     via: "color-mix(in oklch, var(--color-brand-600) 28%, transparent)",
     to: "var(--color-surface-tint)",
     grid: "opacity-35",
   },
-  Product: {
+  Automation: {
     from: "color-mix(in oklch, var(--color-sky-400) 50%, transparent)",
     via: "color-mix(in oklch, var(--color-brand-500) 22%, transparent)",
     to: "var(--color-surface-sunken)",
     grid: "opacity-30",
-  },
-  "Design System": {
-    from: "color-mix(in oklch, var(--color-warm-400) 48%, transparent)",
-    via: "color-mix(in oklch, var(--color-brand-400) 24%, transparent)",
-    to: "var(--color-surface-tint)",
-    grid: "opacity-40",
   },
   Platform: {
     from: "color-mix(in oklch, var(--color-brand-600) 48%, transparent)",
@@ -31,11 +25,11 @@ const categoryAccent: Record<
     to: "var(--color-surface-sunken)",
     grid: "opacity-30",
   },
-  "Developer Tools": {
-    from: "color-mix(in oklch, var(--color-sky-500) 42%, transparent)",
-    via: "color-mix(in oklch, var(--color-warm-500) 22%, transparent)",
+  Product: {
+    from: "color-mix(in oklch, var(--color-warm-400) 48%, transparent)",
+    via: "color-mix(in oklch, var(--color-brand-400) 24%, transparent)",
     to: "var(--color-surface-tint)",
-    grid: "opacity-45",
+    grid: "opacity-40",
   },
 };
 

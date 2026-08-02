@@ -13,7 +13,12 @@ import { services } from "@/data/services";
 import { getAllPosts } from "@/lib/content/blog";
 import { createMetadata } from "@/lib/seo/metadata";
 
-export const metadata = createMetadata({ pathname: "/" });
+export const metadata = createMetadata({
+  pathname: "/",
+  ogType: "profile",
+  description:
+    "Kamran Shahid — full stack software engineer specializing in React, Next.js, TypeScript, Node.js, and AI workflow automation. Based in Pakistan.",
+});
 
 const LATEST_POSTS = 3;
 

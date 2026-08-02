@@ -1,264 +1,366 @@
-import type { Project, ProjectCategory } from "@/types/content";
+import type { Project } from "@/types/content";
 
 /**
  * Case studies, in display order.
  *
- * Three to five entries, strongest first. A long list reads as a job board
- * history; a short curated one reads as taste.
- *
- * Replace sample entries with real engagements before the first deploy.
+ * Honest narrative only — no invented conversion rates, revenue, or awards.
+ * Strongest / most representative work is featured on the homepage.
  */
 export const projects: Project[] = [
   {
-    slug: "checkout-performance",
-    title: "Cut checkout LCP by 62%",
+    slug: "sah-corporate-website",
+    title: "SAH corporate website rebuild",
     summary:
-      "Rebuilt a multi-step checkout for a DTC brand so the critical path stopped competing with third-party scripts.",
-    category: "Performance",
-    client: "Northline",
-    year: 2025,
-    role: "Lead frontend",
-    problem:
-      "Mobile conversion was falling because checkout took four seconds to become interactive.",
-    approach:
-      "Split the critical path, deferred non-essential analytics, and streamed above-the-fold content.",
-    outcome: "LCP dropped from 4.1s to 1.6s. Checkout completion rose 18%.",
-    overview:
-      "Northline’s checkout was technically “working” but commercially broken on mobile. This engagement focused on the critical rendering path — not a visual redesign — so shoppers could complete payment before frustration set in.",
-    businessProblem:
-      "Paid traffic was converting at a lower rate on phones than on desktop. Product analytics pointed at checkout, where LCP hovered around four seconds and third-party tags competed with the payment form for the main thread. Every hundred milliseconds of delay was measurable revenue left on the table.",
-    goals: [
-      "Bring mobile LCP under two seconds on a mid-tier device.",
-      "Raise checkout completion without changing pricing or promos.",
-      "Leave a measurement harness the team could keep after handoff.",
-    ],
-    research:
-      "I paired session recordings with WebPageTest and field RUM to separate perception from lab numbers. The main-thread long tasks clustered around tag manager bootstrap and a synchronous address validation call. Stakeholder interviews with marketing confirmed which pixels were contractual versus habitual — that distinction became the negotiation script for deferral.",
-    roleSummary:
-      "Owned the performance diagnosis, architecture changes, and rollout plan. Partnered with marketing on tag governance and with design on progressive disclosure of secondary fields.",
-    solution:
-      "Separated the payment shell from enrichment scripts, streamed the first step, and gated analytics behind interaction. Prefetched step-two data after first paint so the journey felt continuous without blocking interactivity.",
-    architecture:
-      "Next.js App Router with edge-rendered checkout shell, client islands only where forms required state, and a Playwright suite asserting LCP budgets on every PR. Tag manager loads deferred until after `requestIdleCallback`, with a documented allow-list for anything that still needs early execution.",
-    challenges: [
-      "Marketing depended on pixels that historically loaded in `<head>`.",
-      "Legacy address autocomplete assumed a monolithic page lifecycle.",
-      "Staging traffic did not match real device + network distributions.",
-    ],
-    results:
-      "LCP fell from 4.1s to 1.6s (−62%). Checkout completion rose 18% on mobile within four weeks. The team kept a Lighthouse CI gate so the win did not regress on the next campaign launch.",
-    lessonsLearned: [
-      "Conversion work is often performance work wearing a product hat.",
-      "Tag governance needs an owner, not a spreadsheet.",
-      "Budget tests in CI beat one-off audits after launch.",
-    ],
-    metrics: [
-      { label: "LCP", value: "−62%" },
-      { label: "Completion", value: "+18%" },
-      { label: "INP", value: "−41%" },
-    ],
-    stack: ["Next.js", "TypeScript", "Edge", "Playwright"],
-    links: {},
-    cover: { alt: "Abstract visualization of a fast checkout critical path" },
-    screenshots: [
-      {
-        alt: "Mobile checkout first step after the critical-path rebuild",
-        caption: "Step one ships as a streamed shell — payment UI before enrichment.",
-      },
-      {
-        alt: "Performance budget dashboard showing LCP under two seconds",
-        caption: "CI budgets made the win durable past the initial launch week.",
-      },
-    ],
-    featured: true,
-  },
-  {
-    slug: "design-system",
-    title: "Shipped a design system in six weeks",
-    summary:
-      "Tokenised a fragmented component library so three product teams could ship UI without reinventing spacing.",
-    category: "Design System",
-    client: "Cascade",
+      "Rebuilt a large multilingual corporate website on Next.js with a modern frontend architecture focused on maintainability, SEO, and user experience.",
+    category: "Web",
+    client: "Teamo",
     year: 2024,
-    role: "Staff engineer",
-    problem: "Four products, four button styles, and no shared primitives.",
+    role: "Software Engineer · Teamo",
+    problem:
+      "A large corporate site needed a modern rebuild that could support Arabic and English without becoming hard to maintain.",
     approach:
-      "OKLCH tokens, a typed component layer, and a living reference page every PR had to pass.",
+      "Moved the experience onto Next.js and TypeScript with a responsive, performance-conscious frontend and room for headless CMS content ownership.",
     outcome:
-      "New screens dropped from days to hours; visual regressions fell by half.",
+      "A scalable bilingual foundation that is easier to extend, clearer for visitors, and better prepared for long-term content workflows.",
     overview:
-      "Cascade had grown through acquisition. Each product looked related in pitch decks and unrelated in production. The goal was a shared foundation that designers and engineers could trust without slowing shipping.",
+      "At Teamo, I rebuilt the SAH corporate web presence so it could represent the organisation clearly in both Arabic and English. The rebuild focused on architecture and experience quality — not just a visual refresh — so the site could grow without becoming fragile.",
     businessProblem:
-      "Product velocity was capped by UI inconsistency: every new surface restarted spacing, type, and control debates. Visual QA caught the same regressions across four codebases, and brand trust eroded as customers moved between products.",
+      "Large corporate websites often accumulate outdated patterns, slow pages, and content structures that are difficult to update. For a bilingual audience, that friction compounds: layout, SEO, and editorial workflows all have to work in more than one language.",
     goals: [
-      "One token source for color, type, space, and radius.",
-      "A typed React layer covering the top twenty controls.",
-      "Adoption by three product teams within a quarter.",
+      "Deliver a responsive, modern corporate experience in Arabic and English.",
+      "Improve performance and SEO foundations for organic discovery.",
+      "Leave a maintainable Next.js codebase ready for headless CMS content ownership.",
     ],
     research:
-      "I audited the four codebases for control inventory and drift, then ran design workshops to map Figma variables to semantic roles rather than raw hex values. Engineer interviews surfaced the real adoption blockers: unclear ownership, fear of visual regressions, and no migration path for “almost shared” components.",
+      "I reviewed the existing information architecture and bilingual requirements, then mapped which page types needed shared layouts versus language-specific treatment. Performance and SEO expectations were treated as product requirements from day one, not polish at the end.",
     roleSummary:
-      "Led architecture and the first component set, co-designed tokens with design, and set the contribution model so teams could extend without forking.",
+      "As a Software Engineer at Teamo, owned the modern frontend rebuild: Next.js architecture, TypeScript UI, responsive layouts, and performance-minded implementation with planning for headless CMS integration.",
     solution:
-      "Introduced semantic OKLCH tokens, rebuilt primitives on Radix + Tailwind, and published a living reference with Chromatic snapshots. Migration guides shipped with each primitive so adoption was incremental.",
+      "Built the site on Next.js with TypeScript and Tailwind CSS, structured for reusable sections and clear routing. Emphasised responsive design, SEO-friendly markup, and a path toward headless CMS-driven content so marketing teams are not blocked on engineering for every copy change.",
     architecture:
-      "Monorepo package with CSS tokens, CVA variants, and Storybook/Chromatic. Products consume via a versioned package; breaking changes require a migration note and a codemod when feasible.",
+      "Next.js App Router with TypeScript, Tailwind CSS for styling, and a component model organised around reusable corporate page sections. Content strategy planned with headless CMS ownership in mind so editorial updates can scale separately from frontend releases.",
     challenges: [
-      "Existing “almost shared” components had subtle behavioural differences.",
-      "Dark mode had never been specified — only approximated per app.",
-      "Designers needed confidence the code matched Figma variables.",
+      "Supporting Arabic and English without doubling every layout into unmaintainable forks.",
+      "Balancing corporate information density with a clean, modern reading experience.",
+      "Planning CMS boundaries early so the rebuild would not need a second migration later.",
     ],
     results:
-      "Time-to-UI for new screens dropped ~70%. Visual regressions caught in CI fell by half. Three teams shipped on the system inside six weeks of the first release.",
+      "Delivered a bilingual corporate site on a modern stack with stronger maintainability, clearer UX structure, and a foundation ready for scalable content and performance work.",
     lessonsLearned: [
-      "Tokens before components — otherwise you encode drift.",
-      "A living reference beats a PDF style guide.",
-      "Adoption needs migration paths, not mandates.",
+      "Multilingual sites need shared layout systems early — language should not mean duplicated architecture.",
+      "SEO and performance belong in the initial build plan, not a cleanup phase.",
+      "Headless CMS planning is easier before launch than after content has already calcified in the frontend.",
     ],
     metrics: [
-      { label: "Time-to-UI", value: "−70%" },
-      { label: "Regressions", value: "−50%" },
+      { label: "Languages", value: "AR + EN" },
+      { label: "Stack", value: "Next.js" },
+      { label: "Focus", value: "SEO + UX" },
     ],
-    stack: ["React", "Tailwind", "Radix", "Chromatic"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "SEO"],
     links: {},
-    cover: { alt: "Abstract composition of design tokens and UI primitives" },
+    cover: {
+      alt: "Abstract composition suggesting a multilingual corporate website layout",
+    },
     screenshots: [
       {
-        alt: "Design system reference page showing button and input primitives",
-        caption: "The living reference became the contract between design and engineering.",
-      },
-      {
-        alt: "Token documentation for color and spacing scales",
-        caption: "Semantic OKLCH tokens replaced per-product hex tables.",
+        alt: "Responsive corporate page layout concept for SAH",
+        caption: "Shared section patterns keep Arabic and English experiences aligned.",
       },
     ],
     featured: true,
   },
   {
-    slug: "ops-console",
-    title: "Unified ops console for support teams",
+    slug: "ai-trend-intelligence",
+    title: "AI trend intelligence engine",
     summary:
-      "Replaced three internal tools with one role-aware console so support could resolve tickets without context-switching.",
-    category: "Platform",
-    client: "Harbor",
+      "An automation platform that discovers trending topics from multiple sources and prepares them for AI-powered content generation.",
+    category: "Automation",
+    client: "Teamo",
     year: 2025,
-    role: "Full-stack lead",
+    role: "Software Engineer · Teamo",
     problem:
-      "Agents juggled three dashboards to answer a single customer question.",
+      "Content teams were spending too much time hunting for topics instead of producing useful material.",
     approach:
-      "Modeled a single customer graph, then built views by role instead of by microservice.",
+      "Connected Google Trends, Reddit, Hacker News, and news APIs into a scoring pipeline that lands in Google Sheets and feeds AI processing.",
     outcome:
-      "Median handle time dropped 27%. Training time for new agents fell from two weeks to five days.",
+      "A repeatable trend-discovery workflow that turns scattered signals into structured inputs for content generation.",
     overview:
-      "Harbor’s support org had outgrown a patchwork of admin UIs. Each backend team shipped its own console; agents paid the integration tax on every ticket.",
+      "Built at Teamo, this system treats trend discovery as infrastructure. Instead of manual browsing across communities and charts, the engine collects signals, scores them, and prepares structured data for downstream AI content work.",
     businessProblem:
-      "Average handle time was rising with catalog complexity. Leadership could not hire fast enough to offset tool friction, and CSAT was sliding on complex orders that required hopping between billing, logistics, and identity systems.",
+      "Finding timely topics is slow when people jump between Trends dashboards, social communities, and news feeds. Without a shared pipeline, opportunities are missed and content calendars stay reactive.",
     goals: [
-      "One authenticated console for the top twenty support workflows.",
-      "Role-aware views so agents only see what they can act on.",
-      "Audit trail for every mutation touching customer data.",
+      "Ingest trends from several public sources into one place.",
+      "Score and organise topics so editors can act quickly.",
+      "Hand structured outputs to AI processing without manual reformatting.",
     ],
     research:
-      "Shadowed agents for two days and mapped every tab switch on high-severity tickets. The pattern was consistent: identity in tool A, order state in tool B, refund eligibility in tool C. Workshops with support leads ranked the top twenty workflows by volume and pain; that list — not the microservice map — drove the information architecture.",
+      "I mapped which sources produced useful signal for the audience, then designed a scoring model that could combine volume and relevance without over-fitting to a single platform. Google Sheets was chosen as a transparent review layer before AI steps run.",
     roleSummary:
-      "Owned product discovery with support leads, API contracts with platform, and the React application. Mentored two engineers through the first production release.",
+      "As a Software Engineer at Teamo, designed and built the multi-source ingestion, scoring, Sheets handoff, and AI-processing preparation flow.",
     solution:
-      "Introduced a BFF that aggregates customer, order, and billing reads, with optimistic UI for safe mutations and explicit confirmation for irreversible ones. Keyboard-first patterns matched how agents already worked.",
+      "Automated collection from Google Trends, Reddit, Hacker News, and news APIs. Topics are scored, written to Google Sheets for review, and prepared for AI processing so generation starts from structured context rather than a blank prompt.",
     architecture:
-      "Next.js server components for initial reads, typed routes to the BFF, Redis-backed session cache, and OpenTelemetry traces tied to ticket IDs for support-engineering handoff.",
+      "Orchestrated automation workflows (n8n / similar) calling source APIs on a schedule, normalising payloads, applying trend scoring, syncing to Google Sheets, and triggering AI processing steps with clean inputs.",
     challenges: [
-      "Source systems disagreed on what “customer” meant.",
-      "Write paths had inconsistent idempotency guarantees.",
-      "Agents needed the old tools as fallback during rollout.",
+      "Normalising different APIs into one comparable topic model.",
+      "Keeping scores useful without becoming noisy or over-automated.",
+      "Leaving a human review layer so editors stay in control.",
     ],
     results:
-      "Median handle time −27%. New-hire ramp from two weeks to five days. Ticket reopen rate on billing issues down 14%.",
+      "Built a multi-source trend pipeline that reduces manual research time and gives AI content systems better starting material.",
     lessonsLearned: [
-      "Internal tools deserve the same UX budget as customer products.",
-      "A BFF is cheaper than teaching every UI about every service.",
-      "Ship beside the old tool until trust is earned.",
+      "Automation works best when humans still review ranked outputs.",
+      "Source diversity beats relying on a single trends feed.",
+      "Sheets is a practical bridge between ops teams and AI pipelines.",
     ],
     metrics: [
-      { label: "Handle time", value: "−27%" },
-      { label: "Ramp time", value: "−65%" },
-      { label: "Reopens", value: "−14%" },
+      { label: "Sources", value: "4+" },
+      { label: "Output", value: "Sheets + AI" },
+      { label: "Type", value: "Automation" },
     ],
-    stack: ["Next.js", "TypeScript", "PostgreSQL", "Redis"],
+    stack: [
+      "n8n",
+      "Google Trends",
+      "Reddit API",
+      "Hacker News",
+      "News APIs",
+      "Google Sheets",
+      "AI processing",
+    ],
     links: {},
-    cover: { alt: "Abstract dashboard layout suggesting an operations console" },
-    screenshots: [
-      {
-        alt: "Unified customer timeline in the operations console",
-        caption: "One customer graph replaced three disconnected admin UIs.",
-      },
-      {
-        alt: "Role-aware action panel for refunds and order edits",
-        caption: "Permissions shaped the UI — agents only saw actions they could take.",
-      },
-    ],
+    cover: {
+      alt: "Abstract visualization of trend signals flowing into an intelligence engine",
+    },
     featured: true,
   },
   {
-    slug: "release-automation",
-    title: "Cut release toil with guarded automation",
+    slug: "blog-automation-engine",
+    title: "Blog automation engine",
     summary:
-      "Automated preview environments and progressive delivery so engineers stopped babysitting Friday deploys.",
-    category: "Developer Tools",
-    client: "Personal project",
-    year: 2024,
-    role: "Solo engineer",
+      "An automated publishing pipeline from trend ingestion through AI article drafts, social posts, newsletter prep, and publish workflow.",
+    category: "Automation",
+    client: "Teamo",
+    year: 2025,
+    role: "Software Engineer · Teamo",
     problem:
-      "Releases depended on a tribal checklist and failed quietly in staging.",
+      "Publishing required too many disconnected manual steps between research, drafting, and distribution.",
     approach:
-      "Codified the checklist as pipelines with preview URLs, canaries, and one-click rollback.",
+      "Connected trend intake to AI article generation, social copy, newsletter preparation, and a controlled publishing workflow.",
     outcome:
-      "Production deploys became routine. Mean time to recover dropped from hours to minutes.",
+      "A content pipeline that moves from idea to publish-ready assets with far less repetitive handoff work.",
     overview:
-      "A side project that became a reusable release kit: the same pain I saw on client teams — fragile staging, manual smoke tests, and heroics at deploy time.",
+      "Built at Teamo, this engine extends trend intelligence into a full content operations flow. Once a topic is approved, automation helps draft articles, prepare social and newsletter variants, and move assets through a publishing checklist.",
     businessProblem:
-      "Shipping velocity stalled not on feature work but on release fear. Staging drifted from production, and rollbacks required the one person who remembered the runbook. Fridays became reserved for deploy babysitting instead of product work.",
+      "Content production often stalls between research and distribution. Writers and marketers lose time reformatting the same idea for blog, social, and email channels.",
     goals: [
-      "Ephemeral preview environments per pull request.",
-      "Canary deploys with automatic halt on error budget burn.",
-      "Documented rollback that any on-call engineer could run.",
+      "Connect approved trends to AI-assisted article drafts.",
+      "Generate supporting social and newsletter assets from the same source.",
+      "Keep a clear publishing workflow with human approval points.",
     ],
     research:
-      "I collected incident notes from the last year of failed deploys and tagged each by root cause: drift, missing smoke coverage, or irreversible migrations. Pairing with on-call engineers clarified the real runbook — the steps people actually took — versus the wiki page nobody trusted.",
+      "I broke the publishing process into stages where automation helps most — drafting and channel adaptation — while keeping editorial judgment on topic selection and final publish.",
     roleSummary:
-      "Designed and implemented the full pipeline, from GitHub Actions to observability hooks, and wrote the operator guide.",
+      "As a Software Engineer at Teamo, built the end-to-end automation from trend ingestion through draft generation, social/newsletter prep, and publishing workflow orchestration.",
     solution:
-      "PR previews spun from the same container image as production. Canaries shifted 5% → 25% → 100% traffic with health gates. Rollback is a single workflow dispatch that re-points the live slot.",
+      "Wired trend inputs into AI article generation, then branched outputs into social media drafts and newsletter preparation. A publishing workflow keeps steps ordered and reviewable so automation accelerates work without shipping unchecked content.",
     architecture:
-      "GitHub Actions + OIDC to cloud, Terraform for preview DNS, OpenTelemetry SLOs as deploy gates, and Slack notifications that link straight to the failing trace.",
+      "Workflow automation chaining trend intake → AI drafting → channel-specific generation → review/publish stages, with shared structured data between steps.",
     challenges: [
-      "Preview cost needed hard TTLs and idle shutdown.",
-      "Flaky e2e tests would have blocked every merge.",
-      "Secrets per environment had to stay out of logs.",
+      "Keeping AI drafts useful without removing editorial control.",
+      "Adapting one article into social and newsletter formats without sounding duplicated.",
+      "Designing failure-safe steps when an upstream API or model call fails.",
     ],
     results:
-      "MTTR from hours to under ten minutes on the pilot service. Engineers stopped reserving Friday afternoons for deploys.",
+      "Created a publish-ready content pipeline that reduces repetitive production work while preserving human approval before anything goes live.",
     lessonsLearned: [
-      "Automate the runbook before you automate the happy path.",
-      "Flaky tests are a release-blocker bug, not noise.",
-      "Previews only help if they match production topology closely enough.",
+      "Content automation should accelerate drafts, not skip editorial standards.",
+      "One structured source of truth beats rewriting the same idea per channel.",
+      "Explicit publish gates build trust in automated pipelines.",
     ],
     metrics: [
-      { label: "MTTR", value: "−90%" },
-      { label: "Deploy fear", value: "Gone" },
+      { label: "Stages", value: "Research → Publish" },
+      { label: "Channels", value: "Blog + Social + Email" },
+      { label: "Type", value: "AI workflow" },
     ],
-    stack: ["GitHub Actions", "TypeScript", "Terraform", "OpenTelemetry"],
+    stack: [
+      "n8n",
+      "AI generation",
+      "Google Sheets",
+      "Social APIs",
+      "Newsletter tooling",
+    ],
     links: {},
-    cover: { alt: "Abstract pipeline graphic suggesting automated releases" },
-    screenshots: [
-      {
-        alt: "Pull request preview environment status checks",
-        caption: "Every PR earned a production-like preview with the same image.",
-      },
-      {
-        alt: "Canary rollout graph with automatic halt on SLO burn",
-        caption: "Progressive delivery made rollback a workflow, not a hero moment.",
-      },
+    cover: {
+      alt: "Abstract pipeline graphic for automated blog publishing",
+    },
+    featured: true,
+  },
+  {
+    slug: "slack-pto-automation",
+    title: "Slack PTO automation",
+    summary:
+      "Employee leave management through Slack slash commands, with ClickUp and Jibble integrations and automated notifications.",
+    category: "Automation",
+    client: "Teamo",
+    year: 2024,
+    role: "Software Engineer · Teamo",
+    problem:
+      "Leave requests lived across chat, trackers, and time tools — easy to miss and hard to keep consistent.",
+    approach:
+      "Moved PTO requests into Slack commands that update ClickUp and Jibble and notify the right people automatically.",
+    outcome:
+      "A clearer leave workflow with fewer manual updates and better visibility for the team.",
+    overview:
+      "Built at Teamo, this automation turns Slack into the front door for PTO requests. Employees submit leave where they already work; the system updates trackers and attendance tools and sends notifications so managers are not chasing status in three places.",
+    businessProblem:
+      "When leave is requested in chat and recorded later by hand, records drift. Time-tracking and task tools disagree, and managers waste time reconciling what was approved.",
+    goals: [
+      "Let employees request PTO from Slack with a simple command.",
+      "Keep ClickUp and Jibble in sync with the same request.",
+      "Notify stakeholders automatically when leave is submitted or updated.",
     ],
+    research:
+      "I mapped the existing leave path — where requests started, which tools needed updates, and which notifications actually mattered — then designed the smallest reliable automation that covered those systems.",
+    roleSummary:
+      "As a Software Engineer at Teamo, designed and implemented the Slack command flow, ClickUp/Jibble integrations, notification path, and end-to-end PTO workflow.",
+    solution:
+      "Slack slash commands collect leave details, then automation creates or updates records in ClickUp and Jibble and sends notifications. The workflow keeps status visible without spreadsheet babysitting.",
+    architecture:
+      "Slack app commands trigger automation workflows that call ClickUp and Jibble APIs, persist request state, and fan out notifications to the right channels or people.",
+    challenges: [
+      "Keeping multiple systems consistent when one API call fails mid-flow.",
+      "Designing a command UX that is fast for employees but complete for ops.",
+      "Avoiding notification noise while still keeping managers informed.",
+    ],
+    results:
+      "Delivered a Slack-first PTO workflow that reduces manual reconciliation between chat, ClickUp, and Jibble.",
+    lessonsLearned: [
+      "Put automation where people already work — for many teams, that is Slack.",
+      "Multi-system workflows need clear failure handling, not just happy paths.",
+      "Good notifications are specific; more alerts are not better.",
+    ],
+    metrics: [
+      { label: "Entry point", value: "Slack" },
+      { label: "Integrations", value: "ClickUp + Jibble" },
+      { label: "Type", value: "Ops automation" },
+    ],
+    stack: ["Slack", "ClickUp", "Jibble", "n8n", "Webhooks"],
+    links: {},
+    cover: {
+      alt: "Abstract graphic suggesting Slack-based leave automation",
+    },
+    featured: false,
+  },
+  {
+    slug: "attendance-automation",
+    title: "Attendance monitoring automation",
+    summary:
+      "Employee attendance monitoring with time tracking, Google Sheets reporting, and automated notifications.",
+    category: "Automation",
+    client: "Teamo",
+    year: 2024,
+    role: "Software Engineer · Teamo",
+    problem:
+      "Attendance visibility depended on manual checks and delayed reporting.",
+    approach:
+      "Connected time-tracking data to Google Sheets reporting and automated alerts when attention was needed.",
+    outcome:
+      "A lighter attendance monitoring loop with clearer reports and fewer manual follow-ups.",
+    overview:
+      "Built at Teamo, this automation watches attendance signals, updates shared reporting, and notifies the right people when something needs attention — so managers spend less time assembling status by hand.",
+    businessProblem:
+      "Without timely attendance visibility, teams discover issues late. Manual spreadsheet updates also create inconsistent reporting from week to week.",
+    goals: [
+      "Centralise attendance data into Google Sheets reporting.",
+      "Reduce manual monitoring overhead.",
+      "Notify stakeholders when attendance patterns need attention.",
+    ],
+    research:
+      "I identified which attendance fields mattered for weekly reporting and which alerts were actionable versus noise, then automated only those paths.",
+    roleSummary:
+      "As a Software Engineer at Teamo, built the time-tracking to Sheets reporting flow and notification rules for attendance monitoring.",
+    solution:
+      "Automation pulls time-tracking data, writes structured reports to Google Sheets, and sends notifications based on defined conditions so teams get signal without constant manual review.",
+    architecture:
+      "Scheduled workflows sync attendance data into Google Sheets and evaluate notification rules before sending alerts.",
+    challenges: [
+      "Defining alerts that are useful without becoming noisy.",
+      "Keeping Sheets reports readable as data volume grows.",
+      "Handling incomplete or delayed time-tracking records gracefully.",
+    ],
+    results:
+      "Shipped an attendance monitoring automation that improves reporting consistency and reduces manual status gathering.",
+    lessonsLearned: [
+      "Reporting automations succeed when the sheet layout is designed for humans first.",
+      "Alert thresholds matter as much as the integration itself.",
+      "Scheduled syncs need clear ownership when source data is late.",
+    ],
+    metrics: [
+      { label: "Reporting", value: "Google Sheets" },
+      { label: "Signals", value: "Time tracking" },
+      { label: "Type", value: "Ops automation" },
+    ],
+    stack: ["Time tracking", "Google Sheets", "n8n", "Notifications"],
+    links: {},
+    cover: {
+      alt: "Abstract dashboard motif for attendance reporting automation",
+    },
+    featured: false,
+  },
+  {
+    slug: "weather-alert-automation",
+    title: "Weather alert automation",
+    summary:
+      "Business weather monitoring with Open-Meteo, scheduled checks, rain alerts, and automated notifications.",
+    category: "Automation",
+    client: "Teamo",
+    year: 2024,
+    role: "Software Engineer · Teamo",
+    problem:
+      "Weather-sensitive operations needed timely rain alerts without someone checking forecasts manually.",
+    approach:
+      "Scheduled Open-Meteo checks that trigger notifications when rain conditions match the business rules.",
+    outcome:
+      "A simple monitoring loop that delivers rain alerts automatically so teams can respond sooner.",
+    overview:
+      "Built at Teamo for weather-sensitive operations. This automation watches forecast data on a schedule and notifies the team when rain conditions matter — without relying on someone remembering to check.",
+    businessProblem:
+      "Manual forecast checks are easy to skip. When weather affects work plans, late awareness creates avoidable disruption.",
+    goals: [
+      "Monitor weather on a reliable schedule.",
+      "Send rain alerts based on clear business rules.",
+      "Keep the system simple enough to maintain.",
+    ],
+    research:
+      "I confirmed which locations and thresholds mattered, then chose Open-Meteo for straightforward forecast access that could run on a schedule without unnecessary complexity.",
+    roleSummary:
+      "As a Software Engineer at Teamo, implemented scheduled Open-Meteo polling, rain-condition evaluation, and automated notification delivery.",
+    solution:
+      "A scheduled workflow calls Open-Meteo, evaluates rain conditions against agreed rules, and sends notifications when alerts should fire.",
+    architecture:
+      "Cron-triggered automation → Open-Meteo API → condition evaluation → notification channel.",
+    challenges: [
+      "Choosing thresholds that match real operational needs.",
+      "Avoiding duplicate alerts for the same weather event.",
+      "Keeping the workflow resilient when the API is briefly unavailable.",
+    ],
+    results:
+      "Delivered a lightweight weather monitoring automation that sends rain alerts without manual forecast checking.",
+    lessonsLearned: [
+      "Operational automations should stay small and obvious to maintain.",
+      "Deduplicating alerts is essential for trust.",
+      "Schedule plus clear rules beats a complex dashboard for many teams.",
+    ],
+    metrics: [
+      { label: "API", value: "Open-Meteo" },
+      { label: "Trigger", value: "Scheduled" },
+      { label: "Alert", value: "Rain" },
+    ],
+    stack: ["Open-Meteo", "n8n", "Notifications", "Scheduled jobs"],
+    links: {},
+    cover: {
+      alt: "Abstract weather monitoring graphic with alert indicators",
+    },
     featured: false,
   },
 ];
@@ -289,10 +391,10 @@ export function getRelatedProjects(project: Project, limit = 2): Project[] {
     .map(({ entry }) => entry);
 }
 
-export function getProjectCategories(): ProjectCategory[] {
+export function getProjectCategories(): import("@/types/content").ProjectCategory[] {
   return [
     ...new Set(projects.map((project) => project.category)),
-  ] as ProjectCategory[];
+  ] as import("@/types/content").ProjectCategory[];
 }
 
 /** Unique technologies across the collection, most used first. */

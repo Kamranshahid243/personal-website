@@ -150,8 +150,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       ) : null}
 
       <CtaSection
-        heading="Like how this is written — and want it in production?"
-        subheading="I help teams ship Next.js, React, and full-stack TypeScript products with the same clarity."
+        heading="Let’s build your next product"
+        subheading="I help teams ship React, Next.js, and automation systems with clear communication and maintainable code."
         secondaryLabel="View projects"
         secondaryHref="/projects"
       />

@@ -51,8 +51,8 @@ export function HeroSection({ className }: HeroSectionProps) {
         className="relative flex h-full min-h-0 flex-col"
       >
         <div className="grid min-h-0 flex-1 items-stretch lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-          <div className="order-2 flex min-h-0 flex-col justify-center overflow-y-auto py-8 sm:py-10 lg:order-1 lg:py-8 lg:pr-12 xl:pr-16">
-            <div className="flex max-w-xl flex-col items-start gap-(--spacing-stack-md)">
+          <div className="order-2 flex min-h-0 flex-col justify-center py-8 sm:py-10 lg:order-1 lg:py-8 lg:pr-12 xl:pr-16">
+            <div className="flex max-w-xl flex-col items-start gap-4 sm:gap-(--spacing-stack-md)">
               <div className="reveal-on-load" style={{ animationDelay: "40ms" }}>
                 <AvailabilityBadge />
               </div>
@@ -63,9 +63,9 @@ export function HeroSection({ className }: HeroSectionProps) {
               >
                 <Display
                   id="hero-heading"
-                  size="xl"
+                  size="md"
                   tone="gradient"
-                  className="tracking-tight lg:text-display-lg xl:text-display-xl"
+                  className="tracking-tight sm:text-display-sm lg:text-display-md"
                 >
                   {siteConfig.name}
                 </Display>
@@ -146,14 +146,12 @@ export function HeroSection({ className }: HeroSectionProps) {
           </div>
 
           <div
-            className="relative order-1 -mx-(--spacing-gutter) max-h-[42svh] min-h-[14rem] reveal-scale-on-load border-b border-line sm:min-h-[18rem] lg:order-2 lg:mx-0 lg:max-h-none lg:min-h-0 lg:h-full lg:border-b-0 lg:border-l lg:border-line"
+            className="relative order-1 flex items-center justify-center reveal-scale-on-load border-b border-line bg-surface-sunken -mx-(--spacing-gutter) px-(--spacing-gutter) py-6 sm:py-8 lg:order-2 lg:mx-0 lg:h-full lg:border-b-0 lg:border-l lg:border-line lg:px-10 lg:py-10"
             style={{ animationDelay: "180ms" }}
           >
-            <Portrait priority className="absolute inset-0 min-h-0" />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-linear-to-t from-surface/30 via-transparent to-transparent lg:bg-linear-to-l"
-            />
+            <div className="relative aspect-[3/4] w-full max-w-[22rem] overflow-hidden rounded-(--radius-2xl) border border-line shadow-raised sm:max-w-[24rem] lg:max-h-[min(78svh,40rem)] lg:max-w-[26rem]">
+              <Portrait priority className="absolute inset-0 min-h-0" />
+            </div>
           </div>
         </div>
 

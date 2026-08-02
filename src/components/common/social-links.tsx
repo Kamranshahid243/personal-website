@@ -70,7 +70,7 @@ export function SocialLinks({
         return (
           <li key={link.label}>
             {variant === "icon" ? (
-              <Button variant="ghost" size="icon" asChild>
+              <Button variant="subtle" size="icon" asChild>
                 <a
                   href={link.href}
                   target={isMail ? undefined : "_blank"}

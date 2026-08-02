@@ -12,16 +12,22 @@ import { siteConfig } from "@/config/site";
  * Homepage copy and supporting lists.
  *
  * Kept out of `siteConfig` so identity (name, email, socials) stays separate
- * from marketing narrative. Replace every string before the first real deploy.
+ * from marketing narrative.
  */
 export const homeCopy: HomeCopy = {
   hero: {
     valueProposition:
-      "I help founders and hiring teams ship web products that convert, stay fast, and hold up in production.",
+      "Full stack engineer building web products and automations that help businesses move faster.",
     introduction:
-      "Senior ownership for revenue-critical surfaces, design systems, and MVPs — clear scope, weekly demos, and outcomes you can measure. Not a ticket-taker: a partner who will push back on the wrong work.",
+      "I specialize in React, Next.js, TypeScript, and Node.js — and I also design AI-powered workflows that remove repetitive work. Based in Pakistan, open to full-time roles and select freelance projects.",
     status: "Open to full-time roles and select freelance engagements",
-    techHighlights: ["TypeScript", "Next.js", "React", "Node.js", "PostgreSQL"],
+    techHighlights: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "n8n",
+    ],
     primaryCta: {
       label: primaryCta.title,
       href: primaryCta.href,
@@ -37,138 +43,168 @@ export const homeCopy: HomeCopy = {
   },
   about: {
     eyebrow: "About",
-    heading: "Product-minded engineering with a bias for shipping",
+    heading: "Software that solves real business problems",
     body: [
-      "I’m a software engineer who designs and builds web products end to end. My work sits at the intersection of clear UX, solid architecture, and measurable performance — the kind of shipping that holds up after launch, not just in a demo.",
-      "I’ve led frontend platforms, rebuilt revenue-critical flows, and mentored engineers through their first production launches. Open to full-time roles and focused freelance engagements.",
+      "I’m a full stack software engineer with 6+ years of experience building scalable web applications. I enjoy taking a messy business process and turning it into software that is clear, maintainable, and useful day to day.",
+      "My core stack is React, Next.js, TypeScript, and Node.js. I also build AI-powered automation systems that connect tools, reduce manual work, and help teams save time. I care about performance, clean architecture, and experiences people actually want to use.",
     ],
   },
   services: {
     eyebrow: "Services",
-    heading: "Engagements with a clear outcome",
+    heading: "How I can help your product or business",
     subheading:
-      "Scoped packages for founders and product teams who need senior ownership without a long hiring cycle.",
+      "Scoped engagements for teams that need modern web apps, reliable APIs, or automation that removes busywork.",
   },
   skills: {
     eyebrow: "Skills",
     heading: "What I bring to the work",
     subheading:
-      "The capabilities behind the case studies — not a laundry list of every tool I’ve touched.",
+      "Practical capabilities shaped by shipping production software — not a checklist of every tool I’ve tried.",
   },
   experience: {
     eyebrow: "Experience",
-    heading: "Roles where the work had to hold up",
+    heading: "Where I’ve been shipping",
     subheading:
-      "Highlights over responsibilities. Each line is something a hiring manager can verify.",
+      "Roles focused on modern web platforms, internal tools, and automation that supports real teams.",
   },
   featuredProjects: {
     eyebrow: "Selected work",
-    heading: "Outcomes under real constraints",
+    heading: "Projects that show how I think and build",
     subheading:
-      "A short list of projects where performance, systems, or delivery actually moved a metric.",
+      "Corporate web rebuilds, AI content systems, and business workflow automation — chosen for clarity over volume.",
   },
   process: {
     eyebrow: "Process",
-    heading: "How engagements run",
+    heading: "How engagements usually run",
     subheading:
-      "A predictable rhythm from discovery to handover — so you always know what happens next.",
+      "Clear scope, visible progress, and a handover your team can own.",
   },
   techStack: {
     eyebrow: "Stack",
-    heading: "Tools I reach for by default",
+    heading: "Tools I use to ship reliable software",
     subheading:
-      "Chosen for speed of delivery, maintainability, and how well they perform in production.",
+      "Chosen for delivery speed, maintainability, and how well they hold up in production.",
   },
   why: {
     eyebrow: "Why work with me",
-    heading: "What you get beyond the code",
+    heading: "What you can expect when we work together",
     subheading:
-      "Senior ownership, clear communication, and a bias toward outcomes you can measure.",
+      "Clear communication, business-first decisions, and software built to last beyond the first release.",
   },
   blog: {
     eyebrow: "Writing",
     heading: "Notes on building for the web",
     subheading:
-      "Practical posts on performance, architecture, and shipping with taste.",
+      "Practical thoughts on React, Next.js, automation, and shipping with care.",
   },
   contact: {
     eyebrow: "Contact",
-    heading: "Have a role or a project in mind?",
+    heading: "Let’s build your next product",
     subheading:
-      "Tell me what you’re building and the constraint that matters most. I usually reply within one business day.",
+      "Have a role, product idea, or automation challenge? Tell me what you’re working on — I usually reply within one business day.",
     secondaryLabel: "Browse projects",
     secondaryHref: "/projects",
   },
 };
 
+/** Supported homepage numbers — no invented client or revenue metrics. */
+export const aboutStats = [
+  { value: "6+", label: "Years experience" },
+  { value: "20+", label: "Technologies" },
+  { value: "6+", label: "Major projects" },
+  { value: "100%", label: "Responsive builds" },
+] as const;
+
 export const skills: Skill[] = [
-  { name: "System design", icon: "layers" },
-  { name: "Web performance", icon: "gauge" },
-  { name: "Design systems", icon: "sparkles" },
-  { name: "Product delivery", icon: "rocket" },
-  { name: "TypeScript architecture", icon: "code" },
-  { name: "Technical leadership", icon: "briefcase" },
+  { name: "Full stack development", icon: "layers" },
+  { name: "React & Next.js", icon: "code" },
+  { name: "API design & integrations", icon: "plug" },
+  { name: "AI & workflow automation", icon: "sparkles" },
+  { name: "CMS & content systems", icon: "pencil" },
+  { name: "Performance & UX", icon: "gauge" },
 ];
 
 export const processSteps: ProcessStep[] = [
   {
-    title: "Discover",
+    title: "Understand the problem",
     description:
-      "Clarify the outcome, constraints, and what “done” looks like before a line of code is written.",
+      "Clarify the business goal, constraints, and what “done” looks like before writing code.",
   },
   {
     title: "Design the approach",
     description:
-      "Shape the architecture, UX path, and delivery plan so scope stays honest and risks surface early.",
+      "Shape architecture, UX flow, and delivery plan so scope stays honest and risks surface early.",
   },
   {
-    title: "Build in the open",
+    title: "Build in visible slices",
     description:
-      "Ship in vertical slices with frequent demos. You see progress weekly — not at the end.",
+      "Ship working increments with regular demos — so you see progress, not a surprise at the end.",
   },
   {
     title: "Harden and hand over",
     description:
-      "Tests, docs, performance budgets, and a clean handover so your team can own it after I leave.",
+      "Polish performance, document decisions, and leave something your team can maintain confidently.",
   },
 ];
 
 export const differentiators: Differentiator[] = [
   {
-    title: "Outcomes over output",
+    title: "Business-first thinking",
     description:
-      "I optimise for business and user results — conversion, latency, adoption — not ticket counts.",
-    icon: "gauge",
-  },
-  {
-    title: "Senior ownership",
-    description:
-      "Comfortable owning a surface end to end: discovery, UI, data, and the operational details after launch.",
+      "I start with the outcome you need — saved time, clearer workflows, a better product — then choose the simplest technical path to get there.",
     icon: "briefcase",
   },
   {
-    title: "Clear communication",
+    title: "Clean, maintainable code",
     description:
-      "Async-friendly updates, explicit trade-offs, and no jargon walls. You’ll always know where things stand.",
+      "Reusable architecture and clear boundaries matter as much as shipping fast. I build software teams can extend without fear.",
+    icon: "code",
+  },
+  {
+    title: "Reliable communication",
+    description:
+      "You’ll know what’s in progress, what’s blocked, and why a trade-off was made — without jargon walls or silent weeks.",
     icon: "sparkles",
+  },
+  {
+    title: "Performance and detail",
+    description:
+      "Responsive experiences, thoughtful UX, and production deployments are part of the job — not afterthoughts.",
+    icon: "gauge",
   },
 ];
 
 export const techStack: TechCategory[] = [
   {
-    title: "Languages",
-    items: ["TypeScript", "JavaScript", "SQL"],
-  },
-  {
     title: "Frontend",
-    items: ["React", "Next.js", "Tailwind CSS", "Radix UI"],
+    items: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "JavaScript",
+      "Tailwind CSS",
+      "HTML",
+      "CSS",
+    ],
   },
   {
-    title: "Backend & data",
-    items: ["Node.js", "PostgreSQL", "GraphQL", "Prisma"],
+    title: "Backend",
+    items: ["Node.js", "Express.js", "Laravel", "PHP"],
   },
   {
-    title: "Platform",
-    items: ["Vercel", "AWS", "Docker", "GitHub Actions"],
+    title: "Databases",
+    items: ["MongoDB", "MySQL", "Supabase"],
+  },
+  {
+    title: "Automation",
+    items: ["n8n", "Activepieces", "Make.com"],
+  },
+  {
+    title: "CMS & Auth",
+    items: ["Prismic", "Supabase Auth", "Clerk", "OAuth"],
+  },
+  {
+    title: "Cloud & Tools",
+    items: ["Vercel", "Hostinger", "Git", "GitHub", "Postman", "Cursor AI"],
   },
 ];

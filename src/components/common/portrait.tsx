@@ -26,6 +26,7 @@ function initialsFromName(name: string): string {
  *
  * Uses `siteConfig.portrait` when the file exists under `/public`; otherwise
  * renders a calm initials mark — never a developer “add file” prompt.
+ * Photos use `object-contain` so the full headshot stays visible.
  */
 export function Portrait({ className, priority = false }: PortraitProps) {
   const src = siteConfig.portrait;
@@ -37,7 +38,8 @@ export function Portrait({ className, priority = false }: PortraitProps) {
     <figure
       data-slot="portrait"
       className={cn(
-        "relative isolate h-full min-h-0 w-full overflow-hidden bg-surface-sunken",
+        "relative isolate flex h-full min-h-0 w-full items-center justify-center overflow-hidden",
+        hasPhoto ? "bg-[#3d5a80]" : "bg-surface-sunken",
         className,
       )}
     >
@@ -47,8 +49,8 @@ export function Portrait({ className, priority = false }: PortraitProps) {
           alt={alt}
           fill
           priority={priority}
-          sizes="(max-width: 1024px) 100vw, 48vw"
-          className="object-cover object-center"
+          sizes="(max-width: 1024px) 100vw, 28rem"
+          className="object-contain object-center"
         />
       ) : (
         <div

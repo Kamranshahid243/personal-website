@@ -495,7 +495,7 @@ export function ProjectCaseStudy({ project, related }: ProjectCaseStudyProps) {
       <CtaSection
         id="hire"
         eyebrow="Next step"
-        heading="Want results like these on your team?"
+        heading="Ready to modernize your business?"
         subheading="Whether you are hiring full-time or scoping a freelance engagement, tell me about the role or the problem — I usually reply within one business day."
         secondaryLabel="All projects"
         secondaryHref="/projects"

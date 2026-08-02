@@ -3,31 +3,41 @@ import type { Experience } from "@/types/content";
 /**
  * Career history, most recent first.
  *
- * Also the source for the Person/WorkExperience structured data and for a
- * generated résumé, so it stays structured rather than living in prose.
+ * Also the source for Person/WorkExperience structured data, so it stays
+ * structured rather than living only in prose.
  */
 export const experience: Experience[] = [
   {
-    company: "Cascade",
-    role: "Staff Software Engineer",
-    start: "2023-04",
-    location: "Remote · Europe",
+    company: "Teamo",
+    role: "Software Engineer",
+    start: "2022-02",
+    location: "Pakistan",
+    url: "https://teamo.io",
     highlights: [
-      "Led the design system that three product teams now ship from.",
-      "Cut median LCP across the marketing surface by 48%.",
+      "Build modern web applications and internal business platforms used by the team day to day.",
+      "Design automation workflows that connect tools, reduce manual work, and keep operations consistent.",
+      "Deliver CMS-driven websites, third-party API integrations, and production deployments with a focus on performance and UX.",
     ],
-    stack: ["TypeScript", "Next.js", "PostgreSQL", "AWS"],
+    stack: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "n8n",
+      "Prismic",
+    ],
   },
   {
-    company: "Northline",
-    role: "Senior Frontend Engineer",
-    start: "2020-09",
-    end: "2023-03",
-    location: "London",
+    company: "Appmakers",
+    role: "Full Stack Developer",
+    start: "2019-02",
+    end: "2022-01",
+    location: "Pakistan",
     highlights: [
-      "Owned the checkout rebuild that lifted mobile completion 18%.",
-      "Mentored four engineers through their first production launches.",
+      "Shipped full stack features across web and mobile-oriented stacks for client and product work.",
+      "Worked across Laravel, AngularJS, Vue.js, Ionic, React, and Node.js as project needs required.",
+      "Strengthened foundations in API development, responsive UI, and delivering maintainable application code.",
     ],
-    stack: ["React", "Node.js", "GraphQL"],
+    stack: ["Laravel", "AngularJS", "Vue.js", "Ionic", "React", "Node.js"],
   },
 ];

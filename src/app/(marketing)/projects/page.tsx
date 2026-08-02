@@ -12,9 +12,14 @@ import { cn } from "@/lib/utils";
 export const metadata = createMetadata({
   title: "Projects",
   description:
-    "A curated selection of case studies — problems solved, architecture decisions, and measurable results.",
+    "Selected case studies by Kamran Shahid — corporate web rebuilds, AI content systems, and business workflow automation.",
   pathname: "/projects",
-  keywords: ["case studies", "portfolio", "software engineering"],
+  keywords: [
+    "Kamran Shahid portfolio",
+    "Next.js case studies",
+    "AI automation projects",
+    "full stack projects",
+  ],
 });
 
 /**
@@ -29,9 +34,9 @@ export default function ProjectsPage() {
       <JsonLd
         graph={buildGraph(
           collectionPageSchema({
-            name: "Projects",
+            name: "Projects — Kamran Shahid",
             description:
-              "A curated selection of software engineering case studies.",
+              "Selected software engineering and automation case studies by Kamran Shahid.",
             path: "/projects",
             items: projects.map((project) => ({
               name: project.title,
@@ -47,7 +52,7 @@ export default function ProjectsPage() {
             id="projects-heading"
             eyebrow="Projects"
             heading="Selected work, documented as case studies"
-            subheading="A short list on purpose. Each project covers the problem, the approach, and the outcome."
+            subheading="Corporate websites, AI content systems, and business automations — each with the problem, approach, and outcome."
             className="reveal-on-load max-w-3xl"
             as="h1"
             size="display"
@@ -76,8 +81,8 @@ export default function ProjectsPage() {
       </Section>
 
       <CtaSection
-        heading="Looking for this kind of ownership on your team?"
-        subheading="Share the role, stack, or project constraint. I usually reply within one business day."
+        heading="Let’s create something meaningful"
+        subheading="Share the product, workflow, or role you’re hiring for. I usually reply within one business day."
         secondaryLabel="Read the blog"
         secondaryHref="/blog"
       />
